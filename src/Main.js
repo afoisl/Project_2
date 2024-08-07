@@ -50,7 +50,16 @@ const Box6 = styled.div`
 
 const Box7 = styled.div`
   background-color: darkgray;
-  height: 900px;
+  height: 1000px;
+  display: flex;
+  justify-content: center;
+`;
+
+const Box8 = styled.div`
+  height: 1000px;
+  background-color: gray;
+  display: flex;
+  justify-content: center;
 `;
 
 const Title2 = styled.div`
@@ -263,19 +272,99 @@ const Box6Wrapper2 = styled.div`
   margin-top: 100px;
 `;
 
-const Text7 = styled.div`
-  text-align: center;
-  font-size: 2rem;
-  padding: 5px;
+const Box7Wrapper = styled.div`
+  width: 70%;
+  padding: 50px;
 `;
 
-const StudyRoomBox = styled.div``;
+const Text7 = styled.div`
+  text-align: center;
+  font-size: 2.5rem;
+  padding: 50px;
+  margin: 50px;
+`;
 
-const StudyRoomImg1 = styled.div``;
+const StudyRoomBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-const StudyRoomImg2 = styled.div``;
+  & > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
 
-const StudyRoomImg3 = styled.div``;
+const StudyRoomImg1 = styled.div`
+  background-color: white;
+  width: 350px;
+  height: 400px;
+  margin: 30px;
+`;
+
+const StudyRoomImg2 = styled.div`
+  background-color: white;
+  width: 350px;
+  height: 400px;
+  margin: 30px;
+`;
+
+const StudyRoomImg3 = styled.div`
+  background-color: white;
+  width: 350px;
+  height: 400px;
+  margin: 30px;
+`;
+
+const Text7_1 = styled.div`
+  font-size: 1.5rem;
+  padding: 10px;
+`;
+
+const Text8_1 = styled.div`
+  font-size: 1.7rem;
+  padding: 60px 0px 5px 0px;
+`;
+
+const Text8_2 = styled.div`
+  font-size: 3rem;
+`;
+
+const Box8Wrappper = styled.div`
+  text-align: center;
+  width: 70%;
+  padding: 50px;
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const Text8 = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Button8wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LevelBtn = styled.div`
+  font-size: 1.4rem;
+  width: 220px;
+  height: 40px;
+  box-sizing: border;
+  border-radius: 50px;
+  background-color: white;
+  text-align: center;
+  margin: 50px;
+  padding: 35px 15px 15px 15px;
+`;
 
 export function Main() {
   return (
@@ -376,13 +465,36 @@ export function Main() {
             </Box6Wrapper2>
           </Box6>
           <Box7>
-            <Text7>실시간으로 질문하고 배우는 스터디룸</Text7>
-            <StudyRoomBox>
-              <StudyRoomImg1></StudyRoomImg1>
-              <StudyRoomImg2></StudyRoomImg2>
-              <StudyRoomImg3></StudyRoomImg3>
-            </StudyRoomBox>
+            <Box7Wrapper>
+              <Text7>실시간으로 질문하고 배우는 스터디룸</Text7>
+              <StudyRoomBox>
+                <div>
+                  <StudyRoomImg1></StudyRoomImg1>
+                  <Text7_1>모의고사 문제풀이</Text7_1>
+                </div>
+                <div>
+                  <StudyRoomImg2></StudyRoomImg2>
+                  <Text7_1>자유로운 Q & A</Text7_1>
+                </div>
+                <div>
+                  <StudyRoomImg3></StudyRoomImg3>
+                  <Text7_1>실시간 특강</Text7_1>
+                </div>
+              </StudyRoomBox>
+            </Box7Wrapper>
           </Box7>
+          <Box8>
+            <Box8Wrappper>
+              <Text8>
+                <Text8_1>모의고사를 풀어</Text8_1>
+                <Text8_2>명예의 전당에 이름을 올려라</Text8_2>
+              </Text8>
+              <Button8wrapper>
+                <LevelBtn>나의 레벨 확인하기</LevelBtn>
+                <LevelBtn>모의고사 바로가기</LevelBtn>
+              </Button8wrapper>
+            </Box8Wrappper>
+          </Box8>
         </Body>
       </Container>
     </>

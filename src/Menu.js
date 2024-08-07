@@ -5,14 +5,18 @@ import React, { useState } from "react";
 const SubMenu = styled.div`
   width: 100%;
   background-color: white;
-  height: 200px;
-  display: none;
-  grid-template-columns: 0.7fr 1fr 4.5fr 1.5fr 0.7fr;
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+  display: grid;
+  grid-template-columns: 0.7fr 1fr 4.6fr 1.5fr 0.7fr;
   position: absolute;
   top: 70px;
   left: 0;
   z-index: 10;
-  padding: 10px 0px 40px 0px;
+  padding: 0;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
 `;
 
 const Header = styled.div`
@@ -21,14 +25,17 @@ const Header = styled.div`
   height: 70px;
   display: grid;
   grid-template-columns: 0.7fr 1fr 4fr 1.5fr 0.7fr;
+  position: relative;
+`;
 
+const MenuContainer = styled.div`
   position: relative;
 
-  &:hover + ${SubMenu} {
-    display: grid;
-    transform: translateY(0);
-    transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1),
-      opacity 1s cubic-bezier(0.25, 1, 0.5, 1);
+  &:hover ${SubMenu} {
+    height: 200px;
+    opacity: 1;
+    visibility: visible;
+    padding: 10px 0px 40px 0px;
   }
 `;
 
@@ -78,18 +85,10 @@ const SubCenter = styled.div`
 
 const SubRight = styled.div`
   width: 80px;
-  margin: 0px 90px;
+  margin: 0px 105px;
   padding: 0px 10px;
   display: grid;
   grid-template-rows: 1fr 1fr 1fr 1fr;
-`;
-
-const MenuContainer = styled.div`
-  position: relative;
-
-  &:hover ${SubMenu} {
-    display: grid;
-  }
 `;
 
 export function Menu() {
@@ -128,7 +127,7 @@ export function Menu() {
             <SubMenuBtn to="/about">오시는 길</SubMenuBtn>
           </div>
           <div>
-            <SubMenuBtn to="/lectureList">전체강의</SubMenuBtn>
+            <SubMenuBtn to="/lecturelist">전체강의</SubMenuBtn>
             <SubMenuBtn to="/mylecture">수강현황</SubMenuBtn>
           </div>
           <div>
