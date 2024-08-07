@@ -123,8 +123,8 @@ export function Menu() {
         <SubCenter>
           <div>
             <SubMenuBtn to="/about">About Us</SubMenuBtn>
-            <SubMenuBtn to="/about">커리큘럼</SubMenuBtn>
-            <SubMenuBtn to="/about">오시는 길</SubMenuBtn>
+            <SubMenuBtn to="/curriculum">커리큘럼</SubMenuBtn>
+            <SubMenuBtn to="/address">오시는 길</SubMenuBtn>
           </div>
           <div>
             <SubMenuBtn to="/lecturelist">전체강의</SubMenuBtn>

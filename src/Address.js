@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Header = styled.div``;
 
@@ -31,47 +31,32 @@ const TitleWrapper = styled.div`
   justify-content: center;
 `;
 
-const Container = styled.div`
-  height: 900px;
-  display: flex;
-  justify-content: center;
-`;
+const Container = styled.div``;
 
 const Line = styled.div`
   height: 5px;
   background-color: black;
   width: 150px;
 `;
-const Blank = styled.div`
-  background-color: beige;
-  height: 300px;
-`;
 
-const Title = styled.div`
-  font-size: 3rem;
-  font-weight: 550;
-  padding: 100px;
-`;
-
-export function About() {
+export function Address() {
   return (
     <>
       <Header>
         <Img></Img>
         <MenuBar>
           <div></div>
+          <MenuTitle to="/about">About Us</MenuTitle>
+          <MenuTitle to="/curriculum">커리큘럼</MenuTitle>
           <TitleWrapper>
-            <MenuTitle to="/about">About Us</MenuTitle>
+            <MenuTitle to="/address">오시는 길</MenuTitle>
             <Line></Line>
           </TitleWrapper>
-          <MenuTitle to="/curriculum">커리큘럼</MenuTitle>
-          <MenuTitle to="/address">오시는 길</MenuTitle>
           <div></div>
         </MenuBar>
       </Header>
       <Container>
-        <Blank></Blank>
-        <Title>인투어학원은</Title>
+        <h1>학원소개</h1>
       </Container>
     </>
   );

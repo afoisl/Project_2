@@ -20,6 +20,8 @@ import { MyLecture } from "./MyLecture";
 import { Cart } from "./Cart";
 import { MyPage } from "./Mypage";
 import { Purchased } from "./Purchased";
+import { Curriculum } from "./Curriculum";
+import { Address } from "./Address";
 
 const Container = styled.div`
   width: 100%;
@@ -42,6 +44,8 @@ export function Into() {
             <Routes>
               <Route path="/" element={<Main />} />
               <Route path="/about" element={<About />} />
+              <Route path="/curriculum" element={<Curriculum />} />
+              <Route path="/address" element={<Address />} />
               <Route path="/lecturelist" element={<LectureList />}>
                 <Route index element={<LectureList />} />
                 <Route path=":id" element={<Lecture />} />
