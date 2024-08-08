@@ -102,7 +102,7 @@ export function Menu() {
           <MenuBtn to="/"></MenuBtn>
         </Img>
         <Center>
-          <MenuBtn to="/about">학원소개</MenuBtn>
+          <MenuBtn to="/intro/about">학원소개</MenuBtn>
           <MenuBtn to="/lecturelist">강의</MenuBtn>
           <MenuBtn to="/store">스토어</MenuBtn>
           <MenuBtn to="/test"> 모의고사</MenuBtn>
@@ -122,9 +122,9 @@ export function Menu() {
         <div></div>
         <SubCenter>
           <div>
-            <SubMenuBtn to="/about">About Us</SubMenuBtn>
-            <SubMenuBtn to="/curriculum">커리큘럼</SubMenuBtn>
-            <SubMenuBtn to="/address">오시는 길</SubMenuBtn>
+            <SubMenuBtn to="intro/about">About Us</SubMenuBtn>
+            <SubMenuBtn to="intro/curriculum">커리큘럼</SubMenuBtn>
+            <SubMenuBtn to="intro/address">오시는 길</SubMenuBtn>
           </div>
           <div>
             <SubMenuBtn to="/lecturelist">전체강의</SubMenuBtn>
@@ -136,7 +136,7 @@ export function Menu() {
           </div>
           <div>
             <SubMenuBtn to="/test">모의고사</SubMenuBtn>
-            <SubMenuBtn to="/test">명예의 전당</SubMenuBtn>
+            <SubMenuBtn to="/halloffame">명예의 전당</SubMenuBtn>
           </div>
           <div>
             <SubMenuBtn to="/game">플레이센터</SubMenuBtn>

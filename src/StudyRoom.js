@@ -1,7 +1,14 @@
+import styled from "styled-components";
+
+const Header = styled.div`
+  height: 600px;
+  background-color: gray;
+`;
+
 export function StudyRoom() {
   return (
     <>
-      <h1>스터디룸</h1>
+      <Header></Header>
     </>
   );
 }

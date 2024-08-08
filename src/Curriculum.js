@@ -46,12 +46,12 @@ export function Curriculum() {
         <Img></Img>
         <MenuBar>
           <div></div>
-          <MenuTitle to="/about">About Us</MenuTitle>
+          <MenuTitle to="/intro/about">About Us</MenuTitle>
           <TitleWrapper>
-            <MenuTitle to="/curriculum">커리큘럼</MenuTitle>
+            <MenuTitle to="/intro/curriculum">커리큘럼</MenuTitle>
             <Line></Line>
           </TitleWrapper>
-          <MenuTitle to="/address">오시는 길</MenuTitle>
+          <MenuTitle to="/intro/address">오시는 길</MenuTitle>
           <div></div>
         </MenuBar>
       </Header>

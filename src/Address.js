@@ -46,10 +46,10 @@ export function Address() {
         <Img></Img>
         <MenuBar>
           <div></div>
-          <MenuTitle to="/about">About Us</MenuTitle>
-          <MenuTitle to="/curriculum">커리큘럼</MenuTitle>
+          <MenuTitle to="/intro/about">About Us</MenuTitle>
+          <MenuTitle to="/intro/curriculum">커리큘럼</MenuTitle>
           <TitleWrapper>
-            <MenuTitle to="/address">오시는 길</MenuTitle>
+            <MenuTitle to="/intro/address">오시는 길</MenuTitle>
             <Line></Line>
           </TitleWrapper>
           <div></div>
