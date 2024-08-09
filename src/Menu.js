@@ -102,7 +102,7 @@ export function Menu() {
           <MenuBtn to="/"></MenuBtn>
         </Img>
         <Center>
-          <MenuBtn to="/about">학원소개</MenuBtn>
+          <MenuBtn to="/intro/about">학원소개</MenuBtn>
           <MenuBtn to="/lecturelist">강의</MenuBtn>
           <MenuBtn to="/store">스토어</MenuBtn>
           <MenuBtn to="/test"> 모의고사</MenuBtn>
@@ -113,7 +113,7 @@ export function Menu() {
         <Right>
           {!isLoggedIn && <MenuBtn to="/login">Login</MenuBtn>}
           {!isLoggedIn && <MenuBtn to="/signup">Sign Up</MenuBtn>}
-          {isLoggedIn && <MenuBtn to="/mypage">마이페이지</MenuBtn>}
+          {isLoggedIn && <MenuBtn to="/mypage/mylank">마이페이지</MenuBtn>}
           {isLoggedIn && <MenuBtn to="/mypage">Log Out</MenuBtn>}
         </Right>
       </Header>
@@ -122,13 +122,13 @@ export function Menu() {
         <div></div>
         <SubCenter>
           <div>
-            <SubMenuBtn to="/about">About Us</SubMenuBtn>
-            <SubMenuBtn to="/about">커리큘럼</SubMenuBtn>
-            <SubMenuBtn to="/about">오시는 길</SubMenuBtn>
+            <SubMenuBtn to="intro/about">About Us</SubMenuBtn>
+            <SubMenuBtn to="intro/curriculum">커리큘럼</SubMenuBtn>
+            <SubMenuBtn to="intro/address">오시는 길</SubMenuBtn>
           </div>
           <div>
             <SubMenuBtn to="/lecturelist">전체강의</SubMenuBtn>
-            <SubMenuBtn to="/mylecture">수강현황</SubMenuBtn>
+            <SubMenuBtn to="mypage/mylecture">수강현황</SubMenuBtn>
           </div>
           <div>
             <SubMenuBtn to="/store">도서구매</SubMenuBtn>
@@ -136,7 +136,7 @@ export function Menu() {
           </div>
           <div>
             <SubMenuBtn to="/test">모의고사</SubMenuBtn>
-            <SubMenuBtn to="/test">명예의 전당</SubMenuBtn>
+            <SubMenuBtn to="/halloffame">명예의 전당</SubMenuBtn>
           </div>
           <div>
             <SubMenuBtn to="/game">플레이센터</SubMenuBtn>
@@ -156,10 +156,10 @@ export function Menu() {
         </SubCenter>
         {isLoggedIn && (
           <SubRight>
-            <SubMenuBtn to="/mylecture">학습현황</SubMenuBtn>
-            <SubMenuBtn to="/mypage">나의 랭킹</SubMenuBtn>
-            <SubMenuBtn to="/cart">장바구니</SubMenuBtn>
-            <SubMenuBtn to="/purchased">구매 내역</SubMenuBtn>
+            <SubMenuBtn to="mypage/mylecture">학습현황</SubMenuBtn>
+            <SubMenuBtn to="mypage/mylank">나의 랭킹</SubMenuBtn>
+            <SubMenuBtn to="mypage/cart">장바구니</SubMenuBtn>
+            <SubMenuBtn to="mypage/purchased">구매 내역</SubMenuBtn>
           </SubRight>
         )}
       </SubMenu>

@@ -20,6 +20,11 @@ import { MyLecture } from "./MyLecture";
 import { Cart } from "./Cart";
 import { MyPage } from "./Mypage";
 import { Purchased } from "./Purchased";
+import { Curriculum } from "./Curriculum";
+import { Address } from "./Address";
+import { Intro } from "./Intro";
+import { HallOfFame } from "./HallOfFame";
+import { MyLank } from "./MyLank";
 
 const Container = styled.div`
   width: 100%;
@@ -47,25 +52,43 @@ function AppContent() {
         <Body>
           <Routes>
             <Route path="/" element={<Main />} />
-            <Route path="/about" element={<About />} />
+
+            <Route path="/Intro" element={<Intro />}>
+              <Route path="about" element={<About />} />
+              <Route path="curriculum" index element={<Curriculum />} />
+              <Route path="address" index element={<Address />} />
+            </Route>
+
             <Route path="/lecturelist" element={<LectureList />}>
               <Route index element={<LectureList />} />
               <Route path=":id" element={<Lecture />} />
             </Route>
-            <Route path="/mylecture" element={<MyLecture />} />
+
             <Route path="/store" element={<Store />} />
-            <Route path="/test" element={<Test />} />
+
+            <Route path="/test" element={<Test />}>
+              <Route index element={<Test />} />
+            </Route>
+            <Route path="/halloffame" element={<HallOfFame />} />
+
             <Route path="/game" element={<Game />} />
             <Route path="/gameshop" element={<GameShop />} />
+
             <Route path="/studyroom" element={<StudyRoom />} />
+            <Route path="/grouplecroom" element={<GroupLecRoom />} />
+            <Route path="/speciallecroom" element={<SpecialLecRoom />} />
+
             <Route path="/customer" element={<Customer />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/grouplecroom" element={<GroupLecRoom />} />
-            <Route path="/speciallecroom" element={<SpecialLecRoom />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/mypage" element={<MyPage />} />
-            <Route path="/purchased" element={<Purchased />} />
+
+            <Route path="/mypage" element={<MyPage />}>
+              <Route path="mylecture" element={<MyLecture />} />
+              <Route path="mylank" element={<MyLank />} />
+              <Route path="cart" element={<Cart />} />
+              <Route path="purchased" element={<Purchased />} />
+            </Route>
+
             <Route path="*" element={<Error />} />
           </Routes>
         </Body>

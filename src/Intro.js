@@ -1,16 +1,16 @@
 import { Outlet } from "react-router-dom";
 import { useState, createContext } from "react";
 
-export const MyPageContext = createContext();
+export const IntroContext = createContext();
 
-export function MyPage() {
+export function Intro() {
   const [category, setCategory] = useState(0);
 
   return (
     <>
-      <MyPageContext.Provider value={{ category, setCategory }}>
+      <IntroContext.Provider value={{ category, setCategory }}>
         <Outlet />
-      </MyPageContext.Provider>
+      </IntroContext.Provider>
     </>
   );
 }
