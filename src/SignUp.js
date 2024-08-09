@@ -1,12 +1,20 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { BirthdaySelector } from "./BirthdaySelector";
+import arrowBack from "./assets/img/arrowBack.png";
 
 const Title = styled.div`
   font-size: 2rem;
   font-weight: 800;
   text-align: center;
   margin-bottom: 50px;
+`;
+
+const BackButton = styled.div`
+  width: 50px;
+  height: 50px;
+  margin-top: 50px;
+  margin-left: 50px;
 `;
 
 const Box = styled.div`
@@ -81,6 +89,9 @@ export function SignUp() {
 
   return (
     <>
+      <BackButton>
+        <img src={arrowBack} alt="BackButton" width={40} height={40} />
+      </BackButton>
       <Box>
         <Title>회원가입</Title>
         <InputBox placeholder="아이디"></InputBox>

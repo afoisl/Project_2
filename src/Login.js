@@ -1,10 +1,17 @@
 import styled from "styled-components";
+import arrowBack from "./assets/img/arrowBack.png";
 
 const Container = styled.div`
-  height: 800px;
+  height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const BackButton = styled.div`
+  width: 50px;
+  height: 50px;
+  margin: 50px;
 `;
 
 const Box = styled.div`
@@ -40,6 +47,9 @@ const Signin = styled.button`
 export function Login() {
   return (
     <>
+      <BackButton>
+        <img src={arrowBack} alt="BackButton" width={40} height={40} />
+      </BackButton>
       <Container>
         <Box>
           <Title>로그인</Title>

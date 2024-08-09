@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Menu } from "./Menu";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { About } from "./About";
 import { Customer } from "./Customer";
 import { Game } from "./Game";
@@ -29,42 +29,58 @@ const Body = styled.div`
   width: 100%;
 `;
 
-export function Into() {
+function AppContent() {
+  const location = useLocation();
+
+  const hideMenubar =
+    location.pathname === "/login" || location.pathname === "/signup";
+
   console.log("로드됨");
   return (
     <>
-      <BrowserRouter>
-        <Container>
+      <Container>
+        {!hideMenubar && (
           <Menubar>
             <Menu />
           </Menubar>
-          <Body>
-            <Routes>
-              <Route path="/" element={<Main />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/lecturelist" element={<LectureList />}>
-                <Route index element={<LectureList />} />
-                <Route path=":id" element={<Lecture />} />
-              </Route>
-              <Route path="/mylecture" element={<MyLecture />} />
-              <Route path="/store" element={<Store />} />
-              <Route path="/test" element={<Test />} />
-              <Route path="/game" element={<Game />} />
-              <Route path="/gameshop" element={<GameShop />} />
-              <Route path="/studyroom" element={<StudyRoom />} />
-              <Route path="/customer" element={<Customer />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/grouplecroom" element={<GroupLecRoom />} />
-              <Route path="/speciallecroom" element={<SpecialLecRoom />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/mypage" element={<MyPage />} />
-              <Route path="/purchased" element={<Purchased />} />
-              <Route path="*" element={<Error />} />
-            </Routes>
-          </Body>
-        </Container>
+        )}
+        <Body>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/lecturelist" element={<LectureList />}>
+              <Route index element={<LectureList />} />
+              <Route path=":id" element={<Lecture />} />
+            </Route>
+            <Route path="/mylecture" element={<MyLecture />} />
+            <Route path="/store" element={<Store />} />
+            <Route path="/test" element={<Test />} />
+            <Route path="/game" element={<Game />} />
+            <Route path="/gameshop" element={<GameShop />} />
+            <Route path="/studyroom" element={<StudyRoom />} />
+            <Route path="/customer" element={<Customer />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/grouplecroom" element={<GroupLecRoom />} />
+            <Route path="/speciallecroom" element={<SpecialLecRoom />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/purchased" element={<Purchased />} />
+            <Route path="*" element={<Error />} />
+          </Routes>
+        </Body>
+      </Container>
+    </>
+  );
+}
+
+export function Into() {
+  return (
+    <>
+      <BrowserRouter>
+        <AppContent />
       </BrowserRouter>
+      ;
     </>
   );
 }
