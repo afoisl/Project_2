@@ -24,6 +24,7 @@ import { Curriculum } from "./Curriculum";
 import { Address } from "./Address";
 import { Intro } from "./Intro";
 import { HallOfFame } from "./HallOfFame";
+import { MyLank } from "./MyLank";
 
 const Container = styled.div`
   width: 100%;
@@ -75,10 +76,13 @@ export function Into() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
 
-              <Route path="/mypage" element={<MyPage />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/mylecture" element={<MyLecture />} />
-              <Route path="/purchased" element={<Purchased />} />
+              <Route path="/mypage" element={<MyPage />}>
+                <Route path="mylecture" element={<MyLecture />} />
+                <Route path="mylank" element={<MyLank />} />
+                <Route path="cart" element={<Cart />} />
+                <Route path="purchased" element={<Purchased />} />
+              </Route>
+
               <Route path="*" element={<Error />} />
             </Routes>
           </Body>

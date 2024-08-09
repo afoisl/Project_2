@@ -113,7 +113,7 @@ export function Menu() {
         <Right>
           {!isLoggedIn && <MenuBtn to="/login">Login</MenuBtn>}
           {!isLoggedIn && <MenuBtn to="/signup">Sign Up</MenuBtn>}
-          {isLoggedIn && <MenuBtn to="/mypage">마이페이지</MenuBtn>}
+          {isLoggedIn && <MenuBtn to="/mypage/mylank">마이페이지</MenuBtn>}
           {isLoggedIn && <MenuBtn to="/mypage">Log Out</MenuBtn>}
         </Right>
       </Header>
@@ -128,7 +128,7 @@ export function Menu() {
           </div>
           <div>
             <SubMenuBtn to="/lecturelist">전체강의</SubMenuBtn>
-            <SubMenuBtn to="/mylecture">수강현황</SubMenuBtn>
+            <SubMenuBtn to="mypage/mylecture">수강현황</SubMenuBtn>
           </div>
           <div>
             <SubMenuBtn to="/store">도서구매</SubMenuBtn>
@@ -156,10 +156,10 @@ export function Menu() {
         </SubCenter>
         {isLoggedIn && (
           <SubRight>
-            <SubMenuBtn to="/mylecture">학습현황</SubMenuBtn>
-            <SubMenuBtn to="/mypage">나의 랭킹</SubMenuBtn>
-            <SubMenuBtn to="/cart">장바구니</SubMenuBtn>
-            <SubMenuBtn to="/purchased">구매 내역</SubMenuBtn>
+            <SubMenuBtn to="mypage/mylecture">학습현황</SubMenuBtn>
+            <SubMenuBtn to="mypage/mylank">나의 랭킹</SubMenuBtn>
+            <SubMenuBtn to="mypage/cart">장바구니</SubMenuBtn>
+            <SubMenuBtn to="mypage/purchased">구매 내역</SubMenuBtn>
           </SubRight>
         )}
       </SubMenu>
