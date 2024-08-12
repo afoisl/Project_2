@@ -153,12 +153,11 @@ const MyProfileText = styled.div`
 const Footer = styled.div`
   width: 100%;
   height: 70px;
-  padding: 30px 0;
   text-align: center;
   background-color: #8e8e8e;
   color: white;
-  line-height: 30px;
   font-size: 24px;
+  padding: 15px 0;
 `;
 
 export function HallOfFame() {

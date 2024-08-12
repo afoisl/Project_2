@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import React, { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
 
 const SubMenu = styled.div`
   width: 100%;
@@ -93,6 +95,31 @@ const SubRight = styled.div`
 
 export function Menu() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const location = useLocation();
+
+  useEffect(() => {
+    sessionCurrent();
+  }, []);
+
+  function sessionCurrent() {
+    axios
+      .get("http://localhost:8080/api/user/current", { withCredentials: true })
+      .then((response) => {
+        console.log("데이터:", response);
+        if (
+          response.status == 200 &&
+          response.data.userId !== "anonymousUser"
+        ) {
+          console.log("세션 유지");
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      })
+      .catch((error) => {
+        console.log("에러 발생:", error);
+      });
+  }
 
   return (
     <MenuContainer>
@@ -105,13 +132,17 @@ export function Menu() {
           <MenuBtn to="/intro/about">학원소개</MenuBtn>
           <MenuBtn to="/lecturelist">강의</MenuBtn>
           <MenuBtn to="/store">스토어</MenuBtn>
-          <MenuBtn to="/test"> 모의고사</MenuBtn>
+          <MenuBtn to="/mock"> 모의고사</MenuBtn>
           <MenuBtn to="/game">게임</MenuBtn>
           <MenuBtn to="/studyroom">스터디룸</MenuBtn>
           <MenuBtn to="/customer">고객센터</MenuBtn>
         </Center>
         <Right>
-          {!isLoggedIn && <MenuBtn to="/login">Login</MenuBtn>}
+          {!isLoggedIn && (
+            <MenuBtn to="/login" state={{ from: location.pathname }}>
+              Login
+            </MenuBtn>
+          )}
           {!isLoggedIn && <MenuBtn to="/signup">Sign Up</MenuBtn>}
           {isLoggedIn && <MenuBtn to="/mypage/mylank">마이페이지</MenuBtn>}
           {isLoggedIn && <MenuBtn to="/mypage">Log Out</MenuBtn>}

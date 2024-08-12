@@ -1,17 +1,13 @@
+import axios from "axios";
 import styled from "styled-components";
-import arrowBack from "./assets/img/arrowBack.png";
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Container = styled.div`
-  height: 600px;
+  height: 800px;
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const BackButton = styled.div`
-  width: 50px;
-  height: 50px;
-  margin: 50px;
 `;
 
 const Box = styled.div`
@@ -45,19 +41,52 @@ const Signin = styled.button`
 `;
 
 export function Login() {
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "/";
+
+  const handleLogin = () => {
+    const userData = {
+      userId: userId,
+      password: password,
+    };
+    axios
+      .post("http://localhost:8080/api/user/login", userData, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        console.log("데이터: ", response);
+        if (response.status === 200) {
+          navigate(from, { replace: true });
+          window.location.reload();
+        } else {
+          alert("로그인에 실패했습니다.");
+        }
+      })
+      .catch((error) => {
+        console.log("에러 발생 : ", error);
+      });
+  };
   return (
     <>
-      <BackButton>
-        <img src={arrowBack} alt="BackButton" width={40} height={40} />
-      </BackButton>
       <Container>
         <Box>
           <Title>로그인</Title>
-          <InputBox placeholder="아이디를 입력하세요"></InputBox>
+          <InputBox
+            placeholder="아이디를 입력하세요"
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
+          ></InputBox>
           <p />
-          <InputBox placeholder="비밀번호를 입력하세요"></InputBox>
+          <InputBox
+            placeholder="비밀번호를 입력하세요"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          ></InputBox>
           <p />
-          <Signin>로그인</Signin>
+          <Signin onClick={handleLogin}>로그인</Signin>
         </Box>
       </Container>
     </>
