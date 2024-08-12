@@ -11,8 +11,10 @@ import { Main } from "./Main";
 import { SignUp } from "./SignUp";
 import { Store } from "./Store";
 import { StudyRoom } from "./StudyRoom";
+import { Test } from "./Test";
 import { GameShop } from "./GameShop";
 import { GroupLecRoom } from "./GroupLecRoom";
+import { GroupLecRoomDetail } from "./GroupLecRoomDetail";
 import { SpecialLecRoom } from "./SpecialLecRoom";
 import { Error } from "./Error";
 import { MyLecture } from "./MyLecture";
@@ -24,7 +26,6 @@ import { Address } from "./Address";
 import { Intro } from "./Intro";
 import { HallOfFame } from "./HallOfFame";
 import { MyLank } from "./MyLank";
-import { Mock } from "./Mock";
 
 const Container = styled.div`
   width: 100%;
@@ -66,8 +67,8 @@ function AppContent() {
 
             <Route path="/store" element={<Store />} />
 
-            <Route path="/mock" element={<Mock />}>
-              <Route index element={<Mock />} />
+            <Route path="/test" element={<Test />}>
+              <Route index element={<Test />} />
             </Route>
             <Route path="/halloffame" element={<HallOfFame />} />
 
@@ -77,6 +78,10 @@ function AppContent() {
             <Route path="/studyroom" element={<StudyRoom />} />
             <Route path="/grouplecroom" element={<GroupLecRoom />} />
             <Route path="/speciallecroom" element={<SpecialLecRoom />} />
+            <Route
+              path="/grouplecroomdetail"
+              element={<GroupLecRoomDetail />}
+            />
 
             <Route path="/customer" element={<Customer />} />
             <Route path="/login" element={<Login />} />
@@ -103,7 +108,6 @@ export function Into() {
       <BrowserRouter>
         <AppContent />
       </BrowserRouter>
-      ;
     </>
   );
 }
