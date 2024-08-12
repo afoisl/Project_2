@@ -104,8 +104,8 @@ const Footer = styled.div`
   text-align: center;
   background-color: #8e8e8e;
   color: white;
-  line-height: 30px;
   font-size: 24px;
+  padding: 15px 0;
 `;
 
 export function Address() {
