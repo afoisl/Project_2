@@ -35,21 +35,21 @@ const InputBox = styled.input`
 
 const SelectYear = styled.select`
   margin: 10px;
-  padding: 10px 10px;
-  padding-right: 18px;
+  padding: 10px;
+  padding-right: 24px;
   border: 1px solid #ccc;
   border-radius: 4px;
 `;
 const SelectMonth = styled.select`
-  margin: 10px;
-  padding: 10px 10px;
+  margin: 10px 20px;
+  padding: 10px 12px;
   padding-right: 18px;
   border: 1px solid #ccc;
   border-radius: 4px;
 `;
 const SelectDay = styled.select`
   margin: 10px;
-  padding: 10px 10px;
+  padding: 10px 12px;
   padding-right: 18px;
   border: 1px solid #ccc;
   border-radius: 4px;

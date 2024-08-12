@@ -19,7 +19,9 @@ export const BirthdaySelector = ({ year, month }) => {
 
   // 월 옵션 생성
   const monthOptions = useMemo(() => {
-    return Array.from({ length: 12 }, (v, k) => k + 1).map((month) => (
+    return Array.from({ length: 12 }, (v, k) =>
+      (k + 1).toString().padStart(2, "0")
+    ).map((month) => (
       <option key={month} value={month}>
         {month}
       </option>
@@ -30,7 +32,11 @@ export const BirthdaySelector = ({ year, month }) => {
   useEffect(() => {
     if (year && month) {
       const daysInMonth = new Date(year, month, 0).getDate();
-      setDays(Array.from({ length: daysInMonth }, (v, k) => k + 1));
+      setDays(
+        Array.from({ length: daysInMonth }, (v, k) =>
+          (k + 1).toString().padStart(2, "0")
+        )
+      );
     } else {
       setDays([]);
     }
