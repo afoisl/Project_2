@@ -132,7 +132,7 @@ export function Menu() {
           <MenuBtn to="/intro/about">학원소개</MenuBtn>
           <MenuBtn to="/lecturelist">강의</MenuBtn>
           <MenuBtn to="/store">스토어</MenuBtn>
-          <MenuBtn to="/test"> 모의고사</MenuBtn>
+          <MenuBtn to="/mock"> 모의고사</MenuBtn>
           <MenuBtn to="/game">게임</MenuBtn>
           <MenuBtn to="/studyroom">스터디룸</MenuBtn>
           <MenuBtn to="/customer">고객센터</MenuBtn>
