@@ -1,103 +1,71 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import 등록문의전화 from "./assets/img/등록문의전화.png";
-import 네이버톡톡 from "./assets/img/네이버톡톡.png";
-import React, { useEffect } from "react";
-
-const Header = styled.div``;
-
-const Img = styled.div`
-  height: 600px;
-  background-color: gray;
-`;
-
-const MenuBar = styled.div`
-  background-color: darkgray;
-  height: 90px;
-  display: grid;
-  grid-template-columns: 1.7fr 1fr 1fr 1fr 1.7fr;
-`;
-
-const MenuTitle = styled(Link)`
-  margin: 25px;
-  text-decoration: none;
-  color: black;
-  font-size: 1.5rem;
-  text-align: center;
-`;
-
-const TitleWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
 
 const Container = styled.div`
   width: 60%;
   margin: auto;
 `;
-
-const Line = styled.div`
-  height: 5px;
-  background-color: black;
-  width: 150px;
+const MyLectureTitle = styled.div`
+  margin-top: 150px;
+  font-size: 48px;
 `;
 
-const AddressTitle = styled.div`
-  display: flex;
-  margin: 150px 0 35px 0;
-  align-items: center;
+const LectureList = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+  margin-top: 50px;
 `;
 
-const AddressTitleText = styled.div`
-  margin-left: 15px;
-  font-size: 38px;
+const LectureImg = styled.div`
+  width: 370px;
+  height: 200px;
+  background-color: #d9d9d9;
 `;
-
-const AddressText1 = styled.div`
-  font-size: 23px;
-  margin-left: 15px;
-  margin-bottom: 20px;
-`;
-
-const AddressText2 = styled.div`
+const LectureText = styled.div``;
+const LectureText1 = styled.div`
   font-size: 20px;
-  margin-left: 15px;
-  margin-bottom: 20px;
+  color: #7d7d7d;
 `;
-
-const AddressNaver = styled.div``;
-
-const KakaoMap = styled.div`
-  width: 800px;
-  height: 600px;
-`;
-
-const MapKakao = styled.div`
-  width: 800px;
-  height: 700px;
-  border: 1px solid #dadada;
-  margin: 50px 0 300px 0;
-`;
-
-const KakaoMap1 = styled.div`
-  width: 800px;
-  height: 100px;
-`;
-
-const MapText1 = styled.div`
-  margin: 20px 0 10px 23px;
-  font-size: 20px;
+const LectureText2 = styled.div`
+  font-size: 32px;
   font-weight: bold;
+  margin-top: 5px;
 `;
-
-const MapText2 = styled.div`
-  margin-left: 23px;
-  font-size: 18px;
-  color: #858585;
+const LectureText3 = styled.div`
+  width: 70px;
+  height: 25px;
+  color: white;
+  background-color: black;
+  text-align: center;
+  margin-top: 10px;
+  line-height: 25px;
 `;
-
+const LectureText4 = styled.div`
+  margin-top: 40px;
+  font-size: 20px;
+  color: #7d7d7d;
+`;
+const LectureText5 = styled.div`
+  width: 207px;
+  height: 9px;
+  background-color: #d9d9d9;
+  border-radius: 15px;
+  margin-top: 10px;
+`;
+const LectureGo = styled.div`
+  width: 170px;
+  height: 70px;
+  background-color: #d9d9d9;
+  font-size: 24px;
+  text-align: center;
+  line-height: 70px;
+  align-self: self-end;
+`;
+const LectureMargin = styled.div`
+  height: 20px;
+`;
+const LectureMargin1 = styled.div`
+  height: 150px;
+`;
 const Footer = styled.div`
   width: 100%;
   height: 70px;
@@ -108,64 +76,35 @@ const Footer = styled.div`
   padding: 15px 0;
 `;
 
-export function Address() {
-  useEffect(() => {
-    const container = document.getElementById("map"); // 지도를 담을 영역의 DOM 레퍼런스
-    const options = {
-      // 지도를 생성할 때 필요한 기본 옵션
-      center: new window.kakao.maps.LatLng(36.361403, 127.344851), // 지도의 중심좌표
-      level: 3, // 지도의 레벨(확대, 축소 정도)
-    };
-    const map = new window.kakao.maps.Map(container, options); // 지도 생성 및 객체 리턴
-
-    const markerPosition = new window.kakao.maps.LatLng(36.361403, 127.344851); // 마커가 표시될 위치입니다
-
-    // 마커를 생성합니다
-    const marker = new window.kakao.maps.Marker({
-      position: markerPosition,
-    });
-
-    // 마커가 지도 위에 표시되도록 설정합니다
-    marker.setMap(map);
-  }, []);
-
+export function MyLecture() {
   return (
     <>
-      <Header>
-        <Img />
-        <MenuBar>
-          <div></div>
-          <MenuTitle to="/intro/about">About Us</MenuTitle>
-          <MenuTitle to="/intro/curriculum">커리큘럼</MenuTitle>
-          <TitleWrapper>
-            <MenuTitle to="/intro/address">오시는 길</MenuTitle>
-            <Line />
-          </TitleWrapper>
-          <div></div>
-        </MenuBar>
-      </Header>
       <Container>
-        <AddressTitle>
-          <img src={등록문의전화} width={40} height={40} alt="등록문의 전화" />
-          <AddressTitleText>등록문의</AddressTitleText>
-        </AddressTitle>
-        <AddressText1>• 전화 : 042 - 822 - 2414</AddressText1>
-        <AddressText1>• 네이버 톡톡 :</AddressText1>
-        <AddressNaver>
-          <img src={네이버톡톡} alt="네이버 톡톡" />
-        </AddressNaver>
-        <AddressText1>• 위치 : 대전 유성구 대학로 88 4층</AddressText1>
-        <AddressText2>
-          지금 바로 등록하고 여름 방학을 토익 고득점으로 마무리 하세요!
-          인투어학원과 함께라면 가능합니다.
-        </AddressText2>
-        <MapKakao>
-          <KakaoMap id="map"></KakaoMap>
-          <KakaoMap1>
-            <MapText1>인투어학원</MapText1>
-            <MapText2>대전광역시 유성구 대학로 88 4층</MapText2>
-          </KakaoMap1>
-        </MapKakao>
+        <MyLectureTitle>수강현황</MyLectureTitle>
+        <LectureList>
+          <LectureImg></LectureImg>
+          <LectureText>
+            <LectureText1>LC</LectureText1>
+            <LectureText2>한번에 끝내는 PART 3</LectureText2>
+            <LectureText3>초급반</LectureText3>
+            <LectureText4>진도율</LectureText4>
+            <LectureText5></LectureText5>
+          </LectureText>
+          <LectureGo>강의듣기</LectureGo>
+        </LectureList>
+        <LectureMargin></LectureMargin>
+        <LectureList>
+          <LectureImg></LectureImg>
+          <LectureText>
+            <LectureText1>LC</LectureText1>
+            <LectureText2>한번에 끝내는 PART 3</LectureText2>
+            <LectureText3>초급반</LectureText3>
+            <LectureText4>진도율</LectureText4>
+            <LectureText5></LectureText5>
+          </LectureText>
+          <LectureGo>강의듣기</LectureGo>
+        </LectureList>
+        <LectureMargin1></LectureMargin1>
       </Container>
       <Footer>
         Footer <br />

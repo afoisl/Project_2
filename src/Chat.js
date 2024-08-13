@@ -1,9 +1,9 @@
 import React from "react";
 import useChat from "./UseChat";
 
-const Chat = ({ username, roomId }) => {
+const Chat = ({ userId, roomId }) => {
   const { messages, currentMessage, setCurrentMessage, sendMessage } = useChat(
-    username,
+    userId,
     roomId
   );
 
