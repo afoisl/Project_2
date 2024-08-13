@@ -1,20 +1,26 @@
 import React from "react";
 import useChat from "./UseChat";
+import styled from "styled-components";
+import { useEffect } from "react";
+
+const ChatRoomContainer = styled.div``;
 
 const Chat = ({ userId, roomId }) => {
   const { messages, currentMessage, setCurrentMessage, sendMessage } = useChat(
     userId,
     roomId
   );
+  useEffect(() => {
+    console.log("메세지 : ", messages);
+  }, [messages]);
 
   return (
-    <div className="chat-container">
-      <h2>Room: {roomId}</h2>
+    <ChatRoomContainer>
       <ul className="message-list">
         {messages.map((message, index) => (
-          <li key={index} className="message-item">
-            <span className="message-sender">{message.sender}:</span>
-            <span className="message-content">{message.content}</span>
+          <li key={index}>
+            <span>{message.sender}:</span>
+            <span>{message.content}</span>
           </li>
         ))}
       </ul>
@@ -32,7 +38,7 @@ const Chat = ({ userId, roomId }) => {
         />
         <button onClick={sendMessage}>Send</button>
       </div>
-    </div>
+    </ChatRoomContainer>
   );
 };
 
