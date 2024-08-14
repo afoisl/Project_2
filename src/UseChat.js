@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
+import axios from "axios";
 
 const useChat = (userId, roomId) => {
   const [messages, setMessages] = useState([]);
@@ -8,6 +9,20 @@ const useChat = (userId, roomId) => {
   const [currentMessage, setCurrentMessage] = useState("");
 
   useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        console.log(roomId);
+        const response = await axios.get(
+          `http://localhost:8080/api/chat/messages/${roomId}`
+        );
+        setMessages(response.data);
+      } catch (error) {
+        console.error("Failed to load messages:", error);
+      }
+    };
+
+    fetchMessages();
+
     const client = new Client({
       webSocketFactory: () => new SockJS("http://localhost:8080/ws"),
       connectHeaders: {},
