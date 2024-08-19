@@ -26,6 +26,7 @@ import { Address } from "./Address";
 import { Intro } from "./Intro";
 import { HallOfFame } from "./HallOfFame";
 import { MyLank } from "./MyLank";
+import { ChatingRoom } from "./ChatingRoom";
 
 const Container = styled.div`
   width: 100%;
@@ -76,6 +77,10 @@ function AppContent() {
             <Route path="/gameshop" element={<GameShop />} />
 
             <Route path="/studyroom" element={<StudyRoom />} />
+            <Route
+              path="/chating-room/:roomId/:userId"
+              element={<ChatingRoom />}
+            />
             <Route path="/grouplecroom" element={<GroupLecRoom />} />
             <Route path="/speciallecroom" element={<SpecialLecRoom />} />
             <Route
