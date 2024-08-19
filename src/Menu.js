@@ -181,8 +181,8 @@ export function Menu() {
             <SubMenuBtn to="/grouplecroom">그룹수강</SubMenuBtn>
           </div>
           <div>
-            <SubMenuBtn to="/customer">Q n A</SubMenuBtn>
             <SubMenuBtn to="/customer">공지사항</SubMenuBtn>
+            <SubMenuBtn to="/customer">Q n A</SubMenuBtn>
           </div>
         </SubCenter>
         {isLoggedIn && (
