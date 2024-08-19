@@ -89,6 +89,9 @@ function AppContent() {
             />
 
             <Route path="/customer" element={<Customer />} />
+            <Route path="/notice/:id" element={<NoticeDetail />} />
+            <Route path="/qna/:id" element={<QnaDetail />} />
+            <Route path="/qna/write" element={<QnaWrite />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
 
