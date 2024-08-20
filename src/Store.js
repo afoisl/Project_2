@@ -60,6 +60,7 @@ const StoreButton1 = styled.div`
   border: 1px solid black;
   text-align: center;
   line-height: 40px;
+  margin-right: 20px;
 `;
 
 const StoreButton2 = styled.div`
@@ -74,21 +75,17 @@ const StoreButton2 = styled.div`
 
 const StoreButton = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 `;
 
 const Footer = styled.div`
   width: 100%;
-  height: 500px;
-  background-color: grey;
-`;
-
-const FooterText = styled.div`
+  height: 70px;
+  text-align: center;
+  background-color: #8e8e8e;
   color: white;
   font-size: 24px;
-  text-align: center;
-  align-items: center;
-  line-height: 150px;
+  padding: 15px 0;
 `;
 
 export function Store() {
@@ -120,10 +117,8 @@ export function Store() {
         </StoreGrid>
       </Container>
       <Footer>
-        <FooterText>
-          Footer <br />
-          Designed by MajorFlow
-        </FooterText>
+        Footer <br />
+        Designed by MajorFlow
       </Footer>
     </>
   );
