@@ -27,6 +27,9 @@ import { Intro } from "./Intro";
 import { HallOfFame } from "./HallOfFame";
 import { MyLank } from "./MyLank";
 import { ChatingRoom } from "./ChatingRoom";
+import { NoticeDetail } from "./NoticeDetail";
+import { QnaDetail } from "./QnaDetail";
+import { QnaWrite } from "./QnaWrite";
 
 const Container = styled.div`
   width: 100%;
