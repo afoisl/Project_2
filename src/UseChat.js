@@ -40,6 +40,7 @@ const useChat = (userId, roomId) => {
       client.subscribe(`/topic/public/${roomId}`, (message) => {
         console.log("수신된 메세지");
         const receivedMessage = JSON.parse(message.body);
+        receivedMessage.sentAt = new Date(receivedMessage.sentAt);
         setMessages((prevMessages) => [...prevMessages, receivedMessage]);
       });
     };
@@ -66,6 +67,7 @@ const useChat = (userId, roomId) => {
         content: currentMessage,
         type: "CHAT",
         roomId: roomId,
+        sentAt: new Date().toISOString(),
       };
       stompClient.publish({
         destination: `/app/chat.sendMessage/${roomId}`,

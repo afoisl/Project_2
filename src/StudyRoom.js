@@ -29,6 +29,8 @@ const Room = styled.div`
   height: 330px;
   background-color: gray;
   justify-self: center;
+  margin: 40px;
+  text-align: center;
 `;
 
 const Title = styled.div`
@@ -41,6 +43,7 @@ const Title = styled.div`
 export function StudyRoom() {
   const [studyRooms, setStudyRooms] = useState([]);
   const [userId, setUserId] = useState("");
+  const [userLevel, setUserLevel] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
