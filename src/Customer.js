@@ -53,17 +53,23 @@ const Tabs = styled.div`
 `;
 
 // 상탄 탭
-const CusTabs = ({ selectedTab, setSelectedTab }) => {
+const CusTabs = ({ selectedTab, setSelectedTab, setCurrentPage }) => {
   return (
     <Tabs>
       <button
-        onClick={() => setSelectedTab("notice")}
+        onClick={() => {
+          setSelectedTab("notice");
+          setCurrentPage(1);
+        }}
         className={selectedTab === "notice" ? "active" : ""}
       >
         공지사항
       </button>
       <button
-        onClick={() => setSelectedTab("qa")}
+        onClick={() => {
+          setSelectedTab("qa");
+          setCurrentPage(1);
+        }}
         className={selectedTab === "qa" ? "active" : ""}
       >
         Q&A
@@ -194,7 +200,11 @@ export function Customer() {
     <>
       <Img></Img>
       <TitleBox>공지사항 / Q&A</TitleBox>
-      <CusTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+      <CusTabs
+        selectedTab={selectedTab}
+        setSelectedTab={setSelectedTab}
+        setCurrentPage={setCurrentPage}
+      />
       <ContBox>
         <ContListWrap>
           {selectedTab === "notice" ? (
