@@ -1,8 +1,7 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import 내정보수정 from "./assets/img/내정보수정.png";
-
-const navigate = useNavigate();
+import { useNavigate } from "react-router-dom";
 
 const MyPageTitle = styled.div`
   margin-top: 200px;
@@ -147,25 +146,29 @@ const LearningStatusGo = styled.div`
   text-align: center;
   &:hover {
     text-decoration: underline;
-    text-underline-offset: 15px; 
+    text-underline-offset: 15px;
+  }
 `;
 const OrderDeliveryGo = styled.div`
   text-align: center;
   &:hover {
     text-decoration: underline;
-    text-underline-offset: 15px; 
+    text-underline-offset: 15px;
+  }
 `;
 const PointItemGo = styled.div`
   text-align: center;
   &:hover {
     text-decoration: underline;
-    text-underline-offset: 15px; 
+    text-underline-offset: 15px;
+  }
 `;
 const MyWritingGo = styled.div`
   text-align: center;
   &:hover {
     text-decoration: underline;
-    text-underline-offset: 15px; 
+    text-underline-offset: 15px;
+  }
 `;
 
 const LearningStatusTitle = styled.div`
@@ -275,6 +278,8 @@ export function MyLank() {
   const orderRef = useRef(null);
   const pointRef = useRef(null);
   const writingRef = useRef(null);
+
+  const navigate = useNavigate();
 
   const goToMyLecture = () => {
     navigate("/my-lecture");
