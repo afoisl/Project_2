@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import React, { useState } from "react";
 import axios from "axios";
@@ -96,6 +96,7 @@ const SubRight = styled.div`
 export function Menu() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     sessionCurrent();
@@ -118,8 +119,26 @@ export function Menu() {
       })
       .catch((error) => {
         console.log("에러 발생:", error);
+        setIsLoggedIn(false);
       });
   }
+
+  const handleLogout = (e) => {
+    e.preventDefault(); // 링크의 기본 동작 방지
+    document.cookie =
+      "authToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+
+    localStorage.removeItem("authToken");
+    sessionStorage.removeItem("authToken");
+
+    setIsLoggedIn(false);
+    navigate(location.pathname, { replace: true });
+
+    console.log("로그아웃 성공!");
+    console.log("현재 쿠키:", document.cookie);
+    console.log("로컬 스토리지 항목:", localStorage.getItem("authToken"));
+    console.log("세션 스토리지 항목:", sessionStorage.getItem("authToken"));
+  };
 
   return (
     <MenuContainer>
@@ -145,7 +164,7 @@ export function Menu() {
           )}
           {!isLoggedIn && <MenuBtn to="/signup">Sign Up</MenuBtn>}
           {isLoggedIn && <MenuBtn to="/mypage/mylank">마이페이지</MenuBtn>}
-          {isLoggedIn && <MenuBtn to="/mypage">Log Out</MenuBtn>}
+          {isLoggedIn && <MenuBtn onClick={handleLogout}>Log Out</MenuBtn>}
         </Right>
       </Header>
       <SubMenu>

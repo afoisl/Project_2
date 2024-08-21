@@ -67,10 +67,10 @@ const CusTabs = ({ selectedTab, setSelectedTab, setCurrentPage }) => {
       </button>
       <button
         onClick={() => {
-          setSelectedTab("qa");
+          setSelectedTab("qna");
           setCurrentPage(1);
         }}
-        className={selectedTab === "qa" ? "active" : ""}
+        className={selectedTab === "qna" ? "active" : ""}
       >
         Q&A
       </button>

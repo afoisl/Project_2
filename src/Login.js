@@ -90,6 +90,7 @@ export function Login() {
       .then((response) => {
         console.log("데이터: ", response);
         if (response.status === 200) {
+          localStorage.setItem("authToken", response.data.token);
           navigate(from, { replace: true });
           window.location.reload();
         } else {
