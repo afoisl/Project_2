@@ -1,3 +1,5 @@
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const StoreTitle = styled.div`
@@ -34,24 +36,31 @@ const StoreImage1 = styled.div`
 
 const StoreGrid = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   margin: 200px 0 300px 0;
 `;
 
-const StoreBox1 = styled.div``;
-const StoreBox2 = styled.div``;
+const StoreBox = styled.div`
+  margin: 10px;
+  text-align: center;
+`;
 
 const StoreImageText1 = styled.div`
   font-size: 36px;
   font-weight: bold;
-  text-align: center;
   margin-bottom: 10px;
 `;
 
 const StoreImageText2 = styled.div`
   font-size: 24px;
-  text-align: center;
   margin-bottom: 80px;
+`;
+
+const StoreButton = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 `;
 
 const StoreButton1 = styled.div`
@@ -61,6 +70,7 @@ const StoreButton1 = styled.div`
   text-align: center;
   line-height: 40px;
   margin-right: 20px;
+  cursor: pointer;
 `;
 
 const StoreButton2 = styled.div`
@@ -71,11 +81,7 @@ const StoreButton2 = styled.div`
   color: white;
   text-align: center;
   line-height: 40px;
-`;
-
-const StoreButton = styled.div`
-  display: flex;
-  justify-content: center;
+  cursor: pointer;
 `;
 
 const Footer = styled.div`
@@ -89,6 +95,44 @@ const Footer = styled.div`
 `;
 
 export function Store() {
+  const [cart, setCart] = useState([]);
+  const [books, setBooks] = useState([]);
+  const [mockTickets, setMockTickets] = useState([]);
+
+  const bookStoreItemId = 2; //
+  const mockTicketStoreItemId = 1; //
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/api/storeItem/${bookStoreItemId}/books`)
+      .then((response) => {
+        console.log("Books API Response:", response.data);
+        setBooks(response.data);
+      })
+      .catch((error) => {
+        console.error("Book API 요청 중 오류 발생:", error);
+      });
+
+    axios
+      .get(
+        `http://localhost:8080/api/storeItem/${mockTicketStoreItemId}/mockTickets`
+      )
+      .then((response) => {
+        console.log("MockTickets API Response:", response.data);
+        setMockTickets(response.data);
+      })
+      .catch((error) => {
+        console.error("MockTicket API 요청 중 오류 발생:", error);
+      });
+  }, []);
+
+  const addToCart = (item) => {
+    console.log(item); // item 객체 확인
+    const name = item.bookName || item.mockTicketName || "이름 없음";
+    setCart([...cart, item]);
+    alert(`${name}이(가) 장바구니에 추가되었습니다.`);
+  };
+
   return (
     <>
       <Container>
@@ -96,24 +140,42 @@ export function Store() {
         <StoreTitle1>설명</StoreTitle1>
         <StoreImage></StoreImage>
         <StoreGrid>
-          <StoreBox1>
-            <StoreImage1></StoreImage1>
-            <StoreImageText1>67패턴</StoreImageText1>
-            <StoreImageText2>15,000원</StoreImageText2>
-            <StoreButton>
-              <StoreButton1>장바구니 담기</StoreButton1>
-              <StoreButton2>바로 구매</StoreButton2>
-            </StoreButton>
-          </StoreBox1>
-          <StoreBox2>
-            <StoreImage1></StoreImage1>
-            <StoreImageText1>모의고사 구매권</StoreImageText1>
-            <StoreImageText2>2,000원</StoreImageText2>
-            <StoreButton>
-              <StoreButton1>장바구니 담기</StoreButton1>
-              <StoreButton2>바로 구매</StoreButton2>
-            </StoreButton>
-          </StoreBox2>
+          {books.map((book) => (
+            <StoreBox key={book.bookId}>
+              <StoreImage1>
+                <img
+                  src={`http://localhost:8080/api/images/${book.image_path}`}
+                  alt={book.bookName}
+                />
+              </StoreImage1>
+              <StoreImageText1>{book.bookName}</StoreImageText1>
+              <StoreImageText2>{book.bookPrice}원</StoreImageText2>
+              <StoreButton>
+                <StoreButton1 onClick={() => addToCart(book)}>
+                  장바구니 담기
+                </StoreButton1>
+                <StoreButton2>바로 구매</StoreButton2>
+              </StoreButton>
+            </StoreBox>
+          ))}
+          {mockTickets.map((ticket) => (
+            <StoreBox key={ticket.ticketId}>
+              <StoreImage1>
+                <img
+                  src={`http://localhost:8080/api/images/${ticket.image_path}`}
+                  alt={ticket.mockTicketName}
+                />
+              </StoreImage1>
+              <StoreImageText1>{ticket.mockTicketName}</StoreImageText1>
+              <StoreImageText2>{ticket.ticketPrice}원</StoreImageText2>
+              <StoreButton>
+                <StoreButton1 onClick={() => addToCart(ticket)}>
+                  장바구니 담기
+                </StoreButton1>
+                <StoreButton2>바로 구매</StoreButton2>
+              </StoreButton>
+            </StoreBox>
+          ))}
         </StoreGrid>
       </Container>
       <Footer>

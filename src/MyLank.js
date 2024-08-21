@@ -2,8 +2,10 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import 내정보수정 from "./assets/img/내정보수정.png";
 
-const navigate = useNavigate();
-
+const Container = styled.div`
+  width: 60%;
+  margin: auto;
+`;
 const MyPageTitle = styled.div`
   margin-top: 200px;
   font-size: 48px;
@@ -276,13 +278,6 @@ export function MyLank() {
   const pointRef = useRef(null);
   const writingRef = useRef(null);
 
-  const goToMyLecture = () => {
-    navigate("/my-lecture");
-  };
-  const Container = styled.div`
-    width: 60%;
-    margin: auto;
-  `;
   const scrollToSection = (ref) => {
     ref.current.scrollIntoView({ behavior: "smooth" });
   };
@@ -328,9 +323,7 @@ export function MyLank() {
             <MyPageLecture>최근수강</MyPageLecture>
             <MyPageLectureLine></MyPageLectureLine>
             <MyPageLectureList></MyPageLectureList>
-            <MyPageLectureGo onClick={goToMyLecture}>
-              내 강의실로 이동 ＞
-            </MyPageLectureGo>
+            <MyPageLectureGo>내 강의실로 이동 ＞</MyPageLectureGo>
           </MyPageBox2>
         </MyPageGrid>
         <MyPageSubMenu>
