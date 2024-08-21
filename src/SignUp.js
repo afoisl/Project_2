@@ -92,7 +92,7 @@ export function SignUp() {
       birthDate: `${year}-${month}-${day}`,
       phoneNumber: phoneNumber,
       address: address,
-      gender: [gender],
+      gender: gender,
       email: email,
       nickname: nickname,
     };
