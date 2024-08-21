@@ -188,7 +188,6 @@ const Chat = ({ userId, roomId }) => {
         currentDate === null ||
         (messageDate && messageDate.getTime() !== currentDate.getTime());
       const isOwnMessage = message.sender === userId;
-      z;
 
       const showSender =
         !isOwnMessage &&
