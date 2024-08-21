@@ -3,6 +3,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import DoorImg from "./assets/img/DoorImg.png";
+
+const urlStudyroom = "http://localhost:8080/api/studyroom";
+const urlSession = "http://localhost:8080/api/user/current";
 
 const Header = styled.div`
   height: 600px;
@@ -18,7 +22,6 @@ const Container = styled.div`
 
 const Box = styled.div`
   width: 60%;
-  height: 1000px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   padding: 100px;
@@ -26,10 +29,11 @@ const Box = styled.div`
 
 const Room = styled.div`
   width: 250px;
-  height: 330px;
-  background-color: gray;
+  height: 380px;
+  background-image: url(${DoorImg});
+  background-color: black;
   justify-self: center;
-  margin: 40px;
+  margin: 50px;
   text-align: center;
 `;
 
@@ -40,15 +44,24 @@ const Title = styled.div`
   margin: 90px 50px 0px 50px;
 `;
 
+const RoomName = styled.div`
+  margin: 30px;
+  font-size: 1.4rem;
+  font-weight: bold;
+`;
+
+const Blank = styled.div`
+  width: inherit;
+  height: 200px;
+`;
+
 export function StudyRoom() {
   const [studyRooms, setStudyRooms] = useState([]);
-  const [userId, setUserId] = useState("");
-  const [userLevel, setUserLevel] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/studyroom")
+      .get(urlStudyroom)
       .then((response) => {
         setStudyRooms(response.data);
         console.log(response.data);
@@ -58,9 +71,9 @@ export function StudyRoom() {
       });
   }, []);
 
-  const handleRoomClick = (roomId) => {
+  const handleRoomClick = (roomId, roomGrade) => {
     axios
-      .get("http://localhost:8080/api/user/current", {
+      .get(urlSession, {
         withCredentials: true,
       })
       .then((response) => {
@@ -68,8 +81,18 @@ export function StudyRoom() {
           response.status === 200 &&
           response.data.userId !== "anonymousUser"
         ) {
-          setUserId(response.data.userId);
-          navigate(`/chating-room/${roomId}/${response.data.userId}`);
+          const userId = response.data.userId;
+          console.log(userId);
+          axios
+            .get("http://localhost:8080/api/user/id/" + userId)
+            .then((response) => {
+              const userGrade = response.data.grade;
+              if (roomGrade == userGrade) {
+                navigate(`/chating-room/${roomId}/${response.data.userId}`);
+              } else {
+                alert("현재 레벨 이상의 스터디룸에는 입장이 불가합니다");
+              }
+            });
         } else {
           console.log("로그인 안됨");
           alert("스터디룸 입장을 위해서는 로그인이 필요합니다");
@@ -89,13 +112,16 @@ export function StudyRoom() {
           {studyRooms.map((room) => (
             <Room
               key={room.stRoomId}
-              onClick={() => handleRoomClick(room.stRoomId)}
+              onClick={() =>
+                handleRoomClick(room.stRoomId, room.mockGrade.mockGradeName)
+              }
             >
-              Room {room.stRoomId}
+              <RoomName>{room.mockGrade.mockGradeName}</RoomName>
             </Room>
           ))}
         </Box>
       </Container>
+      <Blank></Blank>
     </>
   );
 }

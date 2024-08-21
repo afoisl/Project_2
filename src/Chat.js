@@ -58,11 +58,10 @@ const MessageSender = styled.div`
   border: 1px solid black;
   border-radius: 10px;
   margin: 10px;
-  padding: 20px 0px;
+  padding: 20px 5px;
   width: 90%;
   display: flex;
   justify-content: space-between;
-  display: flex;
   align-items: flex-end;
   transition: height 0.2s ease;
 `;
@@ -96,6 +95,7 @@ const SendBtn = styled.button`
   border-radius: 5px;
   background-color: darkgray;
   color: white;
+  margin: 10px;
 
   &:hover {
     background-color: gray;
