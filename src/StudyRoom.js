@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import DoorImg from "./assets/img/DoorImg.png";
+import LockImg from "./assets/img/LockImg.png";
 
 const urlStudyroom = "http://localhost:8080/api/studyroom";
 const urlSession = "http://localhost:8080/api/user/current";
@@ -35,6 +36,7 @@ const Room = styled.div`
   justify-self: center;
   margin: 50px;
   text-align: center;
+  position: relative;
 `;
 
 const Title = styled.div`
@@ -55,8 +57,20 @@ const Blank = styled.div`
   height: 200px;
 `;
 
+const LockIcon = styled.div`
+  width: 70px;
+  height: 70px;
+  background-image: url(${LockImg});
+  background-size: cover;
+  position: absolute;
+  top: -30px; /* 상단에서 15px 위로 이동 */
+  right: -30px; /* 오른쪽에서 15px 밖으로 이동 */
+`;
+
 export function StudyRoom() {
   const [studyRooms, setStudyRooms] = useState([]);
+  const [userGrade, setUserGrade] = useState(null);
+  const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -69,40 +83,46 @@ export function StudyRoom() {
       .catch((error) => {
         console.error("Error fetching study rooms:", error);
       });
-  }, []);
 
-  const handleRoomClick = (roomId, roomGrade) => {
     axios
       .get(urlSession, {
         withCredentials: true,
       })
       .then((response) => {
+        console.log(response.data.userId);
         if (
           response.status === 200 &&
           response.data.userId !== "anonymousUser"
         ) {
-          const userId = response.data.userId;
-          console.log(userId);
+          setUserId(response.data.userId);
           axios
-            .get("http://localhost:8080/api/user/id/" + userId)
+            .get("http://localhost:8080/api/user/id/" + response.data.userId)
             .then((response) => {
-              const userGrade = response.data.grade;
-              if (roomGrade == userGrade) {
-                navigate(`/chating-room/${roomId}/${response.data.userId}`, {
-                  state: { grade: roomGrade },
-                });
-              } else {
-                alert("현재 레벨 이상의 스터디룸에는 입장이 불가합니다");
-              }
+              setUserGrade(response.data.grade);
             });
-        } else {
-          console.log("로그인 안됨");
-          alert("스터디룸 입장을 위해서는 로그인이 필요합니다");
         }
       })
       .catch((error) => {
         console.log("에러 발생:", error);
       });
+  }, []);
+
+  const handleRoomClick = (roomId, roomGrade) => {
+    if (userId == null) {
+      alert("스터디룸 입장을 위해서는 로그인이 필요합니다");
+      return;
+    } else {
+      if (userGrade == null) {
+        alert("스터디룸 입장을 위해서는 레벨 확인이 필요합니다");
+        //모의고사 보러가기 버튼/코드 추가
+      } else if (roomGrade == userGrade) {
+        navigate(`/chating-room/${roomId}/${userId}`, {
+          state: { grade: roomGrade },
+        });
+      } else {
+        alert("현재 레벨 이상의 스터디룸에는 입장이 불가합니다");
+      }
+    }
   };
 
   return (
@@ -118,6 +138,7 @@ export function StudyRoom() {
                 handleRoomClick(room.stRoomId, room.mockGrade.mockGradeName)
               }
             >
+              {userGrade !== room.mockGrade.mockGradeName && <LockIcon />}
               <RoomName>{room.mockGrade.mockGradeName}</RoomName>
             </Room>
           ))}
