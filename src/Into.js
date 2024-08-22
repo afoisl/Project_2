@@ -30,6 +30,7 @@ import { ChatingRoom } from "./ChatingRoom";
 import { NoticeDetail } from "./NoticeDetail";
 import { QnaDetail } from "./QnaDetail";
 import { QnaWrite } from "./QnaWrite";
+import { Order } from "./Order";
 
 const Container = styled.div`
   width: 100%;
@@ -97,6 +98,7 @@ function AppContent() {
             <Route path="/qna/write" element={<QnaWrite />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/order" element={<Order />} />
 
             <Route path="/mypage" element={<MyPage />}>
               <Route path="mylecture" element={<MyLecture />} />
