@@ -88,7 +88,9 @@ export function StudyRoom() {
             .then((response) => {
               const userGrade = response.data.grade;
               if (roomGrade == userGrade) {
-                navigate(`/chating-room/${roomId}/${response.data.userId}`);
+                navigate(`/chating-room/${roomId}/${response.data.userId}`, {
+                  state: { grade: roomGrade },
+                });
               } else {
                 alert("현재 레벨 이상의 스터디룸에는 입장이 불가합니다");
               }
