@@ -3,7 +3,7 @@ import { useRoutes } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 75%;
+  width: 70%;
   margin: auto;
 `;
 const CartTitle = styled.div`
@@ -13,18 +13,23 @@ const CartTitle = styled.div`
 `;
 const CartMenuGrid = styled.div`
   display: grid;
-  grid-template-columns: 0.5fr 3.1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2.8fr 1fr 1fr 1fr 1fr;
   margin-top: 120px;
   background-color: #fafafa;
   width: 100%;
-  height: 80px;
+  height: 60px;
   align-items: center;
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
+`;
+const CartMenuInput = styled.input`
+  margin-bottom: 15px;
+  margin-left: 90px;
+  width: 10px;
 `;
 const CartItemGrid = styled.div`
   display: grid;
-  grid-template-columns: 0.5fr 1fr 2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1.6fr 1fr 1fr 1fr 1fr;
   width: 100%;
   align-items: center;
   margin: 15px 0;
@@ -95,6 +100,11 @@ const CartItemLine = styled.div`
   transform-origin: center;
 `;
 const CartItemBox = styled.div``;
+
+const CartItemInput = styled.input`
+  width: 10px;
+  margin-left: 89px;
+`;
 const CartPriceBox = styled.div`
   width: 100%;
   height: 90px;
@@ -205,7 +215,6 @@ export function Cart() {
     const updatedCart = storedCart.map((item) => {
       return {
         ...item,
-        // mockTicketName이 있으면 배송비는 0, 그렇지 않으면 기본 배송비 3000원
         shippingCost: item.mockTicketName ? 0 : 3000,
       };
     });
@@ -232,30 +241,23 @@ export function Cart() {
     return calculateTotalPrice() + calculateShippingCost();
   };
 
-  // const [count, setCount] = useState(0);
-  // function countPlus() {
-  //   setCount(count + 1);
-  // }
-  // function countMinus() {
-  //   if (count > 1) {
-  //     setCount(count - 1);
-  //   } else {
-  //     alert("최소 1개 이상 주문이 가능합니다");
-  //   }
-  // }
-
   const updateQuantity = (id, change) => {
     setCartItems((prevItems) => {
-      const updatedItems = prevItems.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              quantity: Math.max(item.quantity + change, 1),
-            }
-          : item
-      );
+      const updatedItems = prevItems.map((item) => {
+        if (item.id === id) {
+          const newQuantity = item.quantity + change;
+          if (newQuantity < 1) {
+            alert("최소 1개 이상 주문이 가능합니다");
+            return item;
+          }
+          return {
+            ...item,
+            quantity: newQuantity,
+          };
+        }
+        return item;
+      });
 
-      // 로컬 스토리지에 변경 사항 저장
       localStorage.setItem("cart", JSON.stringify(updatedItems));
       return updatedItems;
     });
@@ -266,7 +268,7 @@ export function Cart() {
       <Container>
         <CartTitle>장바구니</CartTitle>
         <CartMenuGrid>
-          <input
+          <CartMenuInput
             type="checkbox"
             style={{
               transform: "scale(2.3)",
@@ -282,7 +284,7 @@ export function Cart() {
         {cartItems.map((item) => (
           <CartItemBox key={item.id}>
             <CartItemGrid>
-              <input
+              <CartItemInput
                 type="checkbox"
                 style={{
                   transform: "scale(2.3)",
