@@ -15,15 +15,16 @@ const CartMenuGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 2.8fr 1fr 1fr 1fr 1fr;
   margin-top: 120px;
-  background-color: #fafafa;
+  background-color: #f3f3f3;
   width: 100%;
   height: 60px;
   align-items: center;
   text-align: center;
   font-size: 18px;
+  border-radius: 20px;
 `;
 const CartMenuInput = styled.input`
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   margin-left: 90px;
   width: 10px;
 `;
@@ -109,7 +110,7 @@ const CartPriceBox = styled.div`
   width: 100%;
   height: 90px;
   border-radius: 35px;
-  background-color: #fafafa;
+  background-color: #f3f3f3;
   margin: 80px 0 50px 0;
   display: flex;
   line-height: 90px;
