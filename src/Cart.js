@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRoutes } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -7,19 +8,19 @@ const Container = styled.div`
 `;
 const CartTitle = styled.div`
   margin-top: 200px;
-  font-size: 48px;
+  font-size: 40px;
   text-align: center;
 `;
 const CartMenuGrid = styled.div`
   display: grid;
-  grid-template-columns: 0.5fr 3fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.5fr 3.1fr 1fr 1fr 1fr 1fr;
   margin-top: 120px;
   background-color: #fafafa;
   width: 100%;
   height: 80px;
   align-items: center;
   text-align: center;
-  font-size: 22px;
+  font-size: 20px;
 `;
 const CartItemGrid = styled.div`
   display: grid;
@@ -36,7 +37,7 @@ const CartItemImg = styled.div`
   margin-left: 80px;
 `;
 const CartItemText = styled.div`
-  font-size: 25px;
+  font-size: 20px;
   text-align: center;
   line-height: 160px;
   font-weight: bold;
@@ -48,33 +49,42 @@ const CartItemCount = styled.div`
 `;
 const CartItemCount1 = styled.div`
   text-align: center;
-  font-size: 25px;
+  font-size: 18px;
   font-weight: bold;
   text-align: center;
 `;
 const CountButton = styled.button`
   padding: 10px 20px;
-  font-size: 25px;
+  font-size: 18px;
   cursor: pointer;
   border: none;
   background: transparent;
 `;
+const CountMinusButton = styled.button`
+  padding: 10px 20px;
+  margin-bottom: 2px;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+`;
+
 const CartItemPrice = styled.div`
   text-align: center;
   line-height: 160px;
-  font-size: 25px;
+  font-size: 18px;
   font-weight: bold;
 `;
 const CartItemTotalPrice = styled.div`
   text-align: center;
   line-height: 160px;
-  font-size: 25px;
+  font-size: 18px;
   font-weight: bold;
 `;
 const CartItemDelivery = styled.div`
   text-align: center;
   line-height: 160px;
-  font-size: 25px;
+  font-size: 18px;
 `;
 const CartItemLine = styled.div`
   width: 100%;
@@ -98,10 +108,15 @@ const CartPriceBox = styled.div`
   padding-right: 30px;
 `;
 const CartPriceText1 = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   margin-right: 20px;
 `;
 const CartPriceText2 = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 20px;
+`;
+const CartPriceText3 = styled.div`
   font-size: 22px;
   font-weight: bold;
   margin-right: 20px;
@@ -126,7 +141,7 @@ const CartPriceEqual = styled.div`
   text-align: center;
   line-height: 25px;
   color: white;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   margin-right: 20px;
 `;
@@ -181,17 +196,71 @@ const Footer = styled.div`
 `;
 
 export function Cart() {
-  const [count, setCount] = useState(0);
-  function countPlus() {
-    setCount(count + 1);
-  }
-  function countMinus() {
-    if (count > 1) {
-      setCount(count - 1);
-    } else {
-      alert("최소 1개 이상 주문이 가능합니다");
-    }
-  }
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    // setCartItems(storedCart);
+
+    const updatedCart = storedCart.map((item) => {
+      return {
+        ...item,
+        // mockTicketName이 있으면 배송비는 0, 그렇지 않으면 기본 배송비 3000원
+        shippingCost: item.mockTicketName ? 0 : 3000,
+      };
+    });
+    setCartItems(updatedCart);
+  }, []);
+
+  const calculateTotalPrice = () => {
+    return cartItems.reduce(
+      (total, item) =>
+        total +
+        (item.bookPrice || item.ticketPrice || 0) * (item.quantity || 1),
+      0
+    );
+  };
+
+  const calculateShippingCost = () => {
+    return cartItems.reduce(
+      (total, item) => total + (item.shippingCost || 0),
+      0
+    );
+  };
+
+  const calculateGrandTotal = () => {
+    return calculateTotalPrice() + calculateShippingCost();
+  };
+
+  // const [count, setCount] = useState(0);
+  // function countPlus() {
+  //   setCount(count + 1);
+  // }
+  // function countMinus() {
+  //   if (count > 1) {
+  //     setCount(count - 1);
+  //   } else {
+  //     alert("최소 1개 이상 주문이 가능합니다");
+  //   }
+  // }
+
+  const updateQuantity = (id, change) => {
+    setCartItems((prevItems) => {
+      const updatedItems = prevItems.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              quantity: Math.max(item.quantity + change, 1),
+            }
+          : item
+      );
+
+      // 로컬 스토리지에 변경 사항 저장
+      localStorage.setItem("cart", JSON.stringify(updatedItems));
+      return updatedItems;
+    });
+  };
+
   return (
     <>
       <Container>
@@ -210,57 +279,59 @@ export function Cart() {
           <p>합계/금액</p>
           <p>배송비</p>
         </CartMenuGrid>
+        {cartItems.map((item) => (
+          <CartItemBox key={item.id}>
+            <CartItemGrid>
+              <input
+                type="checkbox"
+                style={{
+                  transform: "scale(2.3)",
+                  transformOrigin: "0 0",
+                }}
+              />
+              <CartItemImg></CartItemImg>
+              <CartItemText>
+                {item.bookName || item.mockTicketName}
+              </CartItemText>
+              <CartItemCount>
+                <CountMinusButton onClick={() => updateQuantity(item.id, -1)}>
+                  -
+                </CountMinusButton>
+                <CartItemCount1>{item.quantity}</CartItemCount1>
+                <CountButton onClick={() => updateQuantity(item.id, 1)}>
+                  +
+                </CountButton>
+              </CartItemCount>
+              <CartItemPrice>
+                {(item.bookPrice || item.ticketPrice) + " 원"}
+              </CartItemPrice>
+              <CartItemTotalPrice>
+                {(item.bookPrice || item.ticketPrice || 0) *
+                  (item.quantity || 1) +
+                  item.shippingCost}{" "}
+                원
+              </CartItemTotalPrice>
+              <CartItemDelivery>
+                {item.shippingCost === 0 ? "무료" : `${item.shippingCost} 원`}
+              </CartItemDelivery>
+            </CartItemGrid>
+            <CartItemLine></CartItemLine>
+          </CartItemBox>
+        ))}
         <CartItemBox>
-          <CartItemGrid>
-            <input
-              type="checkbox"
-              style={{
-                transform: "scale(2.3)",
-                transformOrigin: "0 0",
-              }}
-            />
-            <CartItemImg></CartItemImg>
-            <CartItemText>모의고사 응모권</CartItemText>
-            <CartItemCount>
-              <CountButton onClick={countMinus}>-</CountButton>
-              <CartItemCount1>{count}</CartItemCount1>
-              <CountButton onClick={countPlus}>+</CountButton>
-            </CartItemCount>
-            <CartItemPrice>#### 원</CartItemPrice>
-            <CartItemTotalPrice>#### 원</CartItemTotalPrice>
-            <CartItemDelivery>무료</CartItemDelivery>
-          </CartItemGrid>
-          <CartItemLine></CartItemLine>
-        </CartItemBox>
-        <CartItemBox>
-          <CartItemGrid>
-            <input
-              type="checkbox"
-              style={{
-                transform: "scale(2.3)",
-                transformOrigin: "0 0",
-              }}
-            />
-            <CartItemImg></CartItemImg>
-            <CartItemText>도서제목 ####</CartItemText>
-            <CartItemCount>
-              <CountButton onClick={countMinus}>-</CountButton>
-              <CartItemCount1>{count}</CartItemCount1>
-              <CountButton onClick={countPlus}>+</CountButton>
-            </CartItemCount>
-            <CartItemPrice>#### 원</CartItemPrice>
-            <CartItemTotalPrice>#### 원</CartItemTotalPrice>
-            <CartItemDelivery>3000원</CartItemDelivery>
-          </CartItemGrid>
           <CartItemLine></CartItemLine>
         </CartItemBox>
         <CartPriceBox>
-          <CartPriceText1>총 # 개의 상품</CartPriceText1>
-          <CartPriceText2>#### 원</CartPriceText2>
+          <CartPriceText1>
+            총{" "}
+            {cartItems.reduce((total, item) => total + (item.quantity || 1), 0)}{" "}
+            개의 상품
+          </CartPriceText1>
+          <CartPriceText2>{calculateTotalPrice()} 원</CartPriceText2>
           <CartPricePlus>+</CartPricePlus>
-          <CartPriceText1>배송비 ###원</CartPriceText1>
+          <CartPriceText1>배송비 {calculateShippingCost()}원</CartPriceText1>
           <CartPriceEqual>=</CartPriceEqual>
-          <CartPriceText1>#### 원</CartPriceText1>
+          <CartPriceText3>{calculateGrandTotal()} 원</CartPriceText3>
         </CartPriceBox>
         <CartOrderBox>
           <CartOrderDelete>선택 상품 삭제</CartOrderDelete>

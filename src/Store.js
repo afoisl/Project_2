@@ -127,9 +127,34 @@ export function Store() {
   }, []);
 
   const addToCart = (item) => {
-    console.log(item); // item 객체 확인
+    console.log(item);
+
+    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const uniqueId = item.bookName ? `book_${item.id}` : `mock_${item.id}`;
+
+    const existingItemIndex = existingCart.findIndex(
+      (cartItem) => cartItem.id === uniqueId
+    );
+
+    if (existingItemIndex !== -1) {
+      existingCart[existingItemIndex].quantity =
+        (existingCart[existingItemIndex].quantity || 1) + 1;
+    } else {
+      const newItem = {
+        ...item,
+        id: uniqueId,
+        quantity: 1,
+        name: item.bookName || item.mockTicketName || "이름 없음", // 이름을 올바르게 처리
+        price: item.bookPrice || item.ticketPrice || 0, // 가격도 처리
+      };
+      existingCart.push(newItem);
+    }
+
+    // 로컬스토리지에 장바구니 저장
+    localStorage.setItem("cart", JSON.stringify(existingCart));
+
     const name = item.bookName || item.mockTicketName || "이름 없음";
-    setCart([...cart, item]);
     alert(`${name}이(가) 장바구니에 추가되었습니다.`);
   };
 
@@ -141,7 +166,7 @@ export function Store() {
         <StoreImage></StoreImage>
         <StoreGrid>
           {books.map((book) => (
-            <StoreBox key={book.bookId}>
+            <StoreBox key={book.storeItemId}>
               <StoreImage1>
                 <img
                   src={`http://localhost:8080/api/images/${book.image_path}`}
@@ -159,7 +184,7 @@ export function Store() {
             </StoreBox>
           ))}
           {mockTickets.map((ticket) => (
-            <StoreBox key={ticket.ticketId}>
+            <StoreBox key={ticket.storeItemId}>
               <StoreImage1>
                 <img
                   src={`http://localhost:8080/api/images/${ticket.image_path}`}
