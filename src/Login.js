@@ -38,6 +38,7 @@ const Signin = styled.button`
   color: white;
   font-size: 1rem;
   font-weight: 700;
+  cursor: pointer;
 `;
 
 const ShowPwBox = styled.div`
@@ -54,6 +55,7 @@ const JoinLink = styled.div`
   justify-content: end;
   margin-top: 15px;
   font-size: 0.9rem;
+  cursor: pointer;
 `;
 
 export function Login() {

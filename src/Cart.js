@@ -3,7 +3,7 @@ import { useRoutes } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 70%;
+  width: 60%;
   margin: auto;
 `;
 const CartTitle = styled.div`
@@ -13,20 +13,20 @@ const CartTitle = styled.div`
 `;
 const CartMenuGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 2.8fr 1fr 1fr 1fr 1fr;
-  margin-top: 120px;
+  grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr;
+  margin-top: 100px;
   background-color: #f3f3f3;
   width: 100%;
-  height: 60px;
+  height: 40px;
   align-items: center;
   text-align: center;
-  font-size: 18px;
-  border-radius: 20px;
+  font-size: 17px;
+  line-height: 0;
 `;
 const CartMenuInput = styled.input`
   margin-bottom: 20px;
   margin-left: 90px;
-  width: 10px;
+  width: 9px;
 `;
 const CartItemGrid = styled.div`
   display: grid;
@@ -96,27 +96,25 @@ const CartItemLine = styled.div`
   width: 100%;
   height: 1px;
   background-color: #d9d9d9;
-  margin: 15px;
+  margin: 15px 0;
   transform: scale();
   transform-origin: center;
 `;
 const CartItemBox = styled.div``;
 
 const CartItemInput = styled.input`
-  width: 10px;
+  width: 9px;
   margin-left: 89px;
 `;
 const CartPriceBox = styled.div`
   width: 100%;
-  height: 90px;
-  border-radius: 35px;
+  height: 65px;
   background-color: #f3f3f3;
   margin: 80px 0 50px 0;
   display: flex;
   line-height: 90px;
   align-items: center;
   justify-content: end;
-  padding-right: 30px;
 `;
 const CartPriceText1 = styled.div`
   font-size: 18px;
@@ -131,6 +129,7 @@ const CartPriceText3 = styled.div`
   font-size: 22px;
   font-weight: bold;
   margin-right: 20px;
+  padding-right: 30px;
 `;
 const CartPricePlus = styled.div`
   width: 30px;
@@ -164,34 +163,38 @@ const CartOrderBox1 = styled.div`
   display: flex;
 `;
 const CartOrderDelete = styled.div`
-  width: 150px;
+  width: 120px;
   height: 50px;
   background-color: #575757;
   color: white;
-  border-radius: 25px;
+  border-radius: 20px;
   text-align: center;
+  font-size: 0.8rem;
   line-height: 50px;
+  cursor: pointer;
 `;
 const CartSelectOrder = styled.div`
-  width: 225px;
-  height: 60px;
+  width: 160px;
+  height: 50px;
   background-color: #5c5c5c;
   color: white;
   font-weight: bold;
-  border-radius: 25px;
+  border-radius: 20px;
   text-align: center;
-  line-height: 60px;
+  line-height: 50px;
+  cursor: pointer;
 `;
 const CartAllOrder = styled.div`
-  width: 225px;
-  height: 60px;
+  width: 160px;
+  height: 50px;
   background-color: #2f62cb;
   color: white;
   font-weight: bold;
-  border-radius: 25px;
+  border-radius: 20px;
   text-align: center;
-  line-height: 60px;
+  line-height: 50px;
   margin-left: 20px;
+  cursor: pointer;
 `;
 const CartMargin = styled.div`
   height: 200px;
@@ -223,19 +226,20 @@ export function Cart() {
   }, []);
 
   const calculateTotalPrice = () => {
-    return cartItems.reduce(
-      (total, item) =>
-        total +
-        (item.bookPrice || item.ticketPrice || 0) * (item.quantity || 1),
-      0
-    );
+    return cartItems
+      .filter((item) => checkItem.includes(item.id))
+      .reduce(
+        (total, item) =>
+          total +
+          (item.bookPrice || item.ticketPrice || 0) * (item.quantity || 1),
+        0
+      );
   };
 
   const calculateShippingCost = () => {
-    return cartItems.reduce(
-      (total, item) => total + (item.shippingCost || 0),
-      0
-    );
+    return cartItems
+      .filter((item) => checkItem.includes(item.id))
+      .reduce((total, item) => total + (item.shippingCost || 0), 0);
   };
 
   const calculateGrandTotal = () => {
@@ -264,6 +268,36 @@ export function Cart() {
     });
   };
 
+  const [checkItem, setCheckItem] = useState([]);
+
+  const handleSingleCheck = (checked, id) => {
+    if (checked) {
+      setCheckItem((prev) => [...prev, id]);
+    } else {
+      setCheckItem(checkItem.filter((el) => el !== id));
+    }
+  };
+
+  const handleAllCheck = (checked) => {
+    if (checked) {
+      const ids = [];
+      cartItems.forEach((el) => ids.push(el.id));
+      setCheckItem(ids);
+    } else {
+      setCheckItem([]);
+    }
+  };
+
+  const handleDeleteSelected = () => {
+    const updatedItems = cartItems.filter(
+      (item) => !checkItem.includes(item.id)
+    );
+    setCartItems(updatedItems);
+    setCheckItem([]);
+
+    localStorage.setItem("cart", JSON.stringify(updatedItems));
+  };
+
   return (
     <>
       <Container>
@@ -275,6 +309,9 @@ export function Cart() {
               transform: "scale(2.3)",
               transformOrigin: "0 0",
             }}
+            onChange={(e) => handleAllCheck(e.target.checked)}
+            checked={checkItem.length === cartItems.length ? true : false}
+            disabled={cartItems.length === 0}
           />
           <p>상품/옵션 정보</p>
           <p>수량</p>
@@ -291,6 +328,8 @@ export function Cart() {
                   transform: "scale(2.3)",
                   transformOrigin: "0 0",
                 }}
+                onChange={(e) => handleSingleCheck(e.target.checked, item.id)}
+                checked={checkItem.indexOf(item.id) >= 0 ? true : false}
               />
               <CartItemImg></CartItemImg>
               <CartItemText>
@@ -326,8 +365,7 @@ export function Cart() {
         </CartItemBox>
         <CartPriceBox>
           <CartPriceText1>
-            총{" "}
-            {cartItems.reduce((total, item) => total + (item.quantity || 1), 0)}{" "}
+            총 {checkItem.length}
             개의 상품
           </CartPriceText1>
           <CartPriceText2>{calculateTotalPrice()} 원</CartPriceText2>
@@ -337,7 +375,9 @@ export function Cart() {
           <CartPriceText3>{calculateGrandTotal()} 원</CartPriceText3>
         </CartPriceBox>
         <CartOrderBox>
-          <CartOrderDelete>선택 상품 삭제</CartOrderDelete>
+          <CartOrderDelete onClick={handleDeleteSelected}>
+            선택 상품 삭제
+          </CartOrderDelete>
           <CartOrderBox1>
             <CartSelectOrder>선택 상품 주문</CartSelectOrder>
             <CartAllOrder>전체 상품 주문</CartAllOrder>
