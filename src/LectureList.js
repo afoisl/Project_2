@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { LectureDetails } from "./LectureDetails";
+import { Outlet } from "react-router-dom";
 
 const Img = styled.div`
   width: 100%;
@@ -67,6 +68,7 @@ export function LectureList() {
       <LectureDetails />
       <LectureDetails />
       <LectureDetails />
+      <Outlet />
     </>
   );
 }

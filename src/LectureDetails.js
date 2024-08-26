@@ -1,4 +1,8 @@
 import styled from "styled-components";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Lecture } from "./Lecture";
+import axios from "axios";
 
 const Box1 = styled.div`
   display: flex;
@@ -71,6 +75,25 @@ const Class = styled.div`
 `;
 
 export function LectureDetails() {
+  const [lectures, setLectures] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/lecture")
+      .then((response) => {
+        console.log("데이터", response.data);
+        setLectures(response.data);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }, []);
+
+  const handleCardClick = (lectureId) => {
+    navigate(`/lecturelist/lecture/${lectureId}`);
+  };
+
   return (
     <>
       <Box1>
@@ -78,33 +101,21 @@ export function LectureDetails() {
           <H1>Best Seller</H1>
           <Box>
             <Container>
-              <CardBox>
-                <Card>
-                  <LecImg></LecImg>
-                  <Category>Category</Category>
-                  <Title>title</Title>
-                  <Price>price</Price>
-                  <Class>class</Class>
-                </Card>
-              </CardBox>
-              <CardBox>
-                <Card>
-                  <LecImg></LecImg>
-                  <Category>subject</Category>
-                  <Title>title</Title>
-                  <Price>price</Price>
-                  <Class>class</Class>
-                </Card>
-              </CardBox>
-              <CardBox>
-                <Card>
-                  <LecImg></LecImg>
-                  <Category>subject</Category>
-                  <Title>title</Title>
-                  <Price>price</Price>
-                  <Class>class</Class>
-                </Card>
-              </CardBox>
+              {lectures.map((lecture) => (
+                <CardBox
+                  key={lecture.storeItemId}
+                  onClick={() => handleCardClick(lecture.storeItemId)}
+                >
+                  <Card>
+                    <LecImg></LecImg>
+
+                    <Category>{lecture.subject}</Category>
+                    <Title>{lecture.lectureName}</Title>
+                    <Price>{lecture.lecPrice} 원</Price>
+                    <Class>{lecture.lectureClass}</Class>
+                  </Card>
+                </CardBox>
+              ))}
             </Container>
           </Box>
         </BigBox>

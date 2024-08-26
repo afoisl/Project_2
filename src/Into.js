@@ -5,6 +5,7 @@ import { About } from "./About";
 import { Customer } from "./Customer";
 import { Game } from "./Game";
 import { LectureList } from "./LectureList";
+import { LectureDetails } from "./LectureDetails";
 import { Lecture } from "./Lecture";
 import { Login } from "./Login";
 import { Main } from "./Main";
@@ -31,6 +32,7 @@ import { NoticeDetail } from "./NoticeDetail";
 import { QnaDetail } from "./QnaDetail";
 import { QnaWrite } from "./QnaWrite";
 import { Order } from "./Order";
+import { LectureWrapper } from "./LectureWrapper";
 
 const Container = styled.div`
   width: 100%;
@@ -65,9 +67,9 @@ function AppContent() {
               <Route path="address" index element={<Address />} />
             </Route>
 
-            <Route path="/lecturelist" element={<LectureList />}>
+            <Route path="/lecturelist" element={<LectureWrapper />}>
               <Route index element={<LectureList />} />
-              <Route path=":id" element={<Lecture />} />
+              <Route path="lecture/:id" element={<Lecture />} />
             </Route>
 
             <Route path="/store" element={<Store />} />
