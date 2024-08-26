@@ -178,7 +178,7 @@ export function Menu() {
           </div>
           <div>
             <SubMenuBtn to="/lecturelist">전체강의</SubMenuBtn>
-            <SubMenuBtn to="mypage/mylecture">수강현황</SubMenuBtn>
+            <SubMenuBtn to="mypage/mylecture">학습현황</SubMenuBtn>
           </div>
           <div>
             <SubMenuBtn to="/store">도서구매</SubMenuBtn>
