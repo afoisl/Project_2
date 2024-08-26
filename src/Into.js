@@ -33,6 +33,7 @@ import { QnaDetail } from "./QnaDetail";
 import { QnaWrite } from "./QnaWrite";
 import { Order } from "./Order";
 import { LectureWrapper } from "./LectureWrapper";
+import { StreamLecture } from "./StreamLecture";
 
 const Container = styled.div`
   width: 100%;
@@ -88,7 +89,10 @@ function AppContent() {
               element={<ChatingRoom />}
             />
             <Route path="/grouplecroom" element={<GroupLecRoom />} />
-            <Route path="/speciallecroom" element={<SpecialLecRoom />} />
+            <Route path="/speciallecroom" element={<SpecialLecRoom />}>
+              <Route index element={SpecialLecRoom} />
+              <Route path=":streamId" element={<StreamLecture />} />
+            </Route>
             <Route
               path="/grouplecroomdetail"
               element={<GroupLecRoomDetail />}
