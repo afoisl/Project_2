@@ -149,25 +149,29 @@ const LearningStatusGo = styled.div`
   text-align: center;
   &:hover {
     text-decoration: underline;
-    text-underline-offset: 15px; 
+    text-underline-offset: 15px;
+  }
 `;
 const OrderDeliveryGo = styled.div`
   text-align: center;
   &:hover {
     text-decoration: underline;
-    text-underline-offset: 15px; 
+  }
+  text-underline-offset: 15px;
 `;
 const PointItemGo = styled.div`
   text-align: center;
   &:hover {
     text-decoration: underline;
-    text-underline-offset: 15px; 
+    text-underline-offset: 15px;
+  }
 `;
 const MyWritingGo = styled.div`
   text-align: center;
   &:hover {
     text-decoration: underline;
-    text-underline-offset: 15px; 
+    text-underline-offset: 15px;
+  }
 `;
 
 const LearningStatusTitle = styled.div`
