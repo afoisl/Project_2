@@ -110,12 +110,10 @@ const EmptyBox = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
 const EmptyCartImg = styled.img`
   width: 50px;
   height: auto;
 `;
-
 const EmptyCartMessage = styled.div`
   text-align: center;
   font-size: 1.2rem;
@@ -232,17 +230,15 @@ const Footer = styled.div`
 
 export function Cart() {
   const [cartItems, setCartItems] = useState([]);
+  const [checkItem, setCheckItem] = useState([]);
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    // setCartItems(storedCart);
-
-    const updatedCart = storedCart.map((item) => {
-      return {
-        ...item,
-        shippingCost: item.mockTicketName ? 0 : 3000,
-      };
-    });
+    const updatedCart = storedCart.map((item) => ({
+      ...item,
+      shippingCost: item.mockTicketName || item.lectureName ? 0 : 3000,
+      quantity: item.quantity || 1,
+    }));
     setCartItems(updatedCart);
   }, []);
 
@@ -252,7 +248,8 @@ export function Cart() {
       .reduce(
         (total, item) =>
           total +
-          (item.bookPrice || item.ticketPrice || 0) * (item.quantity || 1),
+          (item.bookPrice || item.ticketPrice || item.lecPrice || 0) *
+            (item.quantity || 1),
         0
       );
   };
@@ -276,10 +273,7 @@ export function Cart() {
             alert("최소 1개 이상 주문이 가능합니다");
             return item;
           }
-          return {
-            ...item,
-            quantity: newQuantity,
-          };
+          return { ...item, quantity: newQuantity };
         }
         return item;
       });
@@ -289,21 +283,21 @@ export function Cart() {
     });
   };
 
-  const [checkItem, setCheckItem] = useState([]);
-
   const handleSingleCheck = (checked, id) => {
-    if (checked) {
-      setCheckItem((prev) => [...prev, id]);
-    } else {
-      setCheckItem(checkItem.filter((el) => el !== id));
-    }
+    console.log("Single Check - ID:", id, "Checked:", checked);
+    setCheckItem((prev) => {
+      if (checked) {
+        return [...new Set([...prev, id])];
+      } else {
+        return prev.filter((el) => el !== id);
+      }
+    });
   };
 
   const handleAllCheck = (checked) => {
+    console.log("All Check - Checked:", checked);
     if (checked) {
-      const ids = [];
-      cartItems.forEach((el) => ids.push(el.id));
-      setCheckItem(ids);
+      setCheckItem(cartItems.map((item) => item.id));
     } else {
       setCheckItem([]);
     }
@@ -331,7 +325,9 @@ export function Cart() {
               transformOrigin: "0 0",
             }}
             onChange={(e) => handleAllCheck(e.target.checked)}
-            checked={checkItem.length === cartItems.length ? true : false}
+            checked={
+              checkItem.length === cartItems.length && cartItems.length > 0
+            }
             disabled={cartItems.length === 0}
           />
           <p>상품/옵션 정보</p>
@@ -356,11 +352,11 @@ export function Cart() {
                     transformOrigin: "0 0",
                   }}
                   onChange={(e) => handleSingleCheck(e.target.checked, item.id)}
-                  checked={checkItem.indexOf(item.id) >= 0 ? true : false}
+                  checked={checkItem.includes(item.id)}
                 />
                 <CartItemImg></CartItemImg>
                 <CartItemText>
-                  {item.bookName || item.mockTicketName}
+                  {item.bookName || item.mockTicketName || item.lectureName}
                 </CartItemText>
                 <CartItemCount>
                   <CountMinusButton onClick={() => updateQuantity(item.id, -1)}>
@@ -372,10 +368,11 @@ export function Cart() {
                   </CountButton>
                 </CartItemCount>
                 <CartItemPrice>
-                  {(item.bookPrice || item.ticketPrice) + " 원"}
+                  {(item.bookPrice || item.ticketPrice || item.lecPrice) +
+                    " 원"}
                 </CartItemPrice>
                 <CartItemTotalPrice>
-                  {(item.bookPrice || item.ticketPrice || 0) *
+                  {(item.bookPrice || item.ticketPrice || item.lecPrice || 0) *
                     (item.quantity || 1) +
                     item.shippingCost}{" "}
                   원
@@ -388,11 +385,9 @@ export function Cart() {
             </CartItemBox>
           ))
         )}
-
         <CartItemBox>
           <CartItemLine></CartItemLine>
         </CartItemBox>
-
         <CartPriceBox>
           <CartPriceText1>
             총 {checkItem.length}
