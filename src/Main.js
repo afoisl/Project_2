@@ -146,15 +146,16 @@ const BtnWrapper = styled.div`
 `;
 
 const LectureBtn = styled.div`
-  font-size: 1.4rem;
-  width: 220px;
-  height: 40px;
+  font-size: 1.2rem;
+  width: 180px;
+  height: 30px;
   box-sizing: border;
   border-radius: 50px;
   background-color: white;
   text-align: center;
+  line-height: 1.5;
   margin: 50px 0px;
-  padding: 35px 15px 15px 15px;
+  padding: 15px;
 `;
 
 const Box5Wrapper = styled.div`
@@ -174,15 +175,16 @@ const Title5 = styled.div`
 `;
 
 const GameBtn = styled.div`
-  font-size: 1.4rem;
-  width: 220px;
-  height: 40px;
+  font-size: 1.2rem;
+  width: 180px;
+  height: 30px;
   box-sizing: border;
   border-radius: 50px;
   background-color: white;
+  line-height: 1.5;
   text-align: center;
   margin: 50px 0px;
-  padding: 35px 15px 15px 15px;
+  padding: 15px;
 `;
 
 const Box5Wrapper2 = styled.div`
@@ -245,15 +247,16 @@ const BookName = styled.div`
   font-size: 3rem;
 `;
 const StoreBtn = styled.div`
-  font-size: 1.4rem;
-  width: 220px;
-  height: 40px;
+  font-size: 1.2rem;
+  width: 180px;
+  height: 30px;
   box-sizing: border;
   border-radius: 50px;
   background-color: white;
+  line-height: 1.5;
   text-align: center;
   margin: 50px 0px;
-  padding: 35px 15px 15px 15px;
+  padding: 15px;
 `;
 
 const Box6Wrapper = styled.div`
@@ -362,8 +365,9 @@ const LevelBtn = styled.div`
   border-radius: 50px;
   background-color: white;
   text-align: center;
+  line-height: 1.8;
   margin: 50px;
-  padding: 15px 15px 15px 15px;
+  padding: 15px;
 `;
 
 export function Main() {
