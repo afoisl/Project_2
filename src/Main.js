@@ -363,7 +363,7 @@ const LevelBtn = styled.div`
   background-color: white;
   text-align: center;
   margin: 50px;
-  padding: 35px 15px 15px 15px;
+  padding: 15px 15px 15px 15px;
 `;
 
 export function Main() {
