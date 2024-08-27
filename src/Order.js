@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -21,7 +22,7 @@ const OrderBoxRight = styled.div`
 
 const OrderProduct = styled.div`
   width: 621px;
-  height: 120px;
+  height: auto;
   border: 1px solid #d9d9d9;
   margin-bottom: 50px;
   border-radius: 25px;
@@ -86,6 +87,7 @@ const OrderBoxImg = styled.div`
 `;
 const OrderText2 = styled.div`
   font-size: 15px;
+  margin-right: 5px;
 `;
 const OrderText3 = styled.div`
   font-size: 15px;
@@ -182,6 +184,29 @@ const OrderPayBox2 = styled.div`
   background-color: #2f62cb;
 `;
 export function Order() {
+  const location = useLocation();
+  const cartItems = location.state?.cartItems || [];
+
+  const calculateTotalPrice = () => {
+    return cartItems.reduce(
+      (total, item) =>
+        total +
+        (item.bookPrice || item.ticketPrice || 0) * (item.quantity || 1),
+      0
+    );
+  };
+
+  const calculateShippingCost = () => {
+    return cartItems.reduce(
+      (total, item) => total + (item.shippingCost || 0),
+      0
+    );
+  };
+
+  const calculateGrandTotal = () => {
+    return calculateTotalPrice() + calculateShippingCost();
+  };
+
   return (
     <>
       <Container>
@@ -190,18 +215,26 @@ export function Order() {
           <OrderBoxLeft>
             <OrderProduct>
               <OrderText>주문 상품 정보</OrderText>
-              <OrderProductGrid>
-                <OrderProductBox1>
-                  <OrderBoxImg></OrderBoxImg>
-                </OrderProductBox1>
-                <OrderProductBox2>
-                  <OrderText2>주문정보 이름</OrderText2>
-                  <OrderTextMargin></OrderTextMargin>
-                  <OrderText> #### 원</OrderText>
-                  <OrderTextMargin></OrderTextMargin>
-                  <OrderText3>배송비 : 3000원</OrderText3>
-                </OrderProductBox2>
-              </OrderProductGrid>
+              {cartItems.map((item) => (
+                <OrderProductGrid key={item.id}>
+                  <OrderProductBox1>
+                    <OrderBoxImg></OrderBoxImg>
+                  </OrderProductBox1>
+                  <OrderProductBox2>
+                    <OrderText2>
+                      {item.bookName || item.mockTicketName}
+                    </OrderText2>
+                    <OrderText>
+                      가격: {item.bookPrice || item.ticketPrice} 원
+                    </OrderText>
+                    <OrderText>수량: {item.quantity}</OrderText>
+                    <OrderText>
+                      합계:{" "}
+                      {(item.bookPrice || item.ticketPrice) * item.quantity} 원
+                    </OrderText>
+                  </OrderProductBox2>
+                </OrderProductGrid>
+              ))}
             </OrderProduct>
             <OrderCustomer>
               <OrderText>주문자 정보</OrderText>
@@ -246,9 +279,13 @@ export function Order() {
                   <OrderText3>배송비</OrderText3>
                 </OrderPriceBox1>
                 <OrderPriceBox2>
-                  <OrderText2>0000원</OrderText2>
+                  <OrderText2>{calculateTotalPrice()} 원</OrderText2>
                   <OrderTextMargin></OrderTextMargin>
-                  <OrderText2>무료</OrderText2>
+                  <OrderText2>
+                    {calculateShippingCost() === 0
+                      ? "무료"
+                      : `${calculateShippingCost()} 원`}
+                  </OrderText2>
                 </OrderPriceBox2>
               </OrderPriceBox>
               <OrderPriceLine></OrderPriceLine>
@@ -256,7 +293,7 @@ export function Order() {
 
               <OrderPriceBox>
                 <OrderText4>총 결제 금액</OrderText4>
-                <OrderText>00000원</OrderText>
+                <OrderText>{calculateGrandTotal()} 원</OrderText>
               </OrderPriceBox>
             </OrderPrice>
             <OrderPayment>

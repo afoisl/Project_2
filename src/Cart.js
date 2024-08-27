@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useRoutes } from "react-router-dom";
+import { useNavigate, useRoutes } from "react-router-dom";
 import styled from "styled-components";
 import cartImage from "./assets/img/cartImage.png";
 
@@ -110,10 +110,12 @@ const EmptyBox = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 const EmptyCartImg = styled.img`
   width: 50px;
   height: auto;
 `;
+
 const EmptyCartMessage = styled.div`
   text-align: center;
   font-size: 1.2rem;
@@ -231,14 +233,36 @@ const Footer = styled.div`
 export function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const [checkItem, setCheckItem] = useState([]);
+  const navigate = useNavigate();
+
+  const handleOrderAll = () => {
+    navigate("/order", { state: { cartItems } });
+  };
+
+  const handleSelectOrder = () => {
+    const selectedItems = cartItems.filter((item) =>
+      checkItem.includes(item.id)
+    );
+    if (selectedItems.length === 0) {
+      alert("선택된 상품이 없습니다.");
+      return;
+    }
+    // 선택된 상품을 로컬 스토리지에 저장
+    localStorage.setItem("selectedItems", JSON.stringify(selectedItems));
+    // 결제 페이지로 이동
+    navigate("/order", { state: { cartItems: selectedItems } });
+  };
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    const updatedCart = storedCart.map((item) => ({
-      ...item,
-      shippingCost: item.mockTicketName || item.lectureName ? 0 : 3000,
-      quantity: item.quantity || 1,
-    }));
+    // setCartItems(storedCart);
+
+    const updatedCart = storedCart.map((item) => {
+      return {
+        ...item,
+        shippingCost: item.mockTicketName ? 0 : 3000,
+      };
+    });
     setCartItems(updatedCart);
   }, []);
 
@@ -248,8 +272,7 @@ export function Cart() {
       .reduce(
         (total, item) =>
           total +
-          (item.bookPrice || item.ticketPrice || item.lecPrice || 0) *
-            (item.quantity || 1),
+          (item.bookPrice || item.ticketPrice || 0) * (item.quantity || 1),
         0
       );
   };
@@ -273,7 +296,10 @@ export function Cart() {
             alert("최소 1개 이상 주문이 가능합니다");
             return item;
           }
-          return { ...item, quantity: newQuantity };
+          return {
+            ...item,
+            quantity: newQuantity,
+          };
         }
         return item;
       });
@@ -284,20 +310,18 @@ export function Cart() {
   };
 
   const handleSingleCheck = (checked, id) => {
-    console.log("Single Check - ID:", id, "Checked:", checked);
-    setCheckItem((prev) => {
-      if (checked) {
-        return [...new Set([...prev, id])];
-      } else {
-        return prev.filter((el) => el !== id);
-      }
-    });
+    if (checked) {
+      setCheckItem((prev) => [...prev, id]);
+    } else {
+      setCheckItem(checkItem.filter((el) => el !== id));
+    }
   };
 
   const handleAllCheck = (checked) => {
-    console.log("All Check - Checked:", checked);
     if (checked) {
-      setCheckItem(cartItems.map((item) => item.id));
+      const ids = [];
+      cartItems.forEach((el) => ids.push(el.id));
+      setCheckItem(ids);
     } else {
       setCheckItem([]);
     }
@@ -325,9 +349,7 @@ export function Cart() {
               transformOrigin: "0 0",
             }}
             onChange={(e) => handleAllCheck(e.target.checked)}
-            checked={
-              checkItem.length === cartItems.length && cartItems.length > 0
-            }
+            checked={checkItem.length === cartItems.length ? true : false}
             disabled={cartItems.length === 0}
           />
           <p>상품/옵션 정보</p>
@@ -352,11 +374,11 @@ export function Cart() {
                     transformOrigin: "0 0",
                   }}
                   onChange={(e) => handleSingleCheck(e.target.checked, item.id)}
-                  checked={checkItem.includes(item.id)}
+                  checked={checkItem.indexOf(item.id) >= 0 ? true : false}
                 />
                 <CartItemImg></CartItemImg>
                 <CartItemText>
-                  {item.bookName || item.mockTicketName || item.lectureName}
+                  {item.bookName || item.mockTicketName}
                 </CartItemText>
                 <CartItemCount>
                   <CountMinusButton onClick={() => updateQuantity(item.id, -1)}>
@@ -368,11 +390,10 @@ export function Cart() {
                   </CountButton>
                 </CartItemCount>
                 <CartItemPrice>
-                  {(item.bookPrice || item.ticketPrice || item.lecPrice) +
-                    " 원"}
+                  {(item.bookPrice || item.ticketPrice) + " 원"}
                 </CartItemPrice>
                 <CartItemTotalPrice>
-                  {(item.bookPrice || item.ticketPrice || item.lecPrice || 0) *
+                  {(item.bookPrice || item.ticketPrice || 0) *
                     (item.quantity || 1) +
                     item.shippingCost}{" "}
                   원
@@ -385,9 +406,11 @@ export function Cart() {
             </CartItemBox>
           ))
         )}
+
         <CartItemBox>
           <CartItemLine></CartItemLine>
         </CartItemBox>
+
         <CartPriceBox>
           <CartPriceText1>
             총 {checkItem.length}
@@ -404,8 +427,10 @@ export function Cart() {
             선택 상품 삭제
           </CartOrderDelete>
           <CartOrderBox1>
-            <CartSelectOrder>선택 상품 주문</CartSelectOrder>
-            <CartAllOrder>전체 상품 주문</CartAllOrder>
+            <CartSelectOrder onClick={handleSelectOrder}>
+              선택 상품 주문
+            </CartSelectOrder>
+            <CartAllOrder onClick={handleOrderAll}>전체 상품 주문</CartAllOrder>
           </CartOrderBox1>
         </CartOrderBox>
       </Container>
