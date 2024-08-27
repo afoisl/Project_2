@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { BirthdaySelector } from "./BirthdaySelector";
 import axios from "axios";
+import { useForm } from "react-hook-form";
 
 const Title = styled.div`
   font-size: 2rem;
   font-weight: 800;
   text-align: center;
-  margin-bottom: 50px;
+  margin: 100px 0 50px;
 `;
 
 const Box = styled.div`
@@ -65,6 +66,12 @@ const SignupButton = styled.button`
   color: white;
 `;
 
+const ErrorMessage = styled.p`
+  font-size: 0.8rem;
+  margin-left: 13px;
+  color: blue;
+`;
+
 export function SignUp() {
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
@@ -80,6 +87,26 @@ export function SignUp() {
   const [address, setAddress] = useState("");
 
   const { yearOptions, monthOptions, days } = BirthdaySelector({ year, month });
+
+  const {
+    register,
+    watch,
+    control,
+    setValue,
+    getValues,
+    reset,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm({
+    mode: "all",
+    defaultValues: {
+      user: "",
+      password: "",
+      passwordCheck: "",
+      term: false,
+    },
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -108,6 +135,21 @@ export function SignUp() {
       });
   };
 
+  useEffect(() => {
+    if (
+      watch("password") !== watch("passwordCheck") &&
+      watch("passwordCheck")
+    ) {
+      setError("passwordCheck", {
+        type: "password-mismatch",
+        message: "비밀번호가 일치하지 않습니다",
+      });
+    } else {
+      // 비밀번호 일치시 오류 제거
+      clearErrors("passwordCheck");
+    }
+  }, [watch("password"), watch("passwordCheck")]);
+
   return (
     <>
       <Box>
@@ -118,17 +160,45 @@ export function SignUp() {
           onChange={(e) => setUserId(e.target.value)}
         />
         <InputBox
-          placeholder="비밀번호"
+          name="password"
+          placeholder="비밀번호(영문, 숫자, 특수문자 포함 8자 ~ 20자)"
           type="password"
+          {...register("password", {
+            required: "비밀번호를 입력해주세요",
+            pattern: {
+              value:
+                /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/,
+              message: "영문, 숫자, 특수문자 포함 8 ~ 20자로 입력해주세요",
+            },
+          })}
           value={password}
+          maxLength={15}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {errors.password && (
+          <ErrorMessage>{errors.password.message}</ErrorMessage>
+        )}
+
         <InputBox
+          name="passwordCheck"
           placeholder="비밀번호 확인"
           type="password"
+          {...register("passwordCheck", {
+            required: "비밀번호를 확인해주세요",
+            validate: {
+              matchPassword: (value) => {
+                const { password } = getValues();
+                return password === value || "비밀번호가 일치하지 않습니다";
+              },
+            },
+          })}
           value={confirmPassword}
+          maxLength={15}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
+        {errors.passwordCheck && (
+          <ErrorMessage>{errors.passwordCheck.message}</ErrorMessage>
+        )}
         <InputBox
           placeholder="이름"
           value={name}
@@ -141,11 +211,13 @@ export function SignUp() {
         />
         <InputBox
           placeholder="휴대폰"
+          type="tel"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
         <InputBox
           placeholder="이메일"
+          type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
