@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom"; // useParams 임포트
+import { useParams, useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 60%;
@@ -91,6 +91,7 @@ const LecturePurchase = styled.div`
 export function Lecture() {
   const [lectures, setLectures] = useState([]);
   const { id } = useParams(); // id를 useParams로 가져옴
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -106,15 +107,23 @@ export function Lecture() {
 
   const handleAddToCart = (lecture) => {
     const currentCart = JSON.parse(localStorage.getItem("cart")) || [];
-    const updatedCart = [...currentCart, lecture];
+    const newItem = {
+      ...lecture,
+      uniqueId: `${lecture.id}-${Date.now()}`, // 현재 시간을 사용하여 고유 ID 생성
+    };
+    const updatedCart = [...currentCart, newItem];
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     alert(`${lecture.lectureName} 강의가 장바구니에 담겼습니다.`);
+  };
+
+  const handleAddtoOrder = (lecture) => {
+    navigate("/order", { state: { lectures: [lecture] } });
   };
 
   return (
     <Container>
       {lectures.map((lecture) => (
-        <LectureDetailPage key={lecture.id}>
+        <LectureDetailPage key={lecture.storeItemId}>
           <LectureBox1>
             <LectureImg></LectureImg>
           </LectureBox1>
@@ -127,7 +136,9 @@ export function Lecture() {
             <LectureCart onClick={() => handleAddToCart(lecture)}>
               장바구니 담기
             </LectureCart>
-            <LecturePurchase>바로 구매</LecturePurchase>
+            <LecturePurchase onClick={() => handleAddtoOrder(lecture)}>
+              바로 구매
+            </LecturePurchase>
           </LectureBox2>
         </LectureDetailPage>
       ))}

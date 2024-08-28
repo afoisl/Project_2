@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const StoreTitle = styled.div`
   margin-top: 200px;
@@ -98,6 +99,7 @@ export function Store() {
   const [cart, setCart] = useState([]);
   const [books, setBooks] = useState([]);
   const [mockTickets, setMockTickets] = useState([]);
+  const navigate = useNavigate();
 
   const bookStoreItemId = 2; //
   const mockTicketStoreItemId = 1; //
@@ -158,6 +160,16 @@ export function Store() {
     alert(`${name}이(가) 장바구니에 추가되었습니다.`);
   };
 
+  const handleAddtoOrder = (item) => {
+    const directPurchaseItem = {
+      ...item,
+      quantity: 1,
+      name: item.bookName || item.mockTicketName || "이름 없음",
+      price: item.bookPrice || item.ticketPrice || 0,
+    };
+
+    navigate("/order", { state: { lectures: [directPurchaseItem] } });
+  };
   return (
     <>
       <Container>
@@ -179,7 +191,9 @@ export function Store() {
                 <StoreButton1 onClick={() => addToCart(book)}>
                   장바구니 담기
                 </StoreButton1>
-                <StoreButton2>바로 구매</StoreButton2>
+                <StoreButton2 onClick={() => handleAddtoOrder(book)}>
+                  바로 구매
+                </StoreButton2>
               </StoreButton>
             </StoreBox>
           ))}
@@ -197,7 +211,9 @@ export function Store() {
                 <StoreButton1 onClick={() => addToCart(ticket)}>
                   장바구니 담기
                 </StoreButton1>
-                <StoreButton2>바로 구매</StoreButton2>
+                <StoreButton2 onClick={() => handleAddtoOrder(ticket)}>
+                  바로 구매
+                </StoreButton2>
               </StoreButton>
             </StoreBox>
           ))}

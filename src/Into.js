@@ -34,6 +34,7 @@ import { QnaWrite } from "./QnaWrite";
 import { Order } from "./Order";
 import { LectureWrapper } from "./LectureWrapper";
 import { StreamLecture } from "./StreamLecture";
+import { LectureView } from "./LectureView";
 
 const Container = styled.div`
   width: 100%;
@@ -105,6 +106,7 @@ function AppContent() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/order" element={<Order />} />
+            <Route path="/lectureView" element={<LectureView />} />
 
             <Route path="/mypage" element={<MyPage />}>
               <Route path="mylecture" element={<MyLecture />} />

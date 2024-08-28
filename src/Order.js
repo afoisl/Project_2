@@ -1,4 +1,6 @@
-import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -184,29 +186,85 @@ const OrderPayBox2 = styled.div`
   background-color: #2f62cb;
 `;
 export function Order() {
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
   const cartItems = location.state?.cartItems || [];
+  const directPurchaseItem = location.state?.lectures?.[0] || null;
+  const items = directPurchaseItem ? [directPurchaseItem] : cartItems;
 
   const calculateTotalPrice = () => {
-    return cartItems.reduce(
+    return items.reduce(
       (total, item) =>
         total +
-        (item.bookPrice || item.ticketPrice || 0) * (item.quantity || 1),
+        (item.bookPrice || item.ticketPrice || item.lecPrice || 0) *
+          (item.quantity || 1),
       0
     );
   };
 
   const calculateShippingCost = () => {
-    return cartItems.reduce(
-      (total, item) => total + (item.shippingCost || 0),
-      0
-    );
+    return items.reduce((total, item) => total + (item.shippingCost || 0), 0);
   };
 
   const calculateGrandTotal = () => {
     return calculateTotalPrice() + calculateShippingCost();
   };
 
+  const fetchCurrentUser = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8080/api/user/current",
+        { withCredentials: true }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Failed to fetch current user:", error);
+      throw error;
+    }
+  };
+
+  const fetchUserDetails = async (userId) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/user/id/${userId}`,
+        { withCredentials: true }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Failed to fetch user details:", error);
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const currentUser = await fetchCurrentUser();
+        if (!currentUser || !currentUser.userId) {
+          throw new Error("User not authenticated");
+        }
+        const userDetails = await fetchUserDetails(currentUser.userId);
+        setUser(userDetails);
+        setError(null);
+      } catch (err) {
+        console.error("Failed to fetch user data:", err);
+        setError(err.message);
+        navigate("/login", { state: { from: location.pathname } });
+      }
+    };
+
+    getUserData();
+  }, [navigate, location.pathname]);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <Container>
@@ -215,22 +273,25 @@ export function Order() {
           <OrderBoxLeft>
             <OrderProduct>
               <OrderText>주문 상품 정보</OrderText>
-              {cartItems.map((item) => (
-                <OrderProductGrid key={item.id}>
+              {items.map((item) => (
+                <OrderProductGrid key={item.storeItemId}>
                   <OrderProductBox1>
                     <OrderBoxImg></OrderBoxImg>
                   </OrderProductBox1>
                   <OrderProductBox2>
                     <OrderText2>
-                      {item.bookName || item.mockTicketName}
+                      {item.bookName || item.mockTicketName || item.lectureName}
                     </OrderText2>
                     <OrderText>
-                      가격: {item.bookPrice || item.ticketPrice} 원
+                      가격:{" "}
+                      {item.bookPrice || item.ticketPrice || item.lecPrice} 원
                     </OrderText>
-                    <OrderText>수량: {item.quantity}</OrderText>
+                    <OrderText>수량: {item.quantity || 1}</OrderText>
                     <OrderText>
                       합계:{" "}
-                      {(item.bookPrice || item.ticketPrice) * item.quantity} 원
+                      {(item.bookPrice || item.ticketPrice || item.lecPrice) *
+                        (item.quantity || 1)}{" "}
+                      원
                     </OrderText>
                   </OrderProductBox2>
                 </OrderProductGrid>
@@ -239,22 +300,22 @@ export function Order() {
             <OrderCustomer>
               <OrderText>주문자 정보</OrderText>
               <OrderCustomerBox>
-                <OrderText2>홍길동</OrderText2>
+                <OrderText2>{user.name}</OrderText2>
                 <OrderTextMargin></OrderTextMargin>
-                <OrderText2>dddd@email.com</OrderText2>
+                <OrderText2>{user.email}</OrderText2>
                 <OrderTextMargin></OrderTextMargin>
-                <OrderText2>010-1234-5678</OrderText2>
+                <OrderText2>{user.phoneNumber}</OrderText2>
               </OrderCustomerBox>
             </OrderCustomer>
             <OrderDelivery>
               <OrderText>배송 정보</OrderText>
               <OrderDeliveryBox1>
                 <OrderDeliveryBox3>
-                  <OrderText2>홍길동</OrderText2>
+                  <OrderText2>{user.name}</OrderText2>
                   <OrderTextMargin></OrderTextMargin>
-                  <OrderText2>010-1234-5678</OrderText2>
+                  <OrderText2>{user.phoneNumber}</OrderText2>
                   <OrderTextMargin></OrderTextMargin>
-                  <OrderText2>대전시 중구 000-00</OrderText2>
+                  <OrderText2>{user.address}</OrderText2>
                 </OrderDeliveryBox3>
                 <OrderDeliveryBox4>
                   <OrderDeliveryAdress>수정</OrderDeliveryAdress>
@@ -320,7 +381,7 @@ export function Order() {
                 약간 및 주문내용을 확인 하였으며 <br />
                 정보제공에 동의합니다.
               </OrderPayBox1>
-              <OrderPayBox2>00000원 결제하기</OrderPayBox2>
+              <OrderPayBox2>{calculateGrandTotal()}원 결제하기</OrderPayBox2>
             </OrderPay>
           </OrderBoxRight>
         </OrderBoxGrid>

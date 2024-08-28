@@ -9,7 +9,7 @@ const Container = styled.div`
 const MyPageTitle = styled.div`
   margin-top: 200px;
   font-size: 48px;
-  font-weight: bold;
+
   text-align: center;
 `;
 const MyPageGrid = styled.div`
@@ -141,7 +141,7 @@ const MyPageLectureGo = styled.div`
 const MyPageSubMenu = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  font-size: 30px;
+  font-size: 25px;
   margin-top: 130px;
   margin-bottom: 140px;
 `;
@@ -175,81 +175,86 @@ const MyWritingGo = styled.div`
 `;
 
 const LearningStatusTitle = styled.div`
-  font-size: 30px;
+  font-size: 25px;
   margin: 10px 0px 50px 20px;
 `;
 const LearningStatusGrid = styled.div`
   display: grid;
   grid-template-columns: 2.5fr 1fr 1fr 1fr 1fr;
   background-color: #fafafa;
-  height: 70px;
+  height: 40px;
+  line-height: 5px;
   width: 1200px;
   text-align: center;
-  font-size: 22px;
+  font-size: 17px;
 `;
 const LearningStatus = styled.div`
   margin-bottom: 150px;
 `;
 const OrderDeliveryTitle = styled.div`
-  font-size: 30px;
+  font-size: 25px;
   margin: 10px 0px 50px 20px;
 `;
 const OrderDeliveryGrid = styled.div`
   display: grid;
   grid-template-columns: 1.5fr 2fr 1fr 1fr;
   background-color: #fafafa;
-  height: 70px;
+  height: 40px;
+  line-height: 5px;
   width: 1200px;
   text-align: center;
-  font-size: 22px;
+  font-size: 17px;
 `;
 const OrderDelivery = styled.div`
   margin-bottom: 150px;
 `;
 const PointTitle = styled.div`
-  font-size: 30px;
+  font-size: 25px;
   margin: 10px 0px 50px 20px;
 `;
 const PointGrid = styled.div`
   display: grid;
   grid-template-columns: 1.5fr 1.5fr 1fr 1fr;
   background-color: #fafafa;
-  height: 70px;
+  height: 40px;
+  line-height: 5px;
   width: 1200px;
   text-align: center;
-  font-size: 22px;
+  font-size: 17px;
 `;
 const Point = styled.div`
   margin-bottom: 150px;
 `;
 const ItemTitle = styled.div`
-  font-size: 30px;
+  font-size: 25px;
   margin: 10px 0px 50px 20px;
 `;
 const ItemGrid = styled.div`
   display: grid;
   grid-template-columns: 3fr 3fr 1fr;
   background-color: #fafafa;
-  height: 70px;
+  height: 40px;
+  line-height: 5px;
   width: 1200px;
   text-align: center;
-  font-size: 22px;
+  font-size: 17px;
 `;
 const Item = styled.div`
   margin-bottom: 150px;
 `;
 const MyWritingTitle = styled.div`
-  font-size: 30px;
+  font-size: 25px;
   margin: 10px 0px 50px 20px;
 `;
 const MyWritingGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 3fr 1.5fr;
   background-color: #fafafa;
-  height: 70px;
+  height: 40px;
+  line-height: 5px;
   width: 1200px;
   text-align: center;
-  font-size: 22px;
+  font-size: 17px;
 `;
 const MyWriting = styled.div`
   margin-bottom: 150px;
