@@ -80,7 +80,7 @@ export function LectureDetails() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/lecture")
+      .get("/api/lecture")
       .then((response) => {
         console.log("데이터", response.data);
         setLectures(response.data);

@@ -214,10 +214,9 @@ export function Order() {
 
   const fetchCurrentUser = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8080/api/user/current",
-        { withCredentials: true }
-      );
+      const response = await axios.get("/api/user/current", {
+        withCredentials: true,
+      });
       return response.data;
     } catch (error) {
       console.error("Failed to fetch current user:", error);
@@ -227,10 +226,9 @@ export function Order() {
 
   const fetchUserDetails = async (userId) => {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/api/user/id/${userId}`,
-        { withCredentials: true }
-      );
+      const response = await axios.get(`/api/user/id/${userId}`, {
+        withCredentials: true,
+      });
       return response.data;
     } catch (error) {
       console.error("Failed to fetch user details:", error);

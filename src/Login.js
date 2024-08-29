@@ -86,7 +86,7 @@ export function Login() {
       password: password,
     };
     axios
-      .post("http://localhost:8080/api/user/login", userData, {
+      .post("/api/user/login", userData, {
         withCredentials: true,
       })
       .then((response) => {

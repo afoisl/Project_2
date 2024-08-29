@@ -106,7 +106,7 @@ export function Store() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/storeItem/${bookStoreItemId}/books`)
+      .get(`/api/storeItem/${bookStoreItemId}/books`)
       .then((response) => {
         console.log("Books API Response:", response.data);
         setBooks(response.data);
@@ -116,9 +116,7 @@ export function Store() {
       });
 
     axios
-      .get(
-        `http://localhost:8080/api/storeItem/${mockTicketStoreItemId}/mockTickets`
-      )
+      .get(`/api/storeItem/${mockTicketStoreItemId}/mockTickets`)
       .then((response) => {
         console.log("MockTickets API Response:", response.data);
         setMockTickets(response.data);
@@ -181,7 +179,7 @@ export function Store() {
             <StoreBox key={book.storeItemId}>
               <StoreImage1>
                 <img
-                  src={`http://localhost:8080/api/images/${book.image_path}`}
+                  src={`/api/images/${book.image_path}`}
                   alt={book.bookName}
                 />
               </StoreImage1>
@@ -201,7 +199,7 @@ export function Store() {
             <StoreBox key={ticket.storeItemId}>
               <StoreImage1>
                 <img
-                  src={`http://localhost:8080/api/images/${ticket.image_path}`}
+                  src={`/api/images/${ticket.image_path}`}
                   alt={ticket.mockTicketName}
                 />
               </StoreImage1>

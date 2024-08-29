@@ -95,7 +95,7 @@ export function Lecture() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/lecture/${id}`) // 템플릿 리터럴로 수정
+      .get(`/api/lecture/${id}`) // 템플릿 리터럴로 수정
       .then((response) => {
         console.log("데이터", response.data);
         setLectures([response.data]); // 배열로 설정

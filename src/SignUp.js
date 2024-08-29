@@ -124,7 +124,7 @@ export function SignUp() {
       nickname: nickname,
     };
     axios
-      .post("http://localhost:8080/api/user/signup", userData, {
+      .post("/api/user/signup", userData, {
         withCredentials: true,
       })
       .then((response) => {

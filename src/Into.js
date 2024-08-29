@@ -35,6 +35,7 @@ import { Order } from "./Order";
 import { LectureWrapper } from "./LectureWrapper";
 import { StreamLecture } from "./StreamLecture";
 import { LectureView } from "./LectureView";
+import { OrderCompleted } from "./OrderCompleted";
 
 const Container = styled.div`
   width: 100%;

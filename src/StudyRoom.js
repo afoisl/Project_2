@@ -6,8 +6,8 @@ import { useEffect } from "react";
 import DoorImg from "./assets/img/DoorImg.png";
 import LockImg from "./assets/img/LockImg.png";
 
-const urlStudyroom = "http://localhost:8080/api/studyroom";
-const urlSession = "http://localhost:8080/api/user/current";
+const urlStudyroom = "/api/studyroom";
+const urlSession = "/api/user/current";
 
 const Header = styled.div`
   height: 600px;
@@ -95,11 +95,9 @@ export function StudyRoom() {
           response.data.userId !== "anonymousUser"
         ) {
           setUserId(response.data.userId);
-          axios
-            .get("http://localhost:8080/api/user/id/" + response.data.userId)
-            .then((response) => {
-              setUserGrade(response.data.grade);
-            });
+          axios.get("/api/user/id/" + response.data.userId).then((response) => {
+            setUserGrade(response.data.grade);
+          });
         }
       })
       .catch((error) => {

@@ -104,7 +104,7 @@ export function Menu() {
 
   function sessionCurrent() {
     axios
-      .get("http://localhost:8080/api/user/current", { withCredentials: true })
+      .get("/api/user/current", { withCredentials: true })
       .then((response) => {
         console.log("데이터:", response);
         if (
