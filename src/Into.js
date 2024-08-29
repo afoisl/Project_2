@@ -106,6 +106,7 @@ function AppContent() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/order" element={<Order />} />
+            <Route path="/orderCompleted" element={<OrderCompleted />} />
             <Route path="/lectureView" element={<LectureView />} />
 
             <Route path="/mypage" element={<MyPage />}>
