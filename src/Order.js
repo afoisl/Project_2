@@ -185,6 +185,17 @@ const OrderPayBox2 = styled.div`
   border-radius: 15px;
   background-color: #2f62cb;
 `;
+const NoBorderInput = styled.input`
+  border: none;
+  width: 100%;
+  outline: none;
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
+`;
+
 export function Order() {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
@@ -193,6 +204,7 @@ export function Order() {
   const cartItems = location.state?.cartItems || [];
   const directPurchaseItem = location.state?.lectures?.[0] || null;
   const items = directPurchaseItem ? [directPurchaseItem] : cartItems;
+  const [isInputClicked, setIsInputClicked] = useState(false);
 
   const calculateTotalPrice = () => {
     return items.reduce(
@@ -263,6 +275,45 @@ export function Order() {
   if (!user) {
     return <div>Loading...</div>;
   }
+
+  const handlePurchase = async () => {
+    try {
+      const purchasePromises = items.map((item) =>
+        axios.post(
+          "/api/purchase/save",
+          {
+            user: {
+              userId: user.userId,
+            },
+            storeItem: {
+              storeItemId: item.storeItemId,
+            },
+            purchaseTime: new Date().toISOString(),
+            address: user.address,
+            quantity: item.quantity || 1,
+          },
+          { withCredentials: true }
+        )
+      );
+
+      const responses = await Promise.all(purchasePromises);
+
+      console.log("Responses:", responses);
+
+      const purchaseIds = responses.map((response) => response.data.purchaseId);
+
+      navigate("/orderCompleted", {
+        state: { orderIds: purchaseIds },
+      });
+    } catch (error) {
+      console.error("Failed to complete purchase:", error);
+      if (error.response) {
+        console.error("Error response:", error.response.data);
+      }
+      alert("결제 중 오류가 발생했습니다. 다시 시도해주세요.");
+    }
+  };
+
   return (
     <>
       <Container>
@@ -371,7 +422,19 @@ export function Order() {
                 ㅇㅇ은행 : 0000 - 00 - 0000 예금주명{" "}
               </OrderPaymentBox1>
               <OrderPaymentBox2>
-                입금자명 : (미입력시 주문자명)
+                <NoBorderInput
+                  onFocus={() => {
+                    setIsInputClicked(true);
+                  }}
+                  onBlur={() => {
+                    setIsInputClicked(false);
+                  }}
+                  placeholder={
+                    isInputClicked === true
+                      ? ""
+                      : "입금자명 : (미입력시 주문자명)"
+                  }
+                />
               </OrderPaymentBox2>
             </OrderPayment>
             <OrderPay>
@@ -379,7 +442,9 @@ export function Order() {
                 약간 및 주문내용을 확인 하였으며 <br />
                 정보제공에 동의합니다.
               </OrderPayBox1>
-              <OrderPayBox2>{calculateGrandTotal()}원 결제하기</OrderPayBox2>
+              <OrderPayBox2 onClick={handlePurchase}>
+                {calculateGrandTotal()}원 결제하기
+              </OrderPayBox2>
             </OrderPay>
           </OrderBoxRight>
         </OrderBoxGrid>
