@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import Chat from "./Chat";
 import styled from "styled-components";
@@ -34,30 +34,43 @@ const ChatingRoomBox = styled.div`
   padding: 50px;
 `;
 
-const RoomName = styled.h1``;
+const RoomUser = styled.div``;
+
+const RoomName = styled.div`
+  font-size: 2.3rem;
+  font-weight: 700;
+`;
+
+const RoomInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  padding: 30px 0px;
+`;
 
 export function ChatingRoom() {
   const { roomId, userId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const grade = location.state?.grade;
-  console.log(grade);
 
-  axios
-    .get("http://localhost:8080/api/user/current", {
-      withCredentials: true,
-    })
-    .then((response) => {
-      if (response.data.userId == userId) {
-        console.log("채팅룸 입장");
-      } else {
-        alert("로그인되지 않은 아이디는 사용할 수 없습니다");
-        navigate(`/chating-room/${roomId}/${response.data.userId}`);
+  useEffect(() => {
+    const checkUser = async () => {
+      try {
+        const response = await axios.get("/api/user/current", {
+          withCredentials: true,
+        });
+        if (response.data.userId !== userId) {
+          alert("로그인되지 않은 아이디는 사용할 수 없습니다");
+          navigate(`/chating-room/${roomId}/${response.data.userId}`);
+        }
+      } catch (error) {
+        console.log("에러 발생:", error);
       }
-    })
-    .catch((error) => {
-      console.log("에러 발생:", error);
-    });
+    };
+
+    checkUser();
+  }, [userId, roomId, navigate]);
 
   function handleBackbtn() {
     navigate(`/studyroom`);
@@ -70,7 +83,9 @@ export function ChatingRoom() {
           <BackImg></BackImg>
           나가기
         </BackBtn>
-        <RoomName>{grade}</RoomName>
+        <RoomInfo>
+          <RoomName>{grade}</RoomName>
+        </RoomInfo>
         <Chat userId={userId} roomId={roomId} />
       </ChatingRoomBox>
     </Container>

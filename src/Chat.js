@@ -132,6 +132,13 @@ const DateText = styled.span`
   font-size: 0.9em;
 `;
 
+const SystemMessage = styled.div`
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  margin: 10px 0;
+`;
+
 const formatDate = (date, format = "time") => {
   if (!date) return "";
   const dateObject = date instanceof Date ? date : new Date(date);
@@ -158,11 +165,14 @@ const adjustHeight = (element) => {
   }
 };
 
-const Chat = ({ userId, roomId }) => {
-  const { messages, currentMessage, setCurrentMessage, sendMessage } = useChat(
-    userId,
-    roomId
-  );
+export function Chat({ userId, roomId }) {
+  const {
+    messages,
+    currentMessage,
+    setCurrentMessage,
+    sendMessage,
+    chatUserCount,
+  } = useChat(userId, roomId);
 
   const formattedMessages = messages.map((message) => ({
     ...message,
@@ -189,13 +199,6 @@ const Chat = ({ userId, roomId }) => {
         (messageDate && messageDate.getTime() !== currentDate.getTime());
       const isOwnMessage = message.sender === userId;
 
-      const showSender =
-        !isOwnMessage &&
-        (index === 0 ||
-          formattedMessages[index - 1].sender !== message.sender ||
-          showDateSeparator ||
-          lastDateSeparator);
-
       if (showDateSeparator && messageDate) {
         currentDate = messageDate;
         lastDateSeparator = true;
@@ -206,59 +209,68 @@ const Chat = ({ userId, roomId }) => {
               <DateText>{formatDate(messageDate, "date")}</DateText>
               <DateLine />
             </DateSeparator>
-            <MessageGroup isOwnMessage={isOwnMessage}>
-              {!isOwnMessage && showSender && <Sender>{message.sender}</Sender>}
-              <MessageContent isOwnMessage={isOwnMessage}>
-                <Content isOwnMessage={isOwnMessage}>{message.content}</Content>
-                <Time isOwnMessage={isOwnMessage}>
-                  {formatDate(message.sentAt)}
-                </Time>
-              </MessageContent>
-            </MessageGroup>
+            {renderMessageContent(message, isOwnMessage, index)}
           </React.Fragment>
         );
       }
-
       lastDateSeparator = false;
-      return (
-        <MessageGroup key={`msg-${index}`} isOwnMessage={isOwnMessage}>
-          {!isOwnMessage && showSender && <Sender>{message.sender}</Sender>}
-          <MessageContent isOwnMessage={isOwnMessage}>
-            <Content isOwnMessage={isOwnMessage}>{message.content}</Content>
-            <Time isOwnMessage={isOwnMessage}>
-              {formatDate(message.sentAt)}
-            </Time>
-          </MessageContent>
-        </MessageGroup>
-      );
+      return renderMessageContent(message, isOwnMessage, index);
     });
   };
 
+  const renderMessageContent = (message, isOwnMessage, index) => {
+    if (message.type === "JOIN" || message.type === "LEAVE") {
+      return (
+        <SystemMessage key={`msg-${index}`}>{message.content}</SystemMessage>
+      );
+    }
+
+    const showSender =
+      !isOwnMessage &&
+      (index === 0 ||
+        formattedMessages[index - 1].sender !== message.sender ||
+        formattedMessages[index - 1].type === "JOIN" ||
+        formattedMessages[index - 1].type === "LEAVE");
+
+    return (
+      <MessageGroup key={`msg-${index}`} isOwnMessage={isOwnMessage}>
+        {!isOwnMessage && showSender && <Sender>{message.sender}</Sender>}
+        <MessageContent isOwnMessage={isOwnMessage}>
+          <Content isOwnMessage={isOwnMessage}>{message.content}</Content>
+          <Time isOwnMessage={isOwnMessage}>{formatDate(message.sentAt)}</Time>
+        </MessageContent>
+      </MessageGroup>
+    );
+  };
+
   return (
-    <ChatRoomContainer>
-      <MessageList>{renderMessages()}</MessageList>
-      <MessageSendBox>
-        <MessageAddFile></MessageAddFile>
-        <MessageSender className="message-sender">
-          <Input
-            value={currentMessage}
-            onChange={(e) => {
-              setCurrentMessage(e.target.value);
-              adjustHeight(e.target);
-            }}
-            onKeyPress={(e) => {
-              if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
-              }
-            }}
-            placeholder="메세지를 입력하세요"
-          />
-          <SendBtn onClick={sendMessage}>Send</SendBtn>
-        </MessageSender>
-      </MessageSendBox>
-    </ChatRoomContainer>
+    <>
+      <div>현재 채팅중인 사용자 : {chatUserCount}</div>
+      <ChatRoomContainer>
+        <MessageList>{renderMessages()}</MessageList>
+        <MessageSendBox>
+          <MessageAddFile></MessageAddFile>
+          <MessageSender className="message-sender">
+            <Input
+              value={currentMessage}
+              onChange={(e) => {
+                setCurrentMessage(e.target.value);
+                adjustHeight(e.target);
+              }}
+              onKeyPress={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  sendMessage();
+                }
+              }}
+              placeholder="메세지를 입력하세요"
+            />
+            <SendBtn onClick={sendMessage}>Send</SendBtn>
+          </MessageSender>
+        </MessageSendBox>
+      </ChatRoomContainer>
+    </>
   );
-};
+}
 
 export default Chat;
