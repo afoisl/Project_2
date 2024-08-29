@@ -91,8 +91,8 @@ function AppContent() {
               element={<ChatingRoom />}
             />
             <Route path="/grouplecroom" element={<GroupLecRoom />} />
-            <Route path="/speciallecroom" element={<SpecialLecRoom />}>
-              <Route index element={SpecialLecRoom} />
+            <Route path="/speciallecroom" element={<StreamWrapper />}>
+              <Route index element={<SpecialLecRoom />} />
               <Route path=":streamId" element={<StreamLecture />} />
             </Route>
             <Route
