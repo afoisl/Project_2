@@ -23,6 +23,7 @@ const Title = styled.div`
   font-weight: 800;
   text-align: center;
   margin-bottom: 40px;
+  cursor: default;
 `;
 
 const InputBox = styled.input`
@@ -56,6 +57,12 @@ const JoinLink = styled.div`
   margin-top: 15px;
   font-size: 0.9rem;
   cursor: pointer;
+  text-decoration: none;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
 `;
 
 export function Login() {
@@ -129,7 +136,9 @@ export function Login() {
             </label>
           </ShowPwBox>
           <Signin onClick={handleLogin}>로그인</Signin>
-          <JoinLink>회원가입</JoinLink>
+          <StyledLink to="/signup">
+            <JoinLink>회원가입</JoinLink>
+          </StyledLink>
         </Box>
       </Container>
     </>
