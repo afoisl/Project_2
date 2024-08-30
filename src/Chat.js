@@ -11,6 +11,7 @@ const MessageList = styled.div`
   border-radius: 10px 10px 0px 0px;
   display: flex;
   flex-direction: column;
+  min-height: 300px;
 `;
 
 const MessageGroup = styled.div`
