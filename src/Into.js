@@ -37,6 +37,7 @@ import { StreamLecture } from "./StreamLecture";
 import { LectureView } from "./LectureView";
 import { OrderCompleted } from "./OrderCompleted";
 import { StreamWrapper } from "./StreamWrapper";
+import { FooterReal } from "./Footer";
 
 const Container = styled.div`
   width: 100%;
@@ -122,6 +123,7 @@ function AppContent() {
           </Routes>
         </Body>
       </Container>
+      <FooterReal />
     </>
   );
 }
