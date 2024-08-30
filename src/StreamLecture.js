@@ -1,24 +1,157 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+import 사람이미지 from "./assets/img/사람이미지.png";
+import axios from "axios";
+import Chat from "./Chat";
+import { set } from "react-hook-form";
 
 const Title = styled.div`
-  font-size: 48px;
+  font-size: 40px;
+`;
+
+const Container = styled.div`
+  width: 60%;
+  margin: auto;
+  margin-top: 80px;
+`;
+
+const StreamLectureBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const StreamVideo = styled.div`
+  width: 790px;
+  height: 510px;
+  background-color: #d9d9d9;
+`;
+const StreamChat = styled.div`
+  width: 320px;
+  border-radius: 20px;
+  background-color: #d9d9d9;
+  position: relative;
+`;
+
+const TimeInfo = styled.div`
+  margin-top: 20px;
+  font-size: 18px;
+`;
+
+const Blank = styled.div`
+  height: 200px;
+`;
+
+const Footer = styled.div`
+  width: 100%;
+  height: 70px;
+  text-align: center;
+  background-color: #8e8e8e;
+  color: white;
+  font-size: 24px;
+  padding: 15px 0;
 `;
 
 export function StreamLecture() {
   const { streamId } = useParams();
+  const [streamTitle, setStreamTitle] = useState("");
+  const [userId, setUserId] = useState(null);
+  const [streamEndTime, setStreamEndTime] = useState("");
+  const [remainingTime, setRemainingTime] = useState("");
+  const [videoSrc, setVideoSrc] = useState("");
+
+  //임시 roomId (채팅 코드 수정 필요)
+  const roomId = 11;
+
+  useEffect(() => {
+    axios
+      .get(`/api/stream/lecture/${streamId}`)
+      .then((response) => {
+        console.log(response.data);
+        setStreamTitle(response.data.streamTitle);
+        setStreamEndTime(response.data.endTime);
+        setVideoSrc(response.data.videoSrc);
+      })
+      .catch((error) => {
+        console.log("에러 : ", error);
+      });
+
+    axios
+      .get("/api/user/current", {
+        withCredentials: true,
+      })
+      .then((response) => {
+        setUserId(response.data.userId);
+      })
+      .catch((error) => {
+        console.log("에러 발생:", error);
+      });
+  }, [streamId]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      updateRemainingTime();
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [streamEndTime]);
+
+  const updateRemainingTime = () => {
+    if (!streamEndTime) return;
+
+    const now = new Date();
+    const end = new Date(streamEndTime);
+    const diff = end - now;
+
+    if (diff > 0) {
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      setRemainingTime(`남은 시간 : ${hours}시간 ${minutes}분 ${seconds}초`);
+      // console.log(`${hours}시간 ${minutes}분 ${seconds}초`);
+    } else {
+      setRemainingTime("강의가 종료되었습니다.");
+    }
+  };
+
+  const formatEndTime = (endTime) => {
+    if (!endTime) return "로딩 중...";
+    const date = new Date(endTime);
+    return date.toLocaleString("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
+  };
 
   return (
     <>
       <Container>
-        <Title>실시간 특강{streamId}</Title>
+        <StreamLectureBox>
+          <StreamVideo>
+            {videoSrc ? (
+              <video src={videoSrc} controls width="100%" height="100%" />
+            ) : (
+              "video"
+            )}
+          </StreamVideo>
+          <StreamChat>
+            <Chat userId={userId} roomId={roomId}></Chat>
+          </StreamChat>
+        </StreamLectureBox>
+        <Title>{streamTitle}</Title>
+        <TimeInfo>
+          <p>강의 종료 시간 : {formatEndTime(streamEndTime)}</p>
+          <p>{remainingTime || "계산 중..."}</p>
+        </TimeInfo>
       </Container>
+      <Blank></Blank>
+      <Footer>
+        Footer <br />
+        Designed by MajorFlow
+      </Footer>
     </>
   );
 }
