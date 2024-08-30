@@ -1,4 +1,7 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 60%;
@@ -75,35 +78,75 @@ const Footer = styled.div`
   font-size: 24px;
   padding: 15px 0;
 `;
+const LoadingMessage = styled.div``;
 
 export function MyLecture() {
+  const [purchases, setPurchases] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get(`/api/purchase`)
+      .then((response) => {
+        console.log("데이터", response.data);
+
+        const purchasesArray = Array.isArray(response.data)
+          ? response.data
+          : [response.data];
+        setPurchases(purchasesArray);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log("error", error);
+        setIsLoading(false);
+      });
+  }, []);
+
+  const handleLectureClick = (storeItemId) => {
+    navigate(`/lectureView/${storeItemId}`);
+  };
+
   return (
     <>
       <Container>
         <MyLectureTitle>수강현황</MyLectureTitle>
-        <LectureList>
-          <LectureImg></LectureImg>
-          <LectureText>
-            <LectureText1>LC</LectureText1>
-            <LectureText2>한번에 끝내는 PART 3</LectureText2>
-            <LectureText3>초급반</LectureText3>
-            <LectureText4>진도율</LectureText4>
-            <LectureText5></LectureText5>
-          </LectureText>
-          <LectureGo>강의듣기</LectureGo>
-        </LectureList>
-        <LectureMargin></LectureMargin>
-        <LectureList>
-          <LectureImg></LectureImg>
-          <LectureText>
-            <LectureText1>LC</LectureText1>
-            <LectureText2>한번에 끝내는 PART 3</LectureText2>
-            <LectureText3>초급반</LectureText3>
-            <LectureText4>진도율</LectureText4>
-            <LectureText5></LectureText5>
-          </LectureText>
-          <LectureGo>강의듣기</LectureGo>
-        </LectureList>
+        {isLoading ? (
+          <LoadingMessage>강의 정보를 불러오는 중입니다...</LoadingMessage>
+        ) : purchases.length > 0 ? (
+          purchases.map(
+            (purchase) =>
+              purchase.lecture && (
+                <React.Fragment key={purchase.purchaseId}>
+                  <LectureList>
+                    <LectureImg></LectureImg>
+                    <LectureText>
+                      <LectureText1>{purchase.lecture.subject}</LectureText1>
+                      <LectureText2>
+                        {purchase.lecture.lectureName}
+                      </LectureText2>
+                      <LectureText3>
+                        {purchase.lecture.lectureClass}
+                      </LectureText3>
+                      <LectureText4>진도율</LectureText4>
+                      <LectureText5></LectureText5>
+                    </LectureText>
+                    <LectureGo
+                      onClick={() =>
+                        handleLectureClick(purchase.lecture.storeItemId)
+                      }
+                    >
+                      강의듣기
+                    </LectureGo>
+                  </LectureList>
+                  <LectureMargin></LectureMargin>
+                </React.Fragment>
+              )
+          )
+        ) : (
+          <LoadingMessage>구매한 강의가 없습니다.</LoadingMessage>
+        )}
         <LectureMargin1></LectureMargin1>
       </Container>
       <Footer>
