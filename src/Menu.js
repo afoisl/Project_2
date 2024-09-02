@@ -132,6 +132,9 @@ export function Menu() {
   const handleLogout = (e) => {
     e.preventDefault(); // 링크의 기본 동작 방지
     sessionStorage.removeItem("JWT-Token");
+    sessionStorage.removeItem("UserID");
+    sessionStorage.removeItem("Authority");
+
     setIsLoggedIn(false);
     navigate(location.pathname, { replace: false });
     // document.cookie =

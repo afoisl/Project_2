@@ -107,13 +107,16 @@ export function Login() {
         if (response.data.resultCode == "SUCCESS") {
           userInfo.token = response.data.data.token;
           userInfo.userId = response.data.data.userId;
-          userInfo.authority = response.data.data.authority;
+          userInfo.authority = response.data.data.authority[0].authority;
+          console.log(userInfo);
           sessionStorage.setItem("JWT-Token", response.data.data.token);
           sessionStorage.setItem("UserID", response.data.data.userId);
-          sessionStorage.setItem("Authority", response.data.data.authority);
-
+          sessionStorage.setItem(
+            "Authority",
+            response.data.data.authority[0].authority
+          );
           navigate(from, { replace: true });
-          window.location.reload();
+          //window.location.reload();
         } else {
           alert("로그인에 실패했습니다.");
         }
