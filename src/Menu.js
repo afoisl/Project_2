@@ -99,37 +99,38 @@ export function Menu() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    sessionCurrent();
+    // sessionCurrent();
   }, []);
 
-  function sessionCurrent() {
-    axios
-      .get("/api/user/current", { withCredentials: true })
-      .then((response) => {
-        console.log("데이터:", response);
-        if (
-          response.status == 200 &&
-          response.data.userId !== "anonymousUser"
-        ) {
-          console.log("세션 유지");
-          setIsLoggedIn(true);
-        } else {
-          setIsLoggedIn(false);
-        }
-      })
-      .catch((error) => {
-        console.log("에러 발생:", error);
-        setIsLoggedIn(false);
-      });
-  }
-
+  // function sessionCurrent() {
+  //   const jwtToken = sessionStorage.getItem("JWT-Token");
+  //   if (!jwtToken) {
+  //     console.log("인증이 필요합니다.");
+  //     return;
+  //   }
+  //   axios
+  //     .get("http://localhost:8080/api/user/current", {
+  //       withCredentials: true,
+  //       headers: {
+  //         Authorization: `Bearer ${jwtToken}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log("데이터:", response.data);
+  //       if (response.data.resultCode == "SUCCESS") {
+  //         console.log("세션 유지");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log("에러 발생:", error.response.data);
+  //     });
+  // }
   const handleLogout = (e) => {
     e.preventDefault(); // 링크의 기본 동작 방지
-    if (confirm("로그아웃하시겠습니까?")) {
-      sessionStorage.removeItem("JWT-token");
+    if (alert("로그아웃하시겠습니까?")) {
+      sessionStorage.removeItem("JWT-Token");
       window.location.reload();
     }
-
     // document.cookie =
     //   "authToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
 
