@@ -90,7 +90,7 @@ export function Customer() {
 
   const fetchNotices = async () => {
     try {
-      const response = await axios.get("/api/notice"); // 백엔드 API 호출
+      const response = await axios.get("http://localhost:8080/api/notice"); // 백엔드 API 호출
       setNotices(response.data); // 가져온 데이터를 상태로 설정
     } catch (error) {
       console.log("Error fetching notices: ", error);
