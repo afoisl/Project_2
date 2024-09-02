@@ -1,6 +1,7 @@
+import React, { useState } from "react";
 import axios from "axios";
-import { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 60%;
@@ -22,6 +23,13 @@ const InputBox = styled.input`
   height: 40px;
   width: 400px;
   font-size: 18px;
+`;
+
+const DateTimeInput = styled.input`
+  height: 40px;
+  width: 230px;
+  font-size: 18px;
+  margin-right: 10px;
 `;
 
 const CreateStreamBtn = styled.div`
@@ -57,13 +65,14 @@ export function CreateStream() {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [videoSrc, setVideoSrc] = useState("");
+  const navigate = useNavigate();
 
-  const handleCreateLecture = (e) => {
+  const handleCreateLecture = () => {
     const streamData = {
-      streamTitle: streamTitle,
-      startTime: startTime,
-      endTime: endTime,
-      videoSrc: videoSrc,
+      streamTitle,
+      startTime,
+      endTime,
+      videoSrc,
     };
 
     axios
@@ -72,6 +81,8 @@ export function CreateStream() {
       })
       .then((response) => {
         console.log("스트림 생성 성공 : ", response.data);
+        alert("스트리밍이 생성되었습니다");
+        navigate("/speciallecroom");
       })
       .catch((error) => {
         console.log("에러 : ", error);
@@ -86,6 +97,18 @@ export function CreateStream() {
         <InputBox
           value={streamTitle}
           onChange={(e) => setStreamTitle(e.target.value)}
+        />
+        <InputTitle>시작 일시</InputTitle>
+        <DateTimeInput
+          type="datetime-local"
+          value={startTime}
+          onChange={(e) => setStartTime(e.target.value)}
+        />
+        <InputTitle>종료 일시</InputTitle>
+        <DateTimeInput
+          type="datetime-local"
+          value={endTime}
+          onChange={(e) => setEndTime(e.target.value)}
         />
         <CreateStreamBtn onClick={handleCreateLecture}>
           스트리밍 예약
