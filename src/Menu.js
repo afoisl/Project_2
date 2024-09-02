@@ -94,12 +94,16 @@ const SubRight = styled.div`
 `;
 
 export function Menu() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // sessionCurrent();
+    const jwtToken = sessionStorage.getItem("JWT-Token");
+    if (jwtToken) {
+      console.log("토큰 있음.");
+      setIsLoggedIn(true);
+    }
   }, []);
 
   // function sessionCurrent() {
@@ -127,23 +131,14 @@ export function Menu() {
   // }
   const handleLogout = (e) => {
     e.preventDefault(); // 링크의 기본 동작 방지
-    if (alert("로그아웃하시겠습니까?")) {
-      sessionStorage.removeItem("JWT-Token");
-      window.location.reload();
-    }
+    sessionStorage.removeItem("JWT-Token");
+    setIsLoggedIn(false);
+    navigate(location.pathname, { replace: false });
     // document.cookie =
     //   "authToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
 
     // localStorage.removeItem("authToken");
     // sessionStorage.removeItem("authToken");
-
-    setIsLoggedIn(false);
-    navigate(location.pathname, { replace: true });
-
-    console.log("로그아웃 성공!");
-    console.log("현재 쿠키:", document.cookie);
-    console.log("로컬 스토리지 항목:", localStorage.getItem("authToken"));
-    console.log("세션 스토리지 항목:", sessionStorage.getItem("authToken"));
   };
 
   return (
