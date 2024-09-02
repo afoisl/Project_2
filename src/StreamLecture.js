@@ -76,16 +76,12 @@ export function StreamLecture() {
         console.log("에러 : ", error);
       });
 
-    axios
-      .get("/api/user/current", {
-        withCredentials: true,
-      })
-      .then((response) => {
-        setUserId(response.data.userId);
-      })
-      .catch((error) => {
-        console.log("에러 발생:", error);
-      });
+    const jwtToken = sessionStorage.getItem("JWT-Token");
+    const sessionUserId = sessionStorage.getItem("UserID");
+
+    if (sessionUserId) {
+      setUserId(sessionUserId);
+    }
   }, [streamId]);
 
   useEffect(() => {

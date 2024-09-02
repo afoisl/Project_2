@@ -98,17 +98,10 @@ export function SpecialLecRoom() {
         console.log("에러 : ", error);
       });
 
-    axios
-      .get("/api/user/current", {
-        withCredentials: true,
-      })
-      .then((response) => {
-        const authority = response.data.authority[0]?.authority;
-        setUserAuthority(authority);
-      })
-      .catch((error) => {
-        console.log("에러 발생:", error);
-      });
+    const sessionAuthority = sessionStorage.getItem("Authority");
+    if (sessionAuthority) {
+      setUserAuthority(sessionAuthority);
+    }
   }, []);
 
   const isLectureActive = (startTime, endTime) => {

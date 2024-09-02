@@ -55,20 +55,23 @@ export function ChatingRoom() {
   const grade = location.state?.grade;
 
   useEffect(() => {
+    const sessionUserId = sessionStorage.getItem("UserID");
+
     const checkUser = async () => {
-      try {
-        const response = await axios.get("/api/user/current", {
-          withCredentials: true,
-        });
-        if (response.data.userId !== userId) {
-          alert("로그인되지 않은 아이디는 사용할 수 없습니다");
-          navigate(`/chating-room/${roomId}/${response.data.userId}`);
-        }
-      } catch (error) {
-        console.log("에러 발생:", error);
+      if (sessionUserId) {
+        axios
+          .get("http://localhost:8080/api/user/id/" + sessionUserId)
+          .then((response) => {
+            if (sessionUserId !== userId) {
+              alert("로그인되지 않은 아이디는 사용할 수 없습니다");
+              navigate(`/chating-room/${roomId}/${response.data.userId}`);
+            }
+          })
+          .catch((error) => {
+            console.log("에러 발생:", error);
+          });
       }
     };
-
     checkUser();
   }, [userId, roomId, navigate]);
 
