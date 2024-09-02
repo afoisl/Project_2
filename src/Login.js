@@ -92,6 +92,12 @@ export function Login() {
       userId: userId,
       password: password,
     };
+
+    const userInfo = {
+      token: null,
+      userId: null,
+      authority: null,
+    };
     axios
       .post("http://localhost:8080/api/authenticate", userData, {
         withCredentials: true,
@@ -99,7 +105,13 @@ export function Login() {
       .then((response) => {
         console.log("데이터: ", response.data.resultCode);
         if (response.data.resultCode == "SUCCESS") {
+          userInfo.token = response.data.data.token;
+          userInfo.userId = response.data.data.userId;
+          userInfo.authority = response.data.data.authority;
           sessionStorage.setItem("JWT-Token", response.data.data.token);
+          sessionStorage.setItem("UserID", response.data.data.userId);
+          sessionStorage.setItem("Authority", response.data.data.authority);
+
           navigate(from, { replace: true });
           window.location.reload();
         } else {

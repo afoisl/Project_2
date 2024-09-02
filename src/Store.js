@@ -96,7 +96,7 @@ export function Store() {
 
   useEffect(() => {
     axios
-      .get(`/api/storeItem/${bookStoreItemId}/books`)
+      .get(`http://localhost:8080/api/storeItem/${bookStoreItemId}/books`)
       .then((response) => {
         console.log("Books API Response:", response.data);
         setBooks(response.data);
@@ -106,7 +106,9 @@ export function Store() {
       });
 
     axios
-      .get(`/api/storeItem/${mockTicketStoreItemId}/mockTickets`)
+      .get(
+        `http://localhost:8080/api/storeItem/${mockTicketStoreItemId}/mockTickets`
+      )
       .then((response) => {
         console.log("MockTickets API Response:", response.data);
         setMockTickets(response.data);

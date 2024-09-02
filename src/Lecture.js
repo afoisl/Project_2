@@ -95,7 +95,7 @@ export function Lecture() {
 
   useEffect(() => {
     axios
-      .get(`/api/lecture/${id}`) // 템플릿 리터럴로 수정
+      .get(`http://localhost:8080/api/lecture/${id}`) // 템플릿 리터럴로 수정
       .then((response) => {
         console.log("데이터", response.data);
         setLectures([response.data]); // 배열로 설정
@@ -130,7 +130,9 @@ export function Lecture() {
           <LectureBox2>
             <LectureGrade>{lecture.lectureClass}</LectureGrade>
             <LectureText1>{lecture.lectureName}</LectureText1>
-            <LectureText2>선생님 성함</LectureText2>
+            <LectureText2>
+              강사 : Tr. {lecture.teacher.teacherName}
+            </LectureText2>
             <LectureText3>{lecture.lecContent}</LectureText3>
             <LecturePrice>{lecture.lecPrice} 원</LecturePrice>
             <LectureCart onClick={() => handleAddToCart(lecture)}>

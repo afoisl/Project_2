@@ -53,15 +53,17 @@ const Card = styled.div`
 `;
 
 const Category = styled.div`
+  padding-left: 3px;
   font-weight: 400;
 `;
 
 const Title = styled.div`
-  font-size: 2rem;
+  font-size: 1.6rem;
 `;
 
 const Price = styled.div`
-  font-size: 1.2rem;
+  padding-left: 2px;
+  font-size: 1.1rem;
   font-weight: 600;
 `;
 
@@ -72,6 +74,8 @@ const Class = styled.div`
   border-radius: 5px;
   margin-top: 10px;
   padding: 0 5px;
+  font-size: 0.8rem;
+  margin-left: 2px;
 `;
 const FooterMargin = styled.div`
   height: 100px;
@@ -83,7 +87,7 @@ export function LectureDetails() {
 
   useEffect(() => {
     axios
-      .get("/api/lecture")
+      .get("http://localhost:8080/api/lecture")
       .then((response) => {
         console.log("데이터", response.data);
         setLectures(response.data);
