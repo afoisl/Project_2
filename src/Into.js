@@ -51,14 +51,14 @@ const Body = styled.div`
 function AppContent() {
   const location = useLocation();
 
-  const hideMenubar =
+  const hideElements =
     location.pathname === "/login" || location.pathname === "/signup";
 
   console.log("로드됨");
   return (
     <>
       <Container>
-        {!hideMenubar && (
+        {!hideElements && (
           <Menubar>
             <Menu />
           </Menubar>
@@ -125,7 +125,7 @@ function AppContent() {
           </Routes>
         </Body>
       </Container>
-      <FooterReal />
+      {!hideElements && <FooterReal />}
     </>
   );
 }

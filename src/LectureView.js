@@ -16,6 +16,7 @@ const LectureVideo = styled.div`
 const LectureDisplay = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 150px;
 `;
 const LectureTitle = styled.div`
   margin-top: 15px;
