@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import 사람이미지 from "./assets/img/사람이미지.png";
 import axios from "axios";
 import Chat from "./Chat";
-import { set } from "react-hook-form";
 
 const Title = styled.div`
   font-size: 40px;
@@ -56,8 +54,11 @@ export function StreamLecture() {
   const [streamTitle, setStreamTitle] = useState("");
   const [userId, setUserId] = useState(null);
   const [streamEndTime, setStreamEndTime] = useState("");
+  const [streamStartTime, setStreamStartTime] = useState("");
   const [remainingTime, setRemainingTime] = useState("");
   const [videoSrc, setVideoSrc] = useState("");
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const videoRef = React.createRef();
 
   //임시 roomId (채팅 코드 수정 필요)
   const roomId = 11;
@@ -66,8 +67,8 @@ export function StreamLecture() {
     axios
       .get(`/api/stream/lecture/${streamId}`)
       .then((response) => {
-        console.log(response.data);
         setStreamTitle(response.data.streamTitle);
+        setStreamStartTime(response.data.startTime);
         setStreamEndTime(response.data.endTime);
         setVideoSrc(response.data.videoSrc);
       })
@@ -88,12 +89,42 @@ export function StreamLecture() {
   }, [streamId]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      updateRemainingTime();
-    }, 1000);
+    if (streamStartTime && streamEndTime) {
+      const now = new Date();
+      const start = new Date(streamStartTime);
+      const end = new Date(streamEndTime);
 
-    return () => clearInterval(timer);
-  }, [streamEndTime]);
+      if (now < start) {
+        const timeUntilStart = start - now;
+        setTimeout(() => {
+          playVideo();
+        }, timeUntilStart);
+      } else {
+        playVideo();
+      }
+
+      if (now < end) {
+        const timeUntilEnd = end - now;
+        setTimeout(() => {
+          stopVideo();
+        }, timeUntilEnd);
+      }
+    }
+  }, [streamStartTime, streamEndTime, videoSrc]);
+
+  const playVideo = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      setIsVideoPlaying(true);
+    }
+  };
+
+  const stopVideo = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      setIsVideoPlaying(false);
+    }
+  };
 
   const updateRemainingTime = () => {
     if (!streamEndTime) return;
@@ -107,7 +138,6 @@ export function StreamLecture() {
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
       setRemainingTime(`남은 시간 : ${hours}시간 ${minutes}분 ${seconds}초`);
-      // console.log(`${hours}시간 ${minutes}분 ${seconds}초`);
     } else {
       setRemainingTime("강의가 종료되었습니다.");
     }
@@ -132,13 +162,19 @@ export function StreamLecture() {
         <StreamLectureBox>
           <StreamVideo>
             {videoSrc ? (
-              <video src={videoSrc} controls width="100%" height="100%" />
+              <video
+                ref={videoRef}
+                src={videoSrc}
+                controls
+                width="100%"
+                height="100%"
+              />
             ) : (
               "video"
             )}
           </StreamVideo>
           <StreamChat>
-            <Chat userId={userId} roomId={roomId}></Chat>
+            {/* <Chat userId={userId} roomId={roomId}></Chat> */}
           </StreamChat>
         </StreamLectureBox>
         <Title>{streamTitle}</Title>
