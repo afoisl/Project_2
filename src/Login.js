@@ -97,9 +97,9 @@ export function Login() {
         withCredentials: true,
       })
       .then((response) => {
-        console.log("데이터: ", response.data);
+        console.log("데이터: ", response.data.resultCode);
         if (response.data.resultCode == "SUCCESS") {
-          localStorage.setItem("JWT-Token", response.data.data.token);
+          sessionStorage.setItem("JWT-Token", response.data.data.token);
           navigate(from, { replace: true });
           window.location.reload();
         } else {

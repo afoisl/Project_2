@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 const Footer = styled.div`
-  height: 80px;
+  height: 60px;
   margin-top: auto;
   background-color: #1d1d1f;
 `;
