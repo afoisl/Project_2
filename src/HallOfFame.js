@@ -150,15 +150,6 @@ const MyProfileText = styled.div`
   font-size: 32px;
   line-height: 66px;
 `;
-const Footer = styled.div`
-  width: 100%;
-  height: 70px;
-  text-align: center;
-  background-color: #8e8e8e;
-  color: white;
-  font-size: 24px;
-  padding: 15px 0;
-`;
 
 export function HallOfFame() {
   const [isRanking900Click, setIsRanking900Click] = useState(false);
@@ -592,10 +583,6 @@ export function HallOfFame() {
           </MyRankGrid>
         </Box3>
       </Container>
-      <Footer>
-        Footer <br />
-        Designed by MajorFlow
-      </Footer>
     </>
   );
 }

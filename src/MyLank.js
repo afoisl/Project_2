@@ -1,6 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import 내정보수정 from "./assets/img/내정보수정.png";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Container = styled.div`
   width: 60%;
@@ -262,15 +264,7 @@ const MyWriting = styled.div`
 const MypageMargin = styled.div`
   height: 150px;
 `;
-const Footer = styled.div`
-  width: 100%;
-  height: 70px;
-  text-align: center;
-  background-color: #8e8e8e;
-  color: white;
-  font-size: 24px;
-  padding: 15px 0;
-`;
+
 const MenuItemGo = styled.div`
   text-align: center;
   cursor: pointer;
@@ -286,10 +280,17 @@ export function MyLank() {
   const orderRef = useRef(null);
   const pointRef = useRef(null);
   const writingRef = useRef(null);
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
   const scrollToSection = (ref) => {
     ref.current.scrollIntoView({ behavior: "smooth" });
   };
+
+  const handleMyLectureClick = () => {
+    navigate(`/mypage/mylecture`);
+  };
+
   return (
     <>
       <Container>
@@ -332,7 +333,9 @@ export function MyLank() {
             <MyPageLecture>최근수강</MyPageLecture>
             <MyPageLectureLine></MyPageLectureLine>
             <MyPageLectureList></MyPageLectureList>
-            <MyPageLectureGo>내 강의실로 이동 ＞</MyPageLectureGo>
+            <MyPageLectureGo onClick={handleMyLectureClick}>
+              내 강의실로 이동 ＞
+            </MyPageLectureGo>
           </MyPageBox2>
         </MyPageGrid>
         <MyPageSubMenu>
@@ -401,10 +404,6 @@ export function MyLank() {
           <MyWriting></MyWriting>
         </div>
       </Container>
-      <Footer>
-        Footer <br />
-        Designed by MajorFlow
-      </Footer>
     </>
   );
 }

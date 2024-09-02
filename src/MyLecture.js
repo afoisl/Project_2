@@ -69,15 +69,7 @@ const LectureMargin = styled.div`
 const LectureMargin1 = styled.div`
   height: 150px;
 `;
-const Footer = styled.div`
-  width: 100%;
-  height: 70px;
-  text-align: center;
-  background-color: #8e8e8e;
-  color: white;
-  font-size: 24px;
-  padding: 15px 0;
-`;
+
 const LoadingMessage = styled.div``;
 
 export function MyLecture() {
@@ -149,10 +141,6 @@ export function MyLecture() {
         )}
         <LectureMargin1></LectureMargin1>
       </Container>
-      <Footer>
-        Footer <br />
-        Designed by MajorFlow
-      </Footer>
     </>
   );
 }

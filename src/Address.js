@@ -98,16 +98,6 @@ const MapText2 = styled.div`
   color: #858585;
 `;
 
-const Footer = styled.div`
-  width: 100%;
-  height: 70px;
-  text-align: center;
-  background-color: #8e8e8e;
-  color: white;
-  font-size: 24px;
-  padding: 15px 0;
-`;
-
 export function Address() {
   useEffect(() => {
     const container = document.getElementById("map"); // 지도를 담을 영역의 DOM 레퍼런스
@@ -167,10 +157,6 @@ export function Address() {
           </KakaoMap1>
         </MapKakao>
       </Container>
-      <Footer>
-        Footer <br />
-        Designed by MajorFlow
-      </Footer>
     </>
   );
 }

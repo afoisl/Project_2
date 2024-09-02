@@ -11,7 +11,7 @@ const Box1 = styled.div`
 
 const BigBox = styled.div`
   width: 60%;
-  margin-top: 150px;
+  margin: 50px 0 50px 0;
 `;
 
 const H1 = styled.h1`
@@ -72,6 +72,9 @@ const Class = styled.div`
   border-radius: 5px;
   margin-top: 10px;
   padding: 0 5px;
+`;
+const FooterMargin = styled.div`
+  height: 100px;
 `;
 
 export function LectureDetails() {

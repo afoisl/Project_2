@@ -220,15 +220,6 @@ const CartAllOrder = styled.div`
 const CartMargin = styled.div`
   height: 200px;
 `;
-const Footer = styled.div`
-  width: 100%;
-  height: 70px;
-  text-align: center;
-  background-color: #8e8e8e;
-  color: white;
-  font-size: 24px;
-  padding: 15px 0;
-`;
 
 export function Cart() {
   const [cartItems, setCartItems] = useState([]);
@@ -437,10 +428,6 @@ export function Cart() {
         </CartOrderBox>
       </Container>
       <CartMargin></CartMargin>
-      <Footer>
-        Footer <br />
-        Designed by MajorFlow
-      </Footer>
     </>
   );
 }
