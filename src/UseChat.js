@@ -6,6 +6,7 @@ import axios from "axios";
 export function useChat(userId, roomId) {
   const [messages, setMessages] = useState([]);
   const [currentMessage, setCurrentMessage] = useState("");
+  const [chatUser, setChatUser] = useState([]);
   const [chatUserCount, setChatUserCount] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
   const stompClientRef = useRef(null);
@@ -51,13 +52,15 @@ export function useChat(userId, roomId) {
         });
         console.log("Fetched user count:", response.data.length);
         if (response.data.length !== undefined) {
+          setChatUser(response.data);
           setChatUserCount(response.data.length);
         } else {
           console.error("User count data is undefined");
         }
       }
     } catch (error) {
-      console.error("Error fetching user count:", error);
+      console.error("Error fetching user:", error);
+      setChatUser([]);
       setChatUserCount(0);
     }
   }, [roomId]);
@@ -211,6 +214,7 @@ export function useChat(userId, roomId) {
     currentMessage,
     setCurrentMessage,
     sendMessage,
+    chatUser,
     chatUserCount,
     isConnected,
     refreshUserCount: fetchUserCount, // Expose this function to manually refresh user count

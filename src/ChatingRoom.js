@@ -45,7 +45,7 @@ const RoomInfo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: end;
-  padding: 30px 0px;
+  padding: 30px 0px 0px 0px;
 `;
 
 export function ChatingRoom() {

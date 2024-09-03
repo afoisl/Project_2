@@ -140,6 +140,51 @@ const SystemMessage = styled.div`
   margin: 10px 0;
 `;
 
+const ChatRoomUser = styled.div`
+  position: relative;
+  display: flex;
+  margin: 18px 0px;
+  font-size: 20px;
+`;
+
+const UserCount = styled.p`
+  margin: 0px 5px;
+  color: blue;
+  cursor: pointer;
+
+  &:hover {
+    color: gray;
+  }
+
+  &:hover + div {
+    display: block;
+  }
+`;
+
+const UsersInfo = styled.div`
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 1;
+  white-space: nowrap;
+
+  &:hover {
+    display: block;
+  }
+`;
+
+const UserInfo = styled.div`
+  font-size: 16px;
+  &:hover {
+    color: blue;
+  }
+`;
+
 const formatDate = (date, format = "time") => {
   if (!date) return "";
   const dateObject = date instanceof Date ? date : new Date(date);
@@ -172,8 +217,10 @@ export function Chat({ userId, roomId }) {
     currentMessage,
     setCurrentMessage,
     sendMessage,
+    chatUser,
     chatUserCount,
   } = useChat(userId, roomId);
+  console.log(chatUser);
 
   const formattedMessages = messages.map((message) => ({
     ...message,
@@ -246,29 +293,40 @@ export function Chat({ userId, roomId }) {
 
   return (
     <>
-      <div>현재 채팅중인 사용자 : {chatUserCount}</div>
       <ChatRoomContainer>
-        <MessageList>{renderMessages()}</MessageList>
-        <MessageSendBox>
-          <MessageAddFile></MessageAddFile>
-          <MessageSender className="message-sender">
-            <Input
-              value={currentMessage}
-              onChange={(e) => {
-                setCurrentMessage(e.target.value);
-                adjustHeight(e.target);
-              }}
-              onKeyPress={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
-                  e.preventDefault();
-                  sendMessage();
-                }
-              }}
-              placeholder="메세지를 입력하세요"
-            />
-            <SendBtn onClick={sendMessage}>Send</SendBtn>
-          </MessageSender>
-        </MessageSendBox>
+        <ChatRoomUser>
+          현재<UserCount>{chatUserCount}명</UserCount> 참여중
+          <UsersInfo>
+            {chatUser.map((userInfo) => (
+              <UserInfo key={userInfo.user.userId}>
+                {userInfo.user.userId}
+              </UserInfo>
+            ))}
+          </UsersInfo>
+        </ChatRoomUser>
+        <div>
+          <MessageList>{renderMessages()}</MessageList>
+          <MessageSendBox>
+            <MessageAddFile></MessageAddFile>
+            <MessageSender className="message-sender">
+              <Input
+                value={currentMessage}
+                onChange={(e) => {
+                  setCurrentMessage(e.target.value);
+                  adjustHeight(e.target);
+                }}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                  }
+                }}
+                placeholder="메세지를 입력하세요"
+              />
+              <SendBtn onClick={sendMessage}>Send</SendBtn>
+            </MessageSender>
+          </MessageSendBox>
+        </div>
       </ChatRoomContainer>
     </>
   );

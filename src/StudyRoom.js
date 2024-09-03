@@ -63,8 +63,8 @@ const LockIcon = styled.div`
   background-image: url(${LockImg});
   background-size: cover;
   position: absolute;
-  top: -30px; /* 상단에서 15px 위로 이동 */
-  right: -30px; /* 오른쪽에서 15px 밖으로 이동 */
+  top: -30px;
+  right: -30px;
 `;
 
 export function StudyRoom() {
