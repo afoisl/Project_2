@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Img = styled.div`
   width: 100%;
@@ -76,16 +79,57 @@ const ButtonWrapper = styled.div`
 `;
 
 export function QnaWrite() {
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
+  const navigate = useNavigate();
+
+  const addQna = async () => {
+    const jwtToken = sessionStorage.getItem("JWT-Token");
+    if (!jwtToken) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+    const userId = sessionStorage.getItem("UserID");
+
+    const writeDate = new Date().toISOString();
+
+    try {
+      const response = await axios.post(
+        "/api/qna",
+        { title, text, user: { userId }, writeDate },
+        {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      );
+      console.log("데이터 저장 성공:", response.data);
+      alert("문의가 등록되었습니다.");
+      navigate("/customer");
+    } catch (error) {
+      console.error("에러:", error);
+      alert("문의 등록에 실패했습니다.");
+    }
+  };
+
   return (
     <>
       <Img></Img>
       <Title>1 : 1 문의</Title>
       <Box>
-        <InputTitle></InputTitle>
-        <InputText></InputText>
+        <InputTitle
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="제목을 입력하세요"
+        ></InputTitle>
+        <InputText
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="내용을 입력하세요"
+        ></InputText>
       </Box>
       <RegisterButtonWrapper>
-        <RegisterButton>등록하기</RegisterButton>
+        <RegisterButton onClick={addQna}>등록하기</RegisterButton>
       </RegisterButtonWrapper>
       <ButtonWrapper>
         <ToBack onClick={() => window.history.back()}>목록으로</ToBack>
