@@ -94,20 +94,37 @@ export function Customer() {
       throw new Error("JWT Token not found in sessionStorage");
     }
     try {
-      const response = await axios.get("http://localhost:8080/api/notice"); // 백엔드 API 호출
-      setNotices(response.data); // 가져온 데이터를 상태로 설정
+      const jwtToken = sessionStorage.getItem("JWT-Token");
+      if (jwtToken != null) {
+        const response = await axios.get("/api/notice", {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }); // 백엔드 API 호출
+        setNotices(response.data);
+      } // 가져온 데이터를 상태로 설정
     } catch (error) {
       console.log("Error fetching notices: ", error);
     }
   };
+
   const fetchQnas = async () => {
     const jwtToken = sessionStorage.getItem("JWT-Token");
     if (!jwtToken) {
       throw new Error("JWT Token not found in sessionStorage");
     }
     try {
-      const response = await axios.get("http://localhost:8080/api/qna"); // 백엔드 API 호출
-      setQnas(response.data); // 가져온 데이터를 상태로 설정
+      const jwtToken = sessionStorage.getItem("JWT-Token");
+      if (jwtToken != null) {
+        const response = await axios.get("/api/qna", {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }); // 백엔드 API 호출
+        setQnas(response.data);
+      } // 가져온 데이터를 상태로 설정
     } catch (error) {
       console.log("Error fetching notices: ", error);
     }
