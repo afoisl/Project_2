@@ -75,9 +75,14 @@ export function CreateStream() {
       videoSrc,
     };
 
+    const jwtToken = sessionStorage.getItem("JWT-Token");
+
     axios
       .post("http://localhost:8080/api/stream/schedule", streamData, {
         withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
       })
       .then((response) => {
         console.log("스트림 생성 성공 : ", response.data);

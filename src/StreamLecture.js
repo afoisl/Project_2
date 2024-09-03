@@ -64,8 +64,13 @@ export function StreamLecture() {
   const roomId = 11;
 
   useEffect(() => {
+    const jwtToken = sessionStorage.getItem("JWT-Token");
     axios
-      .get(`/api/stream/lecture/${streamId}`)
+      .get(`/api/stream/lecture/${streamId}`, {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      })
       .then((response) => {
         setStreamTitle(response.data.streamTitle);
         setStreamStartTime(response.data.startTime);
@@ -76,7 +81,6 @@ export function StreamLecture() {
         console.log("에러 : ", error);
       });
 
-    const jwtToken = sessionStorage.getItem("JWT-Token");
     const sessionUserId = sessionStorage.getItem("UserID");
 
     if (sessionUserId) {
@@ -170,13 +174,13 @@ export function StreamLecture() {
             )}
           </StreamVideo>
           <StreamChat>
-            {/* <Chat userId={userId} roomId={roomId}></Chat> */}
+            <Chat userId={userId} roomId={roomId}></Chat>
           </StreamChat>
         </StreamLectureBox>
         <Title>{streamTitle}</Title>
         <TimeInfo>
           <p>강의 종료 시간 : {formatEndTime(streamEndTime)}</p>
-          <p>{remainingTime || "계산 중..."}</p>
+          <p>{remainingTime || "대기 중..."}</p>
         </TimeInfo>
       </Container>
       <Blank></Blank>

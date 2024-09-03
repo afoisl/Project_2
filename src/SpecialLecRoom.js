@@ -57,9 +57,14 @@ const StreamLiveBox = styled.div`
 const LiveBox = styled.div`
   width: 80px;
   height: 30px;
-  background-color: ${(props) => (props.isLive ? "red" : "gray")};
+  background-color: ${(props) =>
+    props.status === "live"
+      ? "red"
+      : props.status === "waiting"
+      ? "orange"
+      : "gray"};
   color: white;
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
   line-height: 30px;
   margin-right: 10px;
@@ -89,8 +94,14 @@ export function SpecialLecRoom() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const jwtToken = sessionStorage.getItem("JWT-Token");
     axios
-      .get("/api/stream/lectures")
+      .get("/api/stream/lectures", {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      })
       .then((response) => {
         setLecRooms(response.data);
       })
@@ -104,11 +115,33 @@ export function SpecialLecRoom() {
     }
   }, []);
 
-  const isLectureActive = (startTime, endTime) => {
+  const getLectureStatus = (startTime, endTime) => {
     const now = new Date();
     const start = new Date(startTime);
     const end = new Date(endTime);
-    return now >= start && now <= end;
+
+    if (now < start) {
+      return "waiting";
+    } else if (now >= start && now <= end) {
+      return "live";
+    } else {
+      return "ended";
+    }
+  };
+
+  const getRemainingTime = (startTime) => {
+    const now = new Date();
+    const start = new Date(startTime);
+    const diff = start - now;
+
+    if (diff <= 0) return "";
+
+    const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, "0");
+    const minutes = String(
+      Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+    ).padStart(2, "0");
+
+    return `${hours}:${minutes} 뒤에 시작`;
   };
 
   return (
@@ -120,30 +153,36 @@ export function SpecialLecRoom() {
           <Title>실시간 특강 스터디룸</Title>
           <StreamBoxGrid>
             {lectureRooms.map((lectureRoom) => {
-              const isActive = isLectureActive(
+              const status = getLectureStatus(
                 lectureRoom.startTime,
                 lectureRoom.endTime
               );
+              const remainingTime =
+                status === "waiting"
+                  ? getRemainingTime(lectureRoom.startTime)
+                  : null;
+
               return (
                 <LectureBox key={lectureRoom.streamId}>
                   <StreamLiveBox>
-                    <LiveBox isLive={isActive}>
-                      {isActive ? "Live" : "종료"}
+                    <LiveBox status={status}>
+                      {status === "live"
+                        ? "Live"
+                        : status === "waiting"
+                        ? "대기중"
+                        : "종료"}
                     </LiveBox>
                     <LiveUser>
-                      👥{" "}
-                      {isActive
-                        ? `${lectureRoom.viewerCount}명 시청중`
+                      {status === "live"
+                        ? `👥 ${lectureRoom.viewerCount}명 시청중`
+                        : status === "waiting"
+                        ? remainingTime || "곧 시작될 강의"
                         : "종료된 강의"}
                     </LiveUser>
                   </StreamLiveBox>
                   <StreamBox
                     onClick={() => {
-                      // if (isActive) {
                       navigate(`${lectureRoom.streamId}`);
-                      // } else {
-                      //   alert("이미 종료된 강의입니다.");
-                      // }
                     }}
                   ></StreamBox>
                   <StreamName>{lectureRoom.streamTitle}</StreamName>
