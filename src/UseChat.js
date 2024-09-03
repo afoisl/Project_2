@@ -41,12 +41,20 @@ export function useChat(userId, roomId) {
 
   const fetchUserCount = useCallback(async () => {
     try {
-      const response = await axios.get(`/api/chat/user/${roomId}`);
-      console.log("Fetched user count:", response.data.length);
-      if (response.data.length !== undefined) {
-        setChatUserCount(response.data.length);
-      } else {
-        console.error("User count data is undefined");
+      const jwtToken = sessionStorage.getItem("JWT-Token");
+      if (jwtToken != null) {
+        const response = await axios.get(`/api/chat/user/${roomId}`, {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        });
+        console.log("Fetched user count:", response.data.length);
+        if (response.data.length !== undefined) {
+          setChatUserCount(response.data.length);
+        } else {
+          console.error("User count data is undefined");
+        }
       }
     } catch (error) {
       console.error("Error fetching user count:", error);
@@ -110,7 +118,6 @@ export function useChat(userId, roomId) {
     client.onWebSocketClose = () => {
       console.log("WebSocket Connection Closed");
       setIsConnected(false);
-      handleReconnect(client);
     };
 
     client.activate();
