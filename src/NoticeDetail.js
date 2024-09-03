@@ -18,6 +18,7 @@ const Top = styled.div`
   padding: 0 10px;
 `;
 const Category = styled.div`
+  margin-top: -2px;
   padding-right: 15px;
   border-right: 1px solid #c8c8c8;
 `;

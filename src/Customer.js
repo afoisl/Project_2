@@ -72,7 +72,7 @@ const CusTabs = ({ selectedTab, setSelectedTab, setCurrentPage }) => {
         }}
         className={selectedTab === "qna" ? "active" : ""}
       >
-        Q&A
+        1:1 문의
       </button>
     </Tabs>
   );
@@ -96,89 +96,18 @@ export function Customer() {
       console.log("Error fetching notices: ", error);
     }
   };
+  const fetchQnas = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/qna"); // 백엔드 API 호출
+      setQnas(response.data); // 가져온 데이터를 상태로 설정
+    } catch (error) {
+      console.log("Error fetching notices: ", error);
+    }
+  };
 
   useEffect(() => {
     fetchNotices();
-
-    setQnas([
-      {
-        qnaId: 1,
-        question: "Q&A 1",
-        writeDate: "2024-08-01",
-        content:
-          "Q&A 1의 답변입니다. 이 Q&A는 사용자가 질문과 답변의 예시를 보는 것입니다.",
-      },
-      {
-        qnaId: 2,
-        question: "Q&A 2",
-        writeDate: "2024-08-02",
-        content:
-          "Q&A 2의 답변입니다. 이 Q&A는 사용자가 질문과 답변의 예시를 보는 것입니다.",
-      },
-      {
-        qnaId: 3,
-        question: "Q&A 3",
-        writeDate: "2024-08-03",
-        content:
-          "Q&A 3의 답변입니다. 이 Q&A는 사용자가 질문과 답변의 예시를 보는 것입니다.",
-      },
-      {
-        qnaId: 4,
-        question: "Q&A 4",
-        writeDate: "2024-08-04",
-        content:
-          "Q&A 4의 답변입니다. 이 Q&A는 사용자가 질문과 답변의 예시를 보는 것입니다.",
-      },
-      {
-        qnaId: 5,
-        question: "Q&A 5",
-        writeDate: "2024-08-05",
-        content:
-          "Q&A 5의 답변입니다. 이 Q&A는 사용자가 질문과 답변의 예시를 보는 것입니다.",
-      },
-      {
-        qnaId: 6,
-        question: "Q&A 6",
-        writeDate: "2024-08-06",
-        content:
-          "Q&A 6의 답변입니다. 이 Q&A는 사용자가 질문과 답변의 예시를 보는 것입니다.",
-      },
-      {
-        qnaId: 7,
-        question: "Q&A 7",
-        writeDate: "2024-08-07",
-        content:
-          "Q&A 7의 답변입니다. 이 Q&A는 사용자가 질문과 답변의 예시를 보는 것입니다.",
-      },
-      {
-        qnaId: 8,
-        question: "Q&A 8",
-        writeDate: "2024-08-08",
-        content:
-          "Q&A 8의 답변입니다. 이 Q&A는 사용자가 질문과 답변의 예시를 보는 것입니다.",
-      },
-      {
-        qnaId: 9,
-        question: "Q&A 9",
-        writeDate: "2024-08-09",
-        content:
-          "Q&A 9의 답변입니다. 이 Q&A는 사용자가 질문과 답변의 예시를 보는 것입니다.",
-      },
-      {
-        qnaId: 10,
-        question: "Q&A 10",
-        writeDate: "2024-08-10",
-        content:
-          "Q&A 10의 답변입니다. 이 Q&A는 사용자가 질문과 답변의 예시를 보는 것입니다.",
-      },
-      {
-        qnaId: 11,
-        question: "Q&A 11",
-        writeDate: "2024-08-11",
-        content:
-          "Q&A 11의 답변입니다. 이 Q&A는 사용자가 질문과 답변의 예시를 보는 것입니다.",
-      },
-    ]);
+    fetchQnas();
   }, []);
 
   const handleNoticeClick = (notice) => {
@@ -199,7 +128,7 @@ export function Customer() {
   return (
     <>
       <Img></Img>
-      <TitleBox>공지사항 / Q&A</TitleBox>
+      <TitleBox>공지사항 / 1:1 문의</TitleBox>
       <CusTabs
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}

@@ -69,9 +69,9 @@ export function QnaList({ qnas, onQnaClick }) {
       <List>
         {qnas.map((qna) => (
           <ContList key={qna.qnaId} onClick={() => onQnaClick(qna)}>
-            <Title>{qna.question}</Title>
+            <Title>{qna.title}</Title>
             <Right>
-              <Writer>작성자</Writer>
+              <Writer>{qna.user.userId}</Writer>
               <Date>{qna.writeDate}</Date>
             </Right>
           </ContList>

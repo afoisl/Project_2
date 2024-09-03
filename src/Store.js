@@ -48,13 +48,13 @@ const StoreBox = styled.div`
 `;
 
 const StoreImageText1 = styled.div`
-  font-size: 36px;
+  font-size: 30px;
   font-weight: bold;
   margin-bottom: 10px;
 `;
 
 const StoreImageText2 = styled.div`
-  font-size: 24px;
+  font-size: 18px;
   margin-bottom: 80px;
 `;
 
