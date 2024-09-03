@@ -12,6 +12,48 @@ export function useChat(userId, roomId) {
   const reconnectAttemptsRef = useRef(0);
   const subscriptionsRef = useRef({});
 
+  const sendStatusMessage = useCallback(
+    (client, type) => {
+      if (client?.active) {
+        const statusMessage = {
+          sender: userId,
+          content: `${userId}님이 ${
+            type === "JOIN" ? "입장" : "퇴장"
+          }하셨습니다.`,
+          type: type,
+          roomId: roomId,
+          sentAt: new Date().toISOString(),
+        };
+        client.publish({
+          destination: `/app/chat.sendMessage/${roomId}`,
+          body: JSON.stringify(statusMessage),
+        });
+
+        // Request an updated user count after joining or leaving
+        client.publish({
+          destination: `/app/chat.getUserCount/${roomId}`,
+          body: JSON.stringify({ roomId: roomId }),
+        });
+      }
+    },
+    [userId, roomId]
+  );
+
+  const fetchUserCount = useCallback(async () => {
+    try {
+      const response = await axios.get(`/api/chat/user/${roomId}`);
+      console.log("Fetched user count:", response.data.length);
+      if (response.data.length !== undefined) {
+        setChatUserCount(response.data.length);
+      } else {
+        console.error("User count data is undefined");
+      }
+    } catch (error) {
+      console.error("Error fetching user count:", error);
+      setChatUserCount(0);
+    }
+  }, [roomId]);
+
   const connectStomp = useCallback(() => {
     if (stompClientRef.current?.active) {
       console.log("STOMP client already active.");
@@ -41,6 +83,7 @@ export function useChat(userId, roomId) {
         `/topic/public/${roomId}`,
         (message) => {
           const receivedMessage = JSON.parse(message.body);
+          console.log("Received user count update : ", receivedMessage);
           receivedMessage.sentAt = new Date(receivedMessage.sentAt);
           setMessages((prevMessages) => [...prevMessages, receivedMessage]);
         }
@@ -72,48 +115,7 @@ export function useChat(userId, roomId) {
 
     client.activate();
     stompClientRef.current = client;
-  }, [roomId]);
-
-  const handleReconnect = useCallback((client) => {
-    if (reconnectAttemptsRef.current < 5) {
-      reconnectAttemptsRef.current += 1;
-      console.log(`Reconnection attempt ${reconnectAttemptsRef.current}`);
-      setTimeout(() => {
-        console.log("Attempting to reconnect...");
-        client.deactivate();
-        client.activate();
-      }, 5000);
-    } else {
-      console.log("Max reconnection attempts reached");
-    }
-  }, []);
-
-  const sendStatusMessage = useCallback(
-    (client, type) => {
-      if (client?.active) {
-        const statusMessage = {
-          sender: userId,
-          content: `${userId}님이 ${
-            type === "JOIN" ? "입장" : "퇴장"
-          }하셨습니다.`,
-          type: type,
-          roomId: roomId,
-          sentAt: new Date().toISOString(),
-        };
-        client.publish({
-          destination: `/app/chat.sendMessage/${roomId}`,
-          body: JSON.stringify(statusMessage),
-        });
-
-        // Request an updated user count after joining or leaving
-        client.publish({
-          destination: `/app/chat.getUserCount/${roomId}`,
-          body: JSON.stringify({ roomId: roomId }),
-        });
-      }
-    },
-    [userId, roomId]
-  );
+  }, [roomId, sendStatusMessage]);
 
   const sendMessage = useCallback(() => {
     if (stompClientRef.current?.active && currentMessage.trim() !== "") {
@@ -135,23 +137,23 @@ export function useChat(userId, roomId) {
     }
   }, [currentMessage, userId, roomId, connectStomp]);
 
-  const fetchUserCount = useCallback(async () => {
-    try {
-      const jwtToken = sessionStorage.getItem("JWT-Token");
-      if (jwtToken != null) {
-        const response = await axios.get(`/api/chat/user/${roomId}`, {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${jwtToken}`,
-          },
-        });
-        console.log("Fetched user count:", response.data.length);
-        setChatUserCount(response.data.length);
+  const handleReconnect = useCallback((client) => {
+    if (reconnectAttemptsRef.current < 5) {
+      reconnectAttemptsRef.current += 1;
+      console.log(`Reconnection attempt ${reconnectAttemptsRef.current}`);
+
+      if (client.active) {
+        client.deactivate();
       }
-    } catch (error) {
-      console.error("Error fetching user count:", error);
+
+      setTimeout(() => {
+        console.log("Attempting to reconnect...");
+        client.activate();
+      }, 5000);
+    } else {
+      console.log("Max reconnection attempts reached");
     }
-  }, [roomId]);
+  }, []);
 
   useEffect(() => {
     const fetchInitialData = async () => {
@@ -165,7 +167,7 @@ export function useChat(userId, roomId) {
                 Authorization: `Bearer ${jwtToken}`,
               },
             }),
-            fetchUserCount(), // This will update chatUserCount state
+            fetchUserCount(),
           ]);
           setMessages(messagesResponse.data);
         }
@@ -180,17 +182,22 @@ export function useChat(userId, roomId) {
     return () => {
       if (stompClientRef.current?.active) {
         sendStatusMessage(stompClientRef.current, "LEAVE");
-        setTimeout(() => {
-          Object.values(subscriptionsRef.current).forEach((sub) =>
-            sub.unsubscribe()
-          );
-          subscriptionsRef.current = {};
-          stompClientRef.current.deactivate();
+
+        Object.values(subscriptionsRef.current).forEach((sub) =>
+          sub.unsubscribe()
+        );
+        subscriptionsRef.current = {};
+
+        // setTimeout(() => {
+        stompClientRef.current.deactivate().then(() => {
+          console.log("Stomp 비활성화됨");
           stompClientRef.current = null;
-        }, 500);
+          setIsConnected(false);
+        });
+        // }, 500);
       }
     };
-  }, [roomId, userId, connectStomp, sendStatusMessage, fetchUserCount]);
+  }, [roomId, userId]);
 
   return {
     messages,
