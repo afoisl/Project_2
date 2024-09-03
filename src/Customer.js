@@ -89,6 +89,10 @@ export function Customer() {
   const navigate = useNavigate();
 
   const fetchNotices = async () => {
+    const jwtToken = sessionStorage.getItem("JWT-Token");
+    if (!jwtToken) {
+      throw new Error("JWT Token not found in sessionStorage");
+    }
     try {
       const jwtToken = sessionStorage.getItem("JWT-Token");
       if (jwtToken != null) {
@@ -106,6 +110,10 @@ export function Customer() {
   };
 
   const fetchQnas = async () => {
+    const jwtToken = sessionStorage.getItem("JWT-Token");
+    if (!jwtToken) {
+      throw new Error("JWT Token not found in sessionStorage");
+    }
     try {
       const jwtToken = sessionStorage.getItem("JWT-Token");
       if (jwtToken != null) {
