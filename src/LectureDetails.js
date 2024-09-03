@@ -86,8 +86,17 @@ export function LectureDetails() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const jwtToken = sessionStorage.getItem("JWT-Token");
+    if (jwtToken == null) {
+      return;
+    }
     axios
-      .get("http://localhost:8080/api/lecture")
+      .get("http://localhost:8080/api/lecture", {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      })
       .then((response) => {
         console.log("데이터", response.data);
         setLectures(response.data);

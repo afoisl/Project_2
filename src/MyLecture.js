@@ -62,6 +62,7 @@ const LectureGo = styled.div`
   text-align: center;
   line-height: 70px;
   align-self: self-end;
+  cursor: pointer;
 `;
 const LectureMargin = styled.div`
   height: 20px;
@@ -73,14 +74,22 @@ const LectureMargin1 = styled.div`
 const LoadingMessage = styled.div``;
 
 export function MyLecture() {
-  const [purchases, setPurchases] = useState();
+  const [purchases, setPurchases] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
+    const jwtToken = sessionStorage.getItem("JWT-Token");
+    if (jwtToken == null) {
+      return;
+    }
     axios
-      .get(`/api/purchase`)
+      .get(`/api/purchase`, {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      })
       .then((response) => {
         console.log("데이터", response.data);
 
@@ -106,35 +115,38 @@ export function MyLecture() {
         <MyLectureTitle>수강현황</MyLectureTitle>
         {isLoading ? (
           <LoadingMessage>강의 정보를 불러오는 중입니다...</LoadingMessage>
-        ) : purchases.length > 0 ? (
-          purchases.map(
-            (purchase) =>
-              purchase.lecture && (
-                <React.Fragment key={purchase.purchaseId}>
-                  <LectureList>
-                    <LectureImg></LectureImg>
-                    <LectureText>
-                      <LectureText1>{purchase.lecture.subject}</LectureText1>
-                      <LectureText2>
-                        {purchase.lecture.lectureName}
-                      </LectureText2>
-                      <LectureText3>
-                        {purchase.lecture.lectureClass}
-                      </LectureText3>
-                      <LectureText4>진도율</LectureText4>
-                      <LectureText5></LectureText5>
-                    </LectureText>
-                    <LectureGo
-                      onClick={() =>
-                        handleLectureClick(purchase.lecture.storeItemId)
-                      }
-                    >
-                      강의듣기
-                    </LectureGo>
-                  </LectureList>
-                  <LectureMargin></LectureMargin>
-                </React.Fragment>
-              )
+        ) : purchases.some(
+            (purchase) => purchase.lectures && purchase.lectures.length > 0
+          ) ? (
+          purchases.map((purchase) =>
+            purchase.lectures && purchase.lectures.length > 0 ? (
+              <React.Fragment key={purchase.purchaseId}>
+                <LectureList>
+                  <LectureImg></LectureImg>
+                  <LectureText>
+                    <LectureText1>
+                      {purchase.lectures[0].subject || "과목 정보 없음"}
+                    </LectureText1>
+                    <LectureText2>
+                      {purchase.lectures[0].lectureName || "강의명 없음"}
+                    </LectureText2>
+                    <LectureText3>
+                      {purchase.lectures[0].lectureClass || "분류 없음"}
+                    </LectureText3>
+                    <LectureText4>진도율</LectureText4>
+                    <LectureText5></LectureText5>
+                  </LectureText>
+                  <LectureGo
+                    onClick={() =>
+                      handleLectureClick(purchase.lectures[0].storeItemId)
+                    }
+                  >
+                    강의듣기
+                  </LectureGo>
+                </LectureList>
+                <LectureMargin></LectureMargin>
+              </React.Fragment>
+            ) : null
           )
         ) : (
           <LoadingMessage>구매한 강의가 없습니다.</LoadingMessage>

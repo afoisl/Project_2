@@ -39,19 +39,38 @@ const LectureClass = styled.div`
 `;
 export function LectureView() {
   const { storeItemId } = useParams();
-  const [lecture, setLecture] = useState(null);
+  const [purchaseData, setPurchaseData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
+    const jwtToken = sessionStorage.getItem("JWT-Token");
+    if (jwtToken == null) {
+      setIsLoading(false);
+      return;
+    }
     axios
-      .get(`/api/lecture/${storeItemId}`)
+      .get(`/api/purchase`, {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      })
       .then((response) => {
-        setLecture(response.data);
+        const purchases = Array.isArray(response.data)
+          ? response.data
+          : [response.data];
+        const foundPurchase = purchases.find(
+          (p) =>
+            p.lectures &&
+            p.lectures.length > 0 &&
+            p.lectures[0].storeItemId.toString() === storeItemId
+        );
+        setPurchaseData(foundPurchase);
         setIsLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching lecture:", error);
+        console.error("Error fetching purchase:", error);
         setIsLoading(false);
       });
   }, [storeItemId]);
@@ -60,20 +79,28 @@ export function LectureView() {
     return <div>강의 정보를 불러오는 중...</div>;
   }
 
-  if (!lecture) {
+  if (
+    !purchaseData ||
+    !purchaseData.lectures ||
+    purchaseData.lectures.length === 0
+  ) {
     return <div>강의 정보를 찾을 수 없습니다.</div>;
   }
+
+  const lectureData = purchaseData.lectures[0];
 
   return (
     <>
       <Container>
         <LectureVideo>강의영상</LectureVideo>
-        <LectureClass>{lecture.lectureClass}</LectureClass>
+        <LectureClass>{lectureData.lectureClass || "분류 없음"}</LectureClass>
         <LectureDisplay>
-          <LectureTitle>{lecture.lectureName}</LectureTitle>
+          <LectureTitle>
+            {lectureData.lectureName || "강의명 없음"}
+          </LectureTitle>
           <LectureTeacherName>
-            {lecture.teacher
-              ? `${lecture.teacher.name} 선생님`
+            {lectureData.teacher
+              ? `${lectureData.teacher.name} 선생님`
               : "선생님 정보 없음"}
           </LectureTeacherName>
         </LectureDisplay>

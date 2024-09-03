@@ -333,7 +333,7 @@ export function MyLank() {
       const response = await axios.get("/api/user/current", {
         withCredentials: true,
       });
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.error("Failed to fetch current user:", error);
       throw error;
@@ -342,10 +342,16 @@ export function MyLank() {
 
   const fetchUserDetails = async (userId) => {
     try {
-      const response = await axios.get(`/api/user/id/${userId}`, {
-        withCredentials: true,
-      });
-      return response.data;
+      const jwtToken = sessionStorage.getItem("JWT-Token");
+      if (jwtToken != null) {
+        const response = await axios.get(`/api/user/id/${userId}`, {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        });
+        return response.data;
+      }
     } catch (error) {
       console.error("Failed to fetch user details:", error);
       throw error;
@@ -369,19 +375,19 @@ export function MyLank() {
     }).format(price);
   };
   const getProductInfo = (purchase) => {
-    if (purchase.lecture) {
+    if (purchase.lectures && purchase.lectures.length > 0) {
       return {
-        name: purchase.lecture.lectureName || "강의명 없음",
+        name: purchase.lectures[0].lectureName || "강의명 없음",
         type: "강의",
       };
-    } else if (purchase.book) {
+    } else if (purchase.books && purchase.books.length > 0) {
       return {
-        name: purchase.book.bookName || "상품명 없음",
+        name: purchase.books[0].bookName || "상품명 없음",
         type: "상품",
       };
-    } else if (purchase.mockTicket) {
+    } else if (purchase.mockTickets && purchase.mockTickets.length > 0) {
       return {
-        name: purchase.mockTicket.mockTicketName || "상품명 없음",
+        name: purchase.mockTickets[0].mockTicketName || "상품명 없음",
         type: "상품",
       };
     } else {
@@ -394,8 +400,16 @@ export function MyLank() {
 
   useEffect(() => {
     setIsLoading(true);
+    const jwtToken = sessionStorage.getItem("JWT-Token");
+    if (jwtToken == null) {
+      return;
+    }
     axios
-      .get(`/api/purchase`)
+      .get(`/api/purchase`, {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      })
       .then((response) => {
         console.log("데이터", response.data);
 
@@ -414,13 +428,16 @@ export function MyLank() {
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const currentUser = await fetchCurrentUser();
-        if (!currentUser || !currentUser.userId) {
+        const userId = sessionStorage.getItem("UserID");
+        console.log("userID", userId);
+        if (userId != null) {
+          const userDetails = await fetchUserDetails(userId);
+          setUser(userDetails);
+          setError(null);
+        } else {
+          console.log("토큰없음");
           throw new Error("User not authenticated");
         }
-        const userDetails = await fetchUserDetails(currentUser.userId);
-        setUser(userDetails);
-        setError(null);
       } catch (err) {
         console.error("Failed to fetch user data:", err);
         setError(err.message);
