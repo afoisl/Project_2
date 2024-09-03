@@ -29,6 +29,7 @@ import { HallOfFame } from "./HallOfFame";
 import { MyLank } from "./MyLank";
 import { ChatingRoom } from "./ChatingRoom";
 import { NoticeDetail } from "./NoticeDetail";
+import { NoticeWirte } from "./NoticeWrite";
 import { QnaDetail } from "./QnaDetail";
 import { QnaWrite } from "./QnaWrite";
 import { Order } from "./Order";
@@ -106,6 +107,7 @@ function AppContent() {
 
             <Route path="/customer" element={<Customer />} />
             <Route path="/notice/:id" element={<NoticeDetail />} />
+            <Route path="/notice/write" element={<NoticeWirte />} />
             <Route path="/qna/:id" element={<QnaDetail />} />
             <Route path="/qna/write" element={<QnaWrite />} />
             <Route path="/login" element={<Login />} />

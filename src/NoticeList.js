@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const ContList = styled.div`
@@ -28,7 +28,28 @@ const Content = styled.div`
   font-weight: 200;
 `;
 
+const PostButton = styled.button`
+  width: 100px;
+  height: 40px;
+  background-color: black;
+  color: white;
+  border-radius: 30px;
+  border: none;
+  margin: 20px 30px;
+`;
+
+const PostButtonWrapper = styled.div`
+  width: 80%;
+  display: flex;
+  justify-content: end;
+`;
+
 export function NoticeList({ notices, onNoticeClick }) {
+  const navigate = useNavigate();
+
+  const handlePostButtonClick = () => {
+    navigate("/notice/write");
+  };
   return (
     <>
       <List>
@@ -38,6 +59,9 @@ export function NoticeList({ notices, onNoticeClick }) {
             <Content>{notice.writeDate}</Content>
           </ContList>
         ))}
+        <PostButtonWrapper>
+          <PostButton onClick={handlePostButtonClick}>글쓰기</PostButton>
+        </PostButtonWrapper>
       </List>
     </>
   );
