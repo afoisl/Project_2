@@ -137,9 +137,17 @@ export function useChat(userId, roomId) {
 
   const fetchUserCount = useCallback(async () => {
     try {
-      const response = await axios.get(`/api/chat/user/${roomId}`);
-      console.log("Fetched user count:", response.data.length);
-      setChatUserCount(response.data.length);
+      const jwtToken = sessionStorage.getItem("JWT-Token");
+      if (jwtToken != null) {
+        const response = await axios.get(`/api/chat/user/${roomId}`, {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        });
+        console.log("Fetched user count:", response.data.length);
+        setChatUserCount(response.data.length);
+      }
     } catch (error) {
       console.error("Error fetching user count:", error);
     }
@@ -148,11 +156,19 @@ export function useChat(userId, roomId) {
   useEffect(() => {
     const fetchInitialData = async () => {
       try {
-        const [messagesResponse] = await Promise.all([
-          axios.get(`/api/chat/messages/${roomId}`),
-          fetchUserCount(), // This will update chatUserCount state
-        ]);
-        setMessages(messagesResponse.data);
+        const jwtToken = sessionStorage.getItem("JWT-Token");
+        if (jwtToken != null) {
+          const [messagesResponse] = await Promise.all([
+            axios.get(`/api/chat/messages/${roomId}`, {
+              withCredentials: true,
+              headers: {
+                Authorization: `Bearer ${jwtToken}`,
+              },
+            }),
+            fetchUserCount(), // This will update chatUserCount state
+          ]);
+          setMessages(messagesResponse.data);
+        }
       } catch (error) {
         console.error("Error fetching initial data:", error);
       }

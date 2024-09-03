@@ -74,6 +74,10 @@ export function StudyRoom() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const jwtToken = sessionStorage.getItem("JWT-Token");
+    if (jwtToken == null) {
+      return;
+    }
     axios
       .get(urlStudyroom)
       .then((response) => {
@@ -87,7 +91,11 @@ export function StudyRoom() {
 
     if (sessionUserId) {
       axios
-        .get("http://localhost:8080/api/user/id/" + sessionUserId)
+        .get("/api/user/id/" + sessionUserId, {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        })
         .then((response) => {
           setUserGrade(response.data.grade);
           setUserId(sessionUserId);
