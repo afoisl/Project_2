@@ -225,22 +225,57 @@ export function Order() {
   };
 
   const fetchCurrentUser = async () => {
+    const jwtToken = sessionStorage.getItem("JWT-Token");
+    if (!jwtToken) {
+      throw new Error("JWT Token not found in sessionStorage");
+    }
     try {
       const response = await axios.get("/api/user/current", {
         withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
       });
-      return response.data;
+      console.log("Server response:", response.data); // Log the entire response
+
+      if (!response.data || response.data.resultCode !== "SUCCESS") {
+        throw new Error("Invalid response from server");
+      }
+
+      const userData = response.data.data;
+      if (!userData || !userData.userId) {
+        throw new Error("User data not found in server response");
+      }
+
+      console.log("Extracted user data:", userData);
+      return userData;
     } catch (error) {
       console.error("Failed to fetch current user:", error);
+      if (error.response) {
+        console.error("Server error response:", error.response.data);
+        throw new Error(
+          `Server error: ${
+            error.response.data.message || error.response.statusText
+          }`
+        );
+      }
       throw error;
     }
   };
 
   const fetchUserDetails = async (userId) => {
+    const jwtToken = sessionStorage.getItem("JWT-Token");
+    if (!jwtToken) {
+      throw new Error("JWT Token not found in sessionStorage");
+    }
     try {
       const response = await axios.get(`/api/user/id/${userId}`, {
         withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
       });
+      console.log("User details response:", response.data);
       return response.data;
     } catch (error) {
       console.error("Failed to fetch user details:", error);
@@ -252,9 +287,6 @@ export function Order() {
     const getUserData = async () => {
       try {
         const currentUser = await fetchCurrentUser();
-        if (!currentUser || !currentUser.userId) {
-          throw new Error("User not authenticated");
-        }
         const userDetails = await fetchUserDetails(currentUser.userId);
         setUser(userDetails);
         setError(null);
@@ -277,24 +309,44 @@ export function Order() {
   }
 
   const handlePurchase = async () => {
+    const jwtToken = sessionStorage.getItem("JWT-Token");
+    if (jwtToken == null) {
+      return;
+    }
     try {
-      const purchasePromises = items.map((item) =>
-        axios.post(
-          "/api/purchase/save",
-          {
-            user: {
-              userId: user.userId,
-            },
-            storeItem: {
-              storeItemId: item.storeItemId,
-            },
-            purchaseTime: new Date().toISOString(),
-            address: user.address,
-            quantity: item.quantity || 1,
+      const purchasePromises = items.map((item) => {
+        let purchaseData = {
+          user: {
+            userId: user.userId,
           },
-          { withCredentials: true }
-        )
-      );
+          purchaseTime: new Date().toISOString(),
+          address: user.address,
+          quantity: item.quantity || 1,
+        };
+
+        if (item.storeItemId) {
+          purchaseData.storeItem = {
+            storeItemId: item.storeItemId,
+          };
+          if (item.bookName) {
+            purchaseData.storeItem.bookName = item.bookName;
+          } else if (item.mockTicketName) {
+            purchaseData.storeItem.mockTicketName = item.mockTicketName;
+          }
+        } else if (item.lectureId) {
+          purchaseData.lecture = {
+            lectureId: item.lectureId,
+            lectureName: item.lectureName,
+          };
+        }
+
+        return axios.post("/api/purchase/save", purchaseData, {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        });
+      });
 
       const responses = await Promise.all(purchasePromises);
 

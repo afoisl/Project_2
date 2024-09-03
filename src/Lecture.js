@@ -12,7 +12,7 @@ const LectureDetailPage = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 40px;
-  margin-top: 150px;
+  margin: 150px 0 100px 0;
 `;
 
 const LectureBox1 = styled.div``;
@@ -94,8 +94,17 @@ export function Lecture() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const jwtToken = sessionStorage.getItem("JWT-Token");
+    if (jwtToken == null) {
+      return;
+    }
     axios
-      .get(`http://localhost:8080/api/lecture/${id}`) // 템플릿 리터럴로 수정
+      .get(`http://localhost:8080/api/lecture/${id}`, {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      })
       .then((response) => {
         console.log("데이터", response.data);
         setLectures([response.data]); // 배열로 설정
@@ -130,9 +139,7 @@ export function Lecture() {
           <LectureBox2>
             <LectureGrade>{lecture.lectureClass}</LectureGrade>
             <LectureText1>{lecture.lectureName}</LectureText1>
-            <LectureText2>
-              강사 : Tr. {lecture.teacher.teacherName}
-            </LectureText2>
+            <LectureText2>강사 : Tr.</LectureText2>
             <LectureText3>{lecture.lecContent}</LectureText3>
             <LecturePrice>{lecture.lecPrice} 원</LecturePrice>
             <LectureCart onClick={() => handleAddToCart(lecture)}>
