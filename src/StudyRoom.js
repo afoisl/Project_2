@@ -79,7 +79,11 @@ export function StudyRoom() {
       return;
     }
     axios
-      .get(urlStudyroom)
+      .get(urlStudyroom, {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      })
       .then((response) => {
         setStudyRooms(response.data);
         console.log(response.data);
