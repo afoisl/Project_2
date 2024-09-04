@@ -140,6 +140,7 @@ export function Customer() {
   };
 
   const handleQnaClick = (qna) => {
+    console.log("Navigating to QnaDetail with qna:", qna); // qna 확인
     navigate(`/qna/${qna.qnaId}`, { state: { qna } });
   };
 

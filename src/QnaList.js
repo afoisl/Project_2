@@ -64,6 +64,8 @@ export function QnaList({ qnas, onQnaClick }) {
     navigate("/qna/write");
   };
 
+  console.log("QNA List Data:", qnas);
+
   return (
     <>
       <List>

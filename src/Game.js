@@ -51,7 +51,7 @@ export function Game() {
   return (
     <>
       <Title>
-        <H1>World Rush Game</H1>
+        <H1>Word Rush Game</H1>
         <StartButton onClick={() => setPlayingGame(true)}>
           Start Game
         </StartButton>
