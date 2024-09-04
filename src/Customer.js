@@ -102,7 +102,7 @@ export function Customer() {
             Authorization: `Bearer ${jwtToken}`,
           },
         }); // 백엔드 API 호출
-        setNotices(response.data);
+        setNotices(response.data.reverse());
       } // 가져온 데이터를 상태로 설정
     } catch (error) {
       console.log("Error fetching notices: ", error);
@@ -123,7 +123,7 @@ export function Customer() {
             Authorization: `Bearer ${jwtToken}`,
           },
         }); // 백엔드 API 호출
-        setQnas(response.data);
+        setQnas(response.data.reverse());
       } // 가져온 데이터를 상태로 설정
     } catch (error) {
       console.log("Error fetching notices: ", error);
