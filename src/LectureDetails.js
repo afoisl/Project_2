@@ -37,6 +37,7 @@ const LecImg = styled.img`
   width: 350px;
   height: 200px;
   padding-bottom: 10px;
+  border-radius: 20px;
 `;
 
 const CardBox = styled.div`
@@ -69,12 +70,13 @@ const Price = styled.div`
 
 const Class = styled.div`
   display: inline-block;
-  background-color: black;
+  background-color: #21378d;
   color: white;
   border-radius: 5px;
   margin-top: 10px;
-  padding: 0 5px;
-  font-size: 0.8rem;
+  padding: 3px 7px;
+  line-height: 16px;
+  font-size: 0.7rem;
   margin-left: 2px;
 `;
 const FooterMargin = styled.div`

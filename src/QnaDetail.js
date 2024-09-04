@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import style from "style-component";
 import styled from "styled-components";
 
 const Img = styled.div`
@@ -35,6 +36,7 @@ const Content = styled.div`
   height: auto;
   padding: 50px 10px;
   border-bottom: 2px solid #c8c8c8;
+  margin-bottom: 150px;
 `;
 const AnswerBox = styled.textarea`
   margin: 0 auto;
@@ -42,7 +44,6 @@ const AnswerBox = styled.textarea`
   justify-content: center;
   width: 95%;
   height: 200px;
-  margin-top: 200px;
   border: 1px solid #333;
   padding: 10px;
 `;
@@ -81,6 +82,47 @@ const PostButtonWrapper = styled.div`
   justify-content: end;
 `;
 
+const CommentList = styled.div`
+  padding: 20px 0;
+  margin-bottom: 20px;
+`;
+
+const CommentItem = styled.div`
+  margin-top: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #c8c8c8;
+`;
+
+const Top2 = styled.div`
+  display: flex;
+  margin: 0 auto;
+  padding: 0 10px;
+  height: 13px;
+  display: flex;
+  align-items: center;
+`;
+
+const Writer = styled.div`
+  font-size: 0.8rem;
+`;
+
+const Separator = styled.div`
+  width: 2px; /* 세로선의 두께 */
+  height: 100%; /* 세로선의 길이 */
+  background-color: #c8c8c8; /* 선 색상 */
+  margin: 0 10px; /* 선의 좌우 여백 */
+  margin-top: 1px;
+  align-self: stretch; /* 부모의 높이에 맞추어 선을 확장 */
+`;
+
+const WriteDate = styled.div`
+  font-size: 0.8rem;
+`;
+
+const ReplyText = styled.div`
+  padding: 20px 10px;
+`;
+
 export function QnaDetail() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -114,7 +156,7 @@ export function QnaDetail() {
     if (!comment.trim()) return;
 
     try {
-      const token = localStorage.getItem("JWT-Token");
+      const token = sessionStorage.getItem("JWT-Token");
       // 서버에 댓글 저장하는 API 요청 (가정)
       const response = await fetch("http://localhost:8080/api/reply/save", {
         method: "POST",
@@ -123,17 +165,18 @@ export function QnaDetail() {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          qnaId: qna.id, // 질문 ID
+          qnaId: qna.qnaId, // 질문 ID
           text: comment,
           date: new Date().toISOString(), // 저장할 때 현재 시간도 함께 보냄
         }),
       });
 
       if (response.ok) {
-        setComment(""); // 입력창 초기화
         // 새 댓글 리스트에 추가
         const newComment = await response.json();
+        console.log("댓글 저장 성공 : ", response);
         setComments([newComment, ...comments]); // 새로운 댓글을 상단에 추가
+        setComment(""); // 입력창 초기화
       } else if (response.status === 401) {
         console.error("Unauthorized. Please check your authentication.");
         navigate("/login");
@@ -160,17 +203,21 @@ export function QnaDetail() {
         <Title>{qna.title}</Title>
         <Content>{qna.text}</Content>
 
-        <div>
-          {comments.map((cmt, index) => (
-            <div
-              key={index}
-              style={{ padding: "10px", borderBottom: "1px solid #c8c8c8" }}
-            >
-              <strong>{cmt.date}</strong>
-              <p>{cmt.text}</p>
-            </div>
-          ))}
-        </div>
+        {comments.length > 0 && (
+          <CommentList>
+            {[...comments].reverse().map((cmt, index) => (
+              <CommentItem key={index}>
+                <Top2>
+                  <Writer>관리자</Writer>
+                  <Separator />
+                  <WriteDate>{cmt.replyTime}</WriteDate>
+                </Top2>
+
+                <ReplyText>{cmt.text}</ReplyText>
+              </CommentItem>
+            ))}
+          </CommentList>
+        )}
 
         <AnswerBox
           value={comment}

@@ -152,7 +152,7 @@ export function Customer() {
 
   return (
     <>
-      <Img></Img>
+      {/* <Img></Img> */}
       <TitleBox>공지사항 / 1:1 문의</TitleBox>
       <CusTabs
         selectedTab={selectedTab}
