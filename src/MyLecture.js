@@ -20,7 +20,7 @@ const LectureList = styled.div`
 `;
 
 const LectureImg = styled.div`
-  width: 280px;
+  width: 260px;
   height: 150px;
   background-color: #d9d9d9;
 `;
