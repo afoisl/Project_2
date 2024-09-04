@@ -1,4 +1,6 @@
+import React from "react";
 import styled from "styled-components";
+import { useLocation, Navigate } from "react-router-dom";
 
 const BoxWrapper = styled.div`
   margin: 0 auto;
@@ -71,6 +73,7 @@ const Img = styled.div`
 const Each = styled.div``;
 const EachName = styled.div`
   margin-bottom: 10px;
+  font-weight: bold;
 `;
 const EachPrice = styled.div``;
 
@@ -102,55 +105,85 @@ const TotalPrice = styled.div`
 const TotalText = styled.div``;
 const TotalNum = styled.div``;
 
-export function OrderCompleted() {
-  return (
-    <>
-      <BoxWrapper>
-        <Box1>
-          <Text>결제가 정상적으로 완료되었습니다.</Text>
-          <OrderNumber>주문번호</OrderNumber>
-          <Shipping>
-            <Title>배송정보</Title>
-            <InfoBox>
-              <Name>이름</Name>
-              <Phone>휴대폰</Phone>
-              <Address>주소</Address>
-            </InfoBox>
-          </Shipping>
+const ProductList = styled.div`
+  max-height: 150px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+`;
 
-          <OrderInfo>
-            <Title>결제정보</Title>
-            <OrderInfoBox>
-              <Payment>무통장입금</Payment>
-              <Name2>예금주명</Name2>
-              <Bank>카카오뱅크 3333-0000000-00</Bank>
-            </OrderInfoBox>
-          </OrderInfo>
-        </Box1>
-        <Box2>
-          <Product>
-            <Img></Img>
-            <Each>
-              <EachName>상품이름</EachName>
-              <EachPrice>##원</EachPrice>
-            </Each>
-          </Product>
-          <Price>
-            <ProducePrice>
-              <PName>상품 가격</PName>
-              <PPrice>##원</PPrice>
-            </ProducePrice>
-            <Delivery>
-              <DName>배송비</DName>
-              <DPrice>##원</DPrice>
-            </Delivery>
-          </Price>
-          <TotalPrice>
-            <TotalText>총 결제 금액</TotalText>
-            <TotalNum>##원</TotalNum>
-          </TotalPrice>
-        </Box2>
-      </BoxWrapper>
-    </>
+const ProductItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+`;
+
+export function OrderCompleted() {
+  const location = useLocation();
+  const orderDetails = location.state?.orderDetails;
+
+  if (!orderDetails) {
+    return <Navigate to="/" replace />;
+  }
+
+  const {
+    orderId,
+    items,
+    totalPrice,
+    shippingCost,
+    shippingInfo,
+    paymentMethod,
+    paymentInfo,
+  } = orderDetails;
+
+  const grandTotal = totalPrice + (shippingCost || 0);
+
+  return (
+    <BoxWrapper>
+      <Box1>
+        <Text>결제가 정상적으로 완료되었습니다.</Text>
+        <OrderNumber>주문번호: {orderId}</OrderNumber>
+        <Shipping>
+          <Title>배송정보</Title>
+          <InfoBox>
+            <Name>{shippingInfo?.name || "이름 정보 없음"}</Name>
+            <Phone>{shippingInfo?.phoneNumber || "전화번호 정보 없음"}</Phone>
+            <Address>{shippingInfo?.address || "주소 정보 없음"}</Address>
+          </InfoBox>
+        </Shipping>
+        <OrderInfo>
+          <Title>결제정보</Title>
+          <OrderInfoBox>
+            <Payment>{paymentMethod || "결제 방법 정보 없음"}</Payment>
+            <Name2>{paymentInfo?.name || "이름 정보 없음"}</Name2>
+            <Bank>{paymentInfo?.bankInfo || "은행 정보 없음"}</Bank>
+          </OrderInfoBox>
+        </OrderInfo>
+      </Box1>
+      <Box2>
+        <ProductList>
+          {items &&
+            items.map((item, index) => (
+              <ProductItem key={index}>
+                <EachName>{item.name || "상품명 없음"}</EachName>
+                <EachPrice>{(item.price || 0).toLocaleString()}원</EachPrice>
+              </ProductItem>
+            ))}
+        </ProductList>
+        <Price>
+          <ProducePrice>
+            <PName>상품 가격</PName>
+            <PPrice>{totalPrice.toLocaleString()}원</PPrice>
+          </ProducePrice>
+          <Delivery>
+            <DName>배송비</DName>
+            <DPrice>{(shippingCost || 0).toLocaleString()}원</DPrice>
+          </Delivery>
+        </Price>
+        <TotalPrice>
+          <TotalText>총 결제 금액</TotalText>
+          <TotalNum>{grandTotal.toLocaleString()}원</TotalNum>
+        </TotalPrice>
+      </Box2>
+    </BoxWrapper>
   );
 }

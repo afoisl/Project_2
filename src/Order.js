@@ -310,9 +310,11 @@ export function Order() {
 
   const handlePurchase = async () => {
     const jwtToken = sessionStorage.getItem("JWT-Token");
-    if (jwtToken == null) {
+    if (!jwtToken) {
+      setError("인증 토큰이 없습니다. 다시 로그인해 주세요.");
       return;
     }
+
     try {
       const purchasePromises = items.map((item) => {
         let purchaseData = {
@@ -327,16 +329,14 @@ export function Order() {
         if (item.storeItemId) {
           purchaseData.storeItem = {
             storeItemId: item.storeItemId,
+            itemName: item.bookName || item.mockTicketName,
+            itemPrice: item.bookPrice || item.ticketPrice,
           };
-          if (item.bookName) {
-            purchaseData.storeItem.bookName = item.bookName;
-          } else if (item.mockTicketName) {
-            purchaseData.storeItem.mockTicketName = item.mockTicketName;
-          }
         } else if (item.lectureId) {
           purchaseData.lecture = {
             lectureId: item.lectureId,
             lectureName: item.lectureName,
+            lecturePrice: item.lecPrice,
           };
         }
 
@@ -349,20 +349,45 @@ export function Order() {
       });
 
       const responses = await Promise.all(purchasePromises);
-
-      console.log("Responses:", responses);
+      console.log("Purchase responses:", responses);
 
       const purchaseIds = responses.map((response) => response.data.purchaseId);
+      const orderDetails = {
+        orderId: purchaseIds.join(","), // 여러 구매 ID를 쉼표로 구분하여 저장
+        items: items.map((item) => ({
+          name: item.bookName || item.mockTicketName || item.lectureName,
+          price: item.bookPrice || item.ticketPrice || item.lecPrice,
+          quantity: item.quantity || 1,
+        })),
+        totalPrice: calculateTotalPrice(),
+        shippingCost: calculateShippingCost(),
+        shippingInfo: {
+          name: user.name,
+          phoneNumber: user.phoneNumber,
+          address: user.address,
+        },
+        paymentMethod: "무통장입금",
+        paymentInfo: {
+          name: user.name,
+          bankInfo: "카카오뱅크 3333-0000000-00",
+        },
+      };
 
       navigate("/orderCompleted", {
-        state: { orderIds: purchaseIds },
+        state: { orderDetails },
       });
     } catch (error) {
       console.error("Failed to complete purchase:", error);
       if (error.response) {
         console.error("Error response:", error.response.data);
+        setError(
+          `구매 실패: ${
+            error.response.data.message || "알 수 없는 오류가 발생했습니다."
+          }`
+        );
+      } else {
+        setError("네트워크 오류가 발생했습니다. 다시 시도해 주세요.");
       }
-      alert("결제 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
 

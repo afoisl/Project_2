@@ -193,8 +193,32 @@ const LearningStatusGrid = styled.div`
   font-size: 17px;
 `;
 const LearningStatus = styled.div`
-  margin-bottom: 150px;
+  margin: 0 0 150px 0;
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 7fr;
+  text-align: end;
+  padding: 15px;
 `;
+const MyPurchaseTitle = styled.div`
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 17px;
+  text-align: start;
+`;
+const PurchaseStaus = styled.div``;
+const MyLectureClass = styled.div`
+  width: 70px;
+  height: 30px;
+  background-color: #2f62cb;
+  color: white;
+  text-align: center;
+  line-height: 30px;
+  margin-bottom: 10px;
+`;
+const MyLectureSubject = styled.div`
+  color: #797979;
+`;
+
 const OrderDeliveryTitle = styled.div`
   font-size: 25px;
   margin: 10px 0px 50px 20px;
@@ -425,6 +449,12 @@ export function MyLank() {
       });
   }, []);
 
+  const extractLectures = (purchases) => {
+    return purchases.flatMap((purchase) =>
+      purchase.lectures ? purchase.lectures : []
+    );
+  };
+
   useEffect(() => {
     const getUserData = async () => {
       try {
@@ -521,10 +551,24 @@ export function MyLank() {
           <LearningStatusTitle>학습현황</LearningStatusTitle>
           <LearningStatusGrid>
             <p>강좌명</p>
-
             <p>상태</p>
           </LearningStatusGrid>
-          <LearningStatus></LearningStatus>
+          <LearningStatus>
+            {isLoading ? (
+              <p>강좌 정보를 불러오는 중입니다...</p>
+            ) : purchases.length > 0 ? (
+              extractLectures(purchases).map((lecture, index) => (
+                <React.Fragment key={index}>
+                  <MyPurchaseTitle>{lecture.lectureName},</MyPurchaseTitle>
+                  <MyLectureClass>{lecture.lectureClass}</MyLectureClass>
+                  <MyLectureSubject>{lecture.subject}</MyLectureSubject>
+                  <PurchaseStaus>진행중</PurchaseStaus>
+                </React.Fragment>
+              ))
+            ) : (
+              <p>수강 중인 강좌가 없습니다.</p>
+            )}
+          </LearningStatus>
         </div>
 
         <div ref={pointRef}>
