@@ -3,6 +3,7 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import logo from "./assets/img/로고.png";
 
 const SubMenu = styled.div`
   width: 100%;
@@ -41,11 +42,10 @@ const MenuContainer = styled.div`
   }
 `;
 
-const Img = styled.div`
+const Img = styled.img`
   height: 50px;
-  width: 73px;
+  width: 76px;
   margin: 10px;
-  background-image: url(${Logo});
   background-size: cover;
 `;
 
@@ -159,8 +159,8 @@ export function Menu() {
     <MenuContainer>
       <Header>
         <div></div>
-        <Img>
-          <MenuBtn to="/"></MenuBtn>
+        <Img src={logo} alt="logo">
+          {/* <MenuBtn to="/"></MenuBtn> */}
         </Img>
         <Center>
           <MenuBtn to="/intro/about">학원소개</MenuBtn>

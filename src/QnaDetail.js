@@ -157,6 +157,12 @@ export function QnaDetail() {
 
     try {
       const token = sessionStorage.getItem("JWT-Token");
+
+      const qnaId = qna?.id;
+      if (!qnaId) {
+        console.error("qnaId is missing");
+        return;
+      }
       // 서버에 댓글 저장하는 API 요청 (가정)
       const response = await fetch("http://localhost:8080/api/reply/save", {
         method: "POST",
@@ -165,7 +171,7 @@ export function QnaDetail() {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          qnaId: qna.qnaId, // 질문 ID
+          qna: qna.qnaId, // 질문 ID
           text: comment,
           date: new Date().toISOString(), // 저장할 때 현재 시간도 함께 보냄
         }),
