@@ -56,11 +56,16 @@ export function ChatingRoom() {
 
   useEffect(() => {
     const sessionUserId = sessionStorage.getItem("UserID");
+    const jwtToken = sessionStorage.getItem("JWT-Token");
 
     const checkUser = async () => {
       if (sessionUserId) {
         axios
-          .get("http://localhost:8080/api/user/id/" + sessionUserId)
+          .get("http://localhost:8080/api/user/id/" + sessionUserId, {
+            headers: {
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          })
           .then((response) => {
             if (sessionUserId !== userId) {
               alert("로그인되지 않은 아이디는 사용할 수 없습니다");

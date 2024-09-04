@@ -109,7 +109,34 @@ export function useChat(userId, roomId) {
         }
       );
 
-      sendStatusMessage(client, "JOIN");
+      try {
+        axios
+          .get(`/api/chat/user/${roomId}`, {
+            withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("JWT-Token")}`,
+            },
+          })
+          .then((response) => {
+            response.data.map((userData) => {
+              console.log("유저 데이터 아이디 : ", userData.user.userId);
+            });
+            const existingUser = response.data.find(
+              (userData) => userData.user.userId === userId
+            );
+            if (!existingUser) {
+              sendStatusMessage(client, "JOIN");
+            } else {
+              console.log("이미 참여중인 유저");
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        fetchUserCount();
+      } catch (error) {
+        console.error("Error checking if user is already in the room:", error);
+      }
     };
 
     client.onStompError = (frame) => {
@@ -217,7 +244,7 @@ export function useChat(userId, roomId) {
     chatUser,
     chatUserCount,
     isConnected,
-    refreshUserCount: fetchUserCount, // Expose this function to manually refresh user count
+    refreshUserCount: fetchUserCount,
   };
 }
 

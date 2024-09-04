@@ -12,6 +12,8 @@ const MessageList = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 300px;
+  max-height: 600px;
+  overflow-y: scroll;
 `;
 
 const MessageGroup = styled.div`
@@ -181,7 +183,7 @@ const UsersInfo = styled.div`
 const UserInfo = styled.div`
   font-size: 16px;
   &:hover {
-    color: blue;
+    color: #033492;
   }
 `;
 
@@ -220,7 +222,7 @@ export function Chat({ userId, roomId }) {
     chatUser,
     chatUserCount,
   } = useChat(userId, roomId);
-  console.log(chatUser);
+  console.log(chatUserCount);
 
   const formattedMessages = messages.map((message) => ({
     ...message,
