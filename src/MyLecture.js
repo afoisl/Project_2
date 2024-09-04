@@ -14,37 +14,41 @@ const MyLectureTitle = styled.div`
 
 const LectureList = styled.div`
   display: grid;
-  grid-template-columns: 2fr 2fr 1fr;
+  grid-template-columns: 2fr 2fr 2fr 0.8fr;
   margin-top: 50px;
+  align-items: center;
 `;
 
 const LectureImg = styled.div`
-  width: 370px;
-  height: 200px;
+  width: 280px;
+  height: 150px;
   background-color: #d9d9d9;
 `;
 const LectureText = styled.div``;
 const LectureText1 = styled.div`
-  font-size: 20px;
+  font-size: 15px;
   color: #7d7d7d;
 `;
 const LectureText2 = styled.div`
-  font-size: 32px;
+  font-size: 25px;
   font-weight: bold;
   margin-top: 5px;
 `;
 const LectureText3 = styled.div`
-  width: 70px;
+  width: 50px;
   height: 25px;
   color: white;
   background-color: black;
   text-align: center;
   margin-top: 10px;
   line-height: 25px;
+  font-size: 12px;
+  border-radius: 8px;
 `;
+const Progress = styled.div``;
 const LectureText4 = styled.div`
   margin-top: 40px;
-  font-size: 20px;
+  font-size: 15px;
   color: #7d7d7d;
 `;
 const LectureText5 = styled.div`
@@ -55,14 +59,16 @@ const LectureText5 = styled.div`
   margin-top: 10px;
 `;
 const LectureGo = styled.div`
-  width: 170px;
-  height: 70px;
+  width: 100px;
+  height: 40px;
   background-color: #d9d9d9;
-  font-size: 24px;
+  font-size: 15px;
   text-align: center;
-  line-height: 70px;
+  line-height: 38px;
   align-self: self-end;
-  cursor: pointer;
+  border-radius: 15px;
+  font-weight: 700;
+  margin-bottom: 30px;
 `;
 const LectureMargin = styled.div`
   height: 20px;
@@ -133,9 +139,12 @@ export function MyLecture() {
                     <LectureText3>
                       {purchase.lectures[0].lectureClass || "분류 없음"}
                     </LectureText3>
+                  </LectureText>
+                  <Progress>
                     <LectureText4>진도율</LectureText4>
                     <LectureText5></LectureText5>
-                  </LectureText>
+                  </Progress>
+
                   <LectureGo
                     onClick={() =>
                       handleLectureClick(purchase.lectures[0].storeItemId)
