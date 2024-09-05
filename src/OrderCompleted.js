@@ -10,12 +10,14 @@ const BoxWrapper = styled.div`
   align-items: center;
   margin-top: 100px;
   border: 0.7px solid lightgray;
+  margin-bottom: 165px;
 `;
 const Box1 = styled.div`
   width: 550px;
   height: 400px;
   padding: 20px;
   margin-left: 40px;
+
   /* border: black 1px solid; */
 `;
 const Text = styled.div`
