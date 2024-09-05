@@ -90,35 +90,65 @@ const LecturePurchase = styled.div`
 
 export function Lecture() {
   const [lectures, setLectures] = useState([]);
-  const { id } = useParams(); // id를 useParams로 가져옴
+  const [isPurchased, setIsPurchased] = useState(false);
+  const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const jwtToken = sessionStorage.getItem("JWT-Token");
-    if (jwtToken == null) {
-      return;
-    }
-    axios
-      .get(`http://localhost:8080/api/lecture/${id}`, {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      })
-      .then((response) => {
-        console.log("데이터", response.data);
-        setLectures([response.data]); // 배열로 설정
-      })
-      .catch((error) => {
-        console.log("error", error);
-      });
-  }, [id]); // id가 변경될 때마다 재실행
+    const fetchData = async () => {
+      const jwtToken = sessionStorage.getItem("JWT-Token");
+      const userId = sessionStorage.getItem("UserID");
+      if (!jwtToken || !userId) {
+        navigate("/login");
+        return;
+      }
+
+      try {
+        // 강의 정보 가져오기
+        const lectureResponse = await axios.get(`http://localhost:8080/api/lecture/${id}`, {
+          headers: { Authorization: `Bearer ${jwtToken}` }
+        });
+        
+        const lectureData = lectureResponse.data;
+        console.log("강의 데이터:", lectureData);
+        setLectures([lectureData]);
+
+        // 여기서 실제 사용할 ID를 확인합니다.
+        const lectureId = lectureData.storeItemId || lectureData.lectureId;
+        
+        if (!lectureId) {
+          console.error("강의 ID를 찾을 수 없습니다.");
+          return;
+        }
+
+        // 구매 여부 확인
+        const purchaseResponse = await axios.get(
+          `http://localhost:8080/api/purchase/check/${userId}/${lectureId}`,
+          { headers: { Authorization: `Bearer ${jwtToken}` } }
+        );
+
+        console.log("구매 여부 응답:", purchaseResponse.data);
+        setIsPurchased(purchaseResponse.data);
+      } catch (error) {
+        console.error("데이터 가져오기 실패:", error);
+        if (error.response) {
+          console.error("서버 응답:", error.response.data);
+        }
+      }
+    };
+
+    fetchData();
+  }, [id, navigate]);
 
   const handleAddToCart = (lecture) => {
+    if (isPurchased) {
+      alert("이미 구매한 강의입니다.");
+      return;
+    }
     const currentCart = JSON.parse(localStorage.getItem("cart")) || [];
     const newItem = {
       ...lecture,
-      uniqueId: `${lecture.id}-${Date.now()}`, // 현재 시간을 사용하여 고유 ID 생성
+      uniqueId: `${lecture.storeItemId}-${Date.now()}`,
     };
     const updatedCart = [...currentCart, newItem];
     localStorage.setItem("cart", JSON.stringify(updatedCart));
@@ -126,8 +156,13 @@ export function Lecture() {
   };
 
   const handleAddtoOrder = (lecture) => {
+    if (isPurchased) {
+      alert("이미 구매한 강의입니다.");
+      return;
+    }
     navigate("/order", { state: { lectures: [lecture] } });
   };
+
 
   return (
     <Container>
