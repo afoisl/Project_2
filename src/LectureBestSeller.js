@@ -94,7 +94,32 @@ const SliderWrapper = styled.div`
   .slick-list {
     margin: 0 -10px;
   }
+  .slick-prev,
+  .slick-next {
+    &:before {
+      opacity: 1;
+      color: #21378d;
+    }
+  }
+
+  .slick-prev {
+    left: -40px;
+    &:before {
+      content: '←';
+    }
+  }
+
+  .slick-next {
+    right: -40px;
+    &:before {
+      content: '→';
+    }
+  }
+
 `;
+
+
+
 
 export function LectureBestSeller() {
   const [lectures, setLectures] = useState([]);
