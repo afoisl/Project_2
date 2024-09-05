@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import style from "style-component";
 import styled from "styled-components";
 
 const Img = styled.div`

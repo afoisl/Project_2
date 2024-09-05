@@ -15,7 +15,7 @@ const MyLectureTitle = styled.div`
 const LectureList = styled.div`
   display: grid;
   grid-template-columns: 2fr 2fr 2fr 0.8fr;
-  margin-top: 50px;
+  margin: 30px 0;
   align-items: center;
 `;
 
@@ -78,6 +78,21 @@ const LectureMargin1 = styled.div`
 `;
 
 const LoadingMessage = styled.div``;
+const MyLectureMenu = styled.div`
+  display: grid;
+  grid-template-columns: 4fr 4fr 2fr;
+  background-color: #edede9;
+  height: 40px;
+  line-height: 5px;
+  width: 1200px;
+  text-align: center;
+  font-size: 17px;
+  margin-top: 20px;
+`;
+const LectureLine = styled.div`
+  box-shadow: 0.3px 0.3px 0.3px 0.3px #d9d9d9;
+  width: 1200px;
+`;
 
 export function MyLecture() {
   const [purchases, setPurchases] = useState([]);
@@ -119,6 +134,11 @@ export function MyLecture() {
     <>
       <Container>
         <MyLectureTitle>수강현황</MyLectureTitle>
+        <MyLectureMenu>
+          <p>강의</p>
+          <p>진도율</p>
+          <p>강의실이동</p>
+        </MyLectureMenu>
         {isLoading ? (
           <LoadingMessage>강의 정보를 불러오는 중입니다...</LoadingMessage>
         ) : purchases.some(
@@ -153,6 +173,7 @@ export function MyLecture() {
                     강의듣기
                   </LectureGo>
                 </LectureList>
+                <LectureLine></LectureLine>
                 <LectureMargin></LectureMargin>
               </React.Fragment>
             ) : null
