@@ -18,7 +18,7 @@ const BigBox = styled.div`
 
 const H1 = styled.h1`
   /* margin: 150px 0px 30px 395px; */
-  font-size: 3rem;
+  font-size: 2.2rem;
   font-weight: 400;
   padding-left: 20px;
 `;
@@ -135,7 +135,7 @@ export function LectureBestSeller() {
     autoplay: true,
     autoplaySpeed: 5000,
     pauseOnHover: true,
-    arrows: false,
+    arrows: true,
     responsive: [
       {
         breakpoint: 1024,

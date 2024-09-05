@@ -90,7 +90,8 @@ const Button = styled.button`
   border-radius: 30px;
   padding: 0 20px;
   border: none;
-  background-color: ${(props) => (props.active ? "lightgray" : "lightgray")};
+  background-color: ${(props) => (props.active ? "black" : "lightgray")};
+  color: ${(props) => (props.active ? "white" : "black")};
   margin: 30px 15px;
   font-size: 1rem;
   font-weight: 600;
