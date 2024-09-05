@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Pagination from "./Pagination";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { NoticeList } from "./NoticeList";
 import { QnaList } from "./QnaList";
 import axios from "axios";
@@ -79,7 +79,9 @@ const CusTabs = ({ selectedTab, setSelectedTab, setCurrentPage }) => {
 };
 
 export function Customer() {
-  const [selectedTab, setSelectedTab] = useState("notice");
+  const location = useLocation();
+  const initialTab = location.state?.selectedTab || "notice"; // 전달된 상태 없으면 기본값으로 "notice"
+  const [selectedTab, setSelectedTab] = useState(initialTab);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 

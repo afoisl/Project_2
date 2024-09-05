@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Img = styled.div`
@@ -54,6 +54,7 @@ const ButtonWrapper = styled.div`
 
 export function NoticeDetail() {
   const location = useLocation();
+  const navigate = useNavigate();
   const notice = location.state?.notice;
 
   if (!notice) {
@@ -71,7 +72,13 @@ export function NoticeDetail() {
         <Title>{notice.title}</Title>
         <Content>{notice.content}</Content>
         <ButtonWrapper>
-          <ToBack onClick={() => window.history.back()}>목록으로</ToBack>
+          <ToBack
+            onClick={() =>
+              navigate("/customer", { state: { selectedTab: "notice" } })
+            }
+          >
+            목록으로
+          </ToBack>
         </ButtonWrapper>
       </Box>
     </>

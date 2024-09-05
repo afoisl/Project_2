@@ -47,6 +47,7 @@ const AnswerBox = styled.textarea`
   height: 200px;
   border: 1px solid #333;
   padding: 10px;
+  white-space: pre-wrap;
 `;
 
 const PostButton = styled.button`
@@ -122,6 +123,7 @@ const WriteDate = styled.div`
 
 const ReplyText = styled.div`
   padding: 20px 10px;
+  white-space: pre-wrap;
 `;
 
 export function QnaDetail() {
@@ -187,7 +189,7 @@ export function QnaDetail() {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          qna: qna.qnAId, // 질문 ID
+          qna: { pnAId: qna.qnAId }, // 질문 ID
           text: comment,
           date: new Date().toISOString(), // 저장할 때 현재 시간도 함께 보냄
         }),
@@ -244,13 +246,22 @@ export function QnaDetail() {
         <AnswerBox
           value={comment}
           onChange={(e) => setComment(e.target.value)}
+          cols="100"
+          wrap="hard"
         ></AnswerBox>
+
         <PostButtonWrapper>
           <PostButton onClick={handlePostComment}>답변 등록</PostButton>
         </PostButtonWrapper>
 
         <ToBackWrapper>
-          <ToBack onClick={() => window.history.back()}>목록으로</ToBack>
+          <ToBack
+            onClick={() =>
+              navigate("/customer", { state: { selectedTab: "qna" } })
+            }
+          >
+            목록으로
+          </ToBack>
         </ToBackWrapper>
       </Box>
     </>
