@@ -41,6 +41,7 @@ const LecImg = styled.img`
   padding-bottom: 10px;
   border-radius: 20px;
   border: 1px solid grey;
+  margin-bottom: 15px;
 `;
 
 const CardBox = styled.div`

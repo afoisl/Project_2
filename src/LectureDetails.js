@@ -14,13 +14,6 @@ const BigBox = styled.div`
   margin: 50px 0 50px 0;
 `;
 
-const H1 = styled.h1`
-  /* margin: 150px 0px 30px 395px; */
-  font-size: 2rem;
-  font-weight: 400;
-  margin-left: 80px;
-`;
-
 const Box = styled.div`
   display: flex;
   justify-content: center;
@@ -38,6 +31,8 @@ const LecImg = styled.img`
   height: 200px;
   padding-bottom: 10px;
   border-radius: 20px;
+  border: 1px solid #333;
+  margin: 20px 0 15px;
 `;
 
 const CardBox = styled.div`
@@ -183,7 +178,7 @@ export function LectureDetails() {
               </Button>
             ))}
           </ButtonWrapper>
-          <H1>{getTitle()}</H1>
+
           <Box>
             <Container>
               {filteredLectures.map((lecture) => (

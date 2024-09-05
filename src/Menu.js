@@ -7,12 +7,12 @@ import logo from "./assets/img/로고.png";
 
 const SubMenu = styled.div`
   width: 100%;
-  background-color: white;
+  background-color: #f5f2e9;
   height: 0;
   opacity: 0;
   visibility: hidden;
   display: grid;
-  grid-template-columns: 0.7fr 1fr 4.6fr 1.5fr 0.7fr;
+  grid-template-columns: 0.67fr 1fr 4.6fr 1.5fr 0.7fr;
   position: absolute;
   top: 70px;
   left: 0;
@@ -24,7 +24,7 @@ const SubMenu = styled.div`
 
 const Header = styled.div`
   width: 100%;
-  background-color: white;
+  background-color: #f5f2e9;
   height: 70px;
   display: grid;
   grid-template-columns: 0.7fr 1fr 4fr 1.5fr 0.7fr;
@@ -86,7 +86,7 @@ const Right = styled.div`
 
 const SubCenter = styled.div`
   display: grid;
-  grid-template-columns: 2.2fr 1.3fr 2fr 1.7fr 1.85fr 1.6fr 2.4fr;
+  grid-template-columns: 2.2fr 1.4fr 2fr 1.7fr 2fr 1.6fr 2.3fr;
   gap: 3px;
 
   & > div {
@@ -98,7 +98,7 @@ const SubCenter = styled.div`
 
 const SubRight = styled.div`
   width: 80px;
-  margin: 0px 105px;
+  margin: 0px 110px;
   padding: 0px 10px;
   display: grid;
   grid-template-rows: 1fr 1fr 1fr 1fr;
