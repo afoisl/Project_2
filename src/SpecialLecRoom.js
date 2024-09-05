@@ -96,12 +96,7 @@ export function SpecialLecRoom() {
   useEffect(() => {
     const jwtToken = sessionStorage.getItem("JWT-Token");
     axios
-      .get("/api/stream/lectures", {
-        withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      })
+      .get("/api/stream/lectures")
       .then((response) => {
         setLecRooms(response.data);
       })
