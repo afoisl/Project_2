@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Lecture } from "./Lecture";
+import Pagination from "./Pagination";
 import axios from "axios";
 
 const Box1 = styled.div`
@@ -115,6 +116,8 @@ export function LectureDetails() {
   const [lectures, setLectures] = useState([]);
   const [activeCategory, setActiveCategory] = useState("전체강의");
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
 
   useEffect(() => {
     const jwtToken = sessionStorage.getItem("JWT-Token");
@@ -148,19 +151,13 @@ export function LectureDetails() {
       ? lectures
       : lectures.filter((lecture) => lecture.subject === activeCategory);
 
-  const getTitle = () => {
-    switch (activeCategory) {
-      case "전체강의":
-        return "전체강의";
-      case "RC":
-        return "RC";
-      case "LC":
-        return "LC";
-      case "Package":
-        return "Package";
-      default:
-        return "전체강의";
-    }
+
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredLectures.slice(indexOfFirstItem, indexOfLastItem);
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -173,7 +170,10 @@ export function LectureDetails() {
               <Button
                 key={category}
                 active={activeCategory === category}
-                onClick={() => setActiveCategory(category)}
+                onClick={() => {
+                  setActiveCategory(category);
+                  setCurrentPage(1);
+                }}
               >
                 {category}
               </Button>
@@ -182,7 +182,7 @@ export function LectureDetails() {
 
           <Box>
             <Container>
-              {filteredLectures.map((lecture) => (
+              {currentItems.map((lecture) => (
                 <CardBox
                   key={lecture.storeItemId}
                   onClick={() => handleCardClick(lecture.storeItemId)}
@@ -200,6 +200,14 @@ export function LectureDetails() {
           </Box>
         </BigBox>
       </Box1>
+      {filteredLectures.length > 0 && (
+        <Pagination
+          total={filteredLectures.length}
+          limit={itemsPerPage}
+          page={currentPage}
+          setPage={handlePageChange}
+        />
+      )}
       <FooterMargin></FooterMargin>
     </>
   );
