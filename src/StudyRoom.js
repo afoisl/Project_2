@@ -75,15 +75,8 @@ export function StudyRoom() {
 
   useEffect(() => {
     const jwtToken = sessionStorage.getItem("JWT-Token");
-    if (jwtToken == null) {
-      return;
-    }
     axios
-      .get(urlStudyroom, {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      })
+      .get(urlStudyroom)
       .then((response) => {
         setStudyRooms(response.data);
       })
