@@ -117,29 +117,6 @@ export function Menu() {
     }
   }, []);
 
-  // function sessionCurrent() {
-  //   const jwtToken = sessionStorage.getItem("JWT-Token");
-  //   if (!jwtToken) {
-  //     console.log("인증이 필요합니다.");
-  //     return;
-  //   }
-  //   axios
-  //     .get("http://localhost:8080/api/user/current", {
-  //       withCredentials: true,
-  //       headers: {
-  //         Authorization: `Bearer ${jwtToken}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       console.log("데이터:", response.data);
-  //       if (response.data.resultCode == "SUCCESS") {
-  //         console.log("세션 유지");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log("에러 발생:", error.response.data);
-  //     });
-  // }
   const handleLogout = (e) => {
     e.preventDefault(); // 링크의 기본 동작 방지
     sessionStorage.removeItem("JWT-Token");
@@ -148,20 +125,15 @@ export function Menu() {
 
     setIsLoggedIn(false);
     navigate(location.pathname, { replace: false });
-    // document.cookie =
-    //   "authToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
-
-    // localStorage.removeItem("authToken");
-    // sessionStorage.removeItem("authToken");
   };
 
   return (
     <MenuContainer>
       <Header>
         <div></div>
-        <Img src={logo} alt="logo">
-          {/* <MenuBtn to="/"></MenuBtn> */}
-        </Img>
+        <a href="/">
+          <Img src={logo} alt="logo"></Img>
+        </a>
         <Center>
           <MenuBtn to="/intro/about">학원소개</MenuBtn>
           <MenuBtn to="/lecturelist">강의</MenuBtn>
