@@ -16,9 +16,9 @@ const BigBox = styled.div`
 
 const H1 = styled.h1`
   /* margin: 150px 0px 30px 395px; */
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 400;
-  padding-left: 20px;
+  margin-left: 80px;
 `;
 
 const Box = styled.div`
@@ -83,8 +83,41 @@ const FooterMargin = styled.div`
   height: 100px;
 `;
 
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+`;
+
+const Button = styled.button`
+  width: auto;
+  height: 40px;
+  border-radius: 30px;
+  padding: 0 20px;
+  border: none;
+  background-color: ${(props) => (props.active ? "lightgray" : "lightgray")};
+  margin: 30px 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  &:hover {
+    background-color: ${(props) => (props.active ? "black" : "gray")};
+  }
+  &:active {
+    background-color: ${(props) => (props.active ? "black" : "gray")};
+    color: white;
+  }
+`;
+
+const H = styled.h1`
+  text-align: center;
+  margin-top: 120px;
+`;
+
 export function LectureDetails() {
   const [lectures, setLectures] = useState([]);
+  const [activeCategory, setActiveCategory] = useState("전체강의");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -112,21 +145,54 @@ export function LectureDetails() {
     navigate(`/lecturelist/lecture/${lectureId}`);
   };
 
+  const categories = ["전체강의", "RC", "LC", "Package"];
+
+  const filteredLectures =
+    activeCategory === "전체강의"
+      ? lectures
+      : lectures.filter((lecture) => lecture.subject === activeCategory);
+
+  const getTitle = () => {
+    switch (activeCategory) {
+      case "전체강의":
+        return "전체강의";
+      case "RC":
+        return "RC";
+      case "LC":
+        return "LC";
+      case "Package":
+        return "Package";
+      default:
+        return "전체강의";
+    }
+  };
+
   return (
     <>
       <Box1>
         <BigBox>
-          <H1>Best Seller</H1>
+          <H>내가 필요한 강의는?</H>
+          <ButtonWrapper>
+            {categories.map((category) => (
+              <Button
+                key={category}
+                active={activeCategory === category}
+                onClick={() => setActiveCategory(category)}
+              >
+                {category}
+              </Button>
+            ))}
+          </ButtonWrapper>
+          <H1>{getTitle()}</H1>
           <Box>
             <Container>
-              {lectures.map((lecture) => (
+              {filteredLectures.map((lecture) => (
                 <CardBox
                   key={lecture.storeItemId}
                   onClick={() => handleCardClick(lecture.storeItemId)}
                 >
                   <Card>
                     <LecImg></LecImg>
-
                     <Category>{lecture.subject}</Category>
                     <Title>{lecture.lectureName}</Title>
                     <Price>{lecture.lecPrice} 원</Price>
@@ -138,6 +204,7 @@ export function LectureDetails() {
           </Box>
         </BigBox>
       </Box1>
+      <FooterMargin></FooterMargin>
     </>
   );
 }

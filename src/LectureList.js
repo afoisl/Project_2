@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { LectureDetails } from "./LectureDetails";
 import { Outlet } from "react-router-dom";
+import { LectureBestSeller } from "./LectureBestSeller";
 
 const Img = styled.div`
   width: 100%;
@@ -53,21 +54,12 @@ export function LectureList() {
   return (
     <>
       <Img></Img>
-      <LectureDetails />
+      <LectureBestSeller />
       <Box1>
-        <BigBox>
-          <H>내가 필요한 강의는?</H>
-          <ButtonWrapper>
-            <Button>전체강의</Button>
-            <Button>RC</Button>
-            <Button>LC</Button>
-            <Button>Package</Button>
-          </ButtonWrapper>
-        </BigBox>
+        <BigBox></BigBox>
       </Box1>
       <LectureDetails />
-      <LectureDetails />
-      <LectureDetails />
+
       <Outlet />
     </>
   );
