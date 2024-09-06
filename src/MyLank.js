@@ -55,9 +55,9 @@ const MyPageText = styled.div`
 const MyPageEdit = styled.div`
   width: 130px;
   height: 33px;
-  border: 0.5px solid #2f62cb;
+  border: 0.5px solid #21378d;
   font-size: 16px;
-  color: #2f62cb;
+  color: #21378d;
   align-items: center;
   line-height: 33px;
   margin-right: 30px;
@@ -132,7 +132,7 @@ const MyPageLectureList = styled.div`
 const MyPageLectureGo = styled.div`
   width: 200px;
   height: 50px;
-  background-color: #2f62cb;
+  background-color: #21378d;
   color: white;
   font-size: 18px;
   line-height: 50px;
@@ -185,7 +185,7 @@ const LearningStatusTitle = styled.div`
 const LearningStatusGrid = styled.div`
   display: grid;
   grid-template-columns: 7fr 3fr;
-  background-color: #fafafa;
+  background-color: #edede9;
   height: 40px;
   line-height: 5px;
   width: 1200px;
@@ -195,7 +195,7 @@ const LearningStatusGrid = styled.div`
 const LearningStatus = styled.div`
   margin: 0 0 150px 0;
   display: grid;
-  grid-template-columns: 3fr 1fr 1fr 7fr;
+  grid-template-columns: 1.5fr 1fr 7fr;
   text-align: end;
   padding: 15px;
 `;
@@ -208,15 +208,18 @@ const MyPurchaseTitle = styled.div`
 const PurchaseStaus = styled.div``;
 const MyLectureClass = styled.div`
   width: 70px;
-  height: 30px;
-  background-color: #2f62cb;
+  height: 20px;
+  background-color: #21378d;
   color: white;
   text-align: center;
-  line-height: 30px;
-  margin-bottom: 10px;
+  line-height: 20px;
+  font-size: 13px;
+  margin: auto;
 `;
 const MyLectureSubject = styled.div`
   color: #797979;
+  font-size: 13px;
+  text-align: center;
 `;
 
 const OrderDeliveryTitle = styled.div`
@@ -226,7 +229,7 @@ const OrderDeliveryTitle = styled.div`
 const OrderDeliveryGrid = styled.div`
   display: grid;
   grid-template-columns: 1.5fr 2fr 1fr 1fr;
-  background-color: #fafafa;
+  background-color: #edede9;
   height: 40px;
   line-height: 5px;
   width: 1200px;
@@ -243,7 +246,7 @@ const PointTitle = styled.div`
 const PointGrid = styled.div`
   display: grid;
   grid-template-columns: 6fr 1fr 2fr;
-  background-color: #fafafa;
+  background-color: #edede9;
   height: 40px;
   line-height: 5px;
   width: 1200px;
@@ -291,7 +294,7 @@ const ItemTitle = styled.div`
 const ItemGrid = styled.div`
   display: grid;
   grid-template-columns: 3fr 3fr 1fr;
-  background-color: #fafafa;
+  background-color: #edede9;
   height: 40px;
   line-height: 5px;
   width: 1200px;
@@ -308,7 +311,7 @@ const MyWritingTitle = styled.div`
 const MyWritingGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 3fr 1.5fr;
-  background-color: #fafafa;
+  background-color: #edede9;
   height: 40px;
   line-height: 5px;
   width: 1200px;
@@ -330,6 +333,7 @@ const MenuItemGo = styled.div`
     text-underline-offset: 15px;
   }
 `;
+const MyLectureClassSubject = styled.div``;
 
 export function MyLank() {
   const [activeSection, setActiveSection] = useState("");
@@ -559,9 +563,11 @@ export function MyLank() {
             ) : purchases.length > 0 ? (
               extractLectures(purchases).map((lecture, index) => (
                 <React.Fragment key={index}>
-                  <MyPurchaseTitle>{lecture.lectureName},</MyPurchaseTitle>
-                  <MyLectureClass>{lecture.lectureClass}</MyLectureClass>
-                  <MyLectureSubject>{lecture.subject}</MyLectureSubject>
+                  <MyPurchaseTitle>{lecture.lectureName}</MyPurchaseTitle>
+                  <MyLectureClassSubject>
+                    <MyLectureClass>{lecture.lectureClass}</MyLectureClass>
+                    <MyLectureSubject>{lecture.subject}</MyLectureSubject>
+                  </MyLectureClassSubject>
                   <PurchaseStaus>진행중</PurchaseStaus>
                 </React.Fragment>
               ))
