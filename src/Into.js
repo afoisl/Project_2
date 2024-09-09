@@ -81,9 +81,8 @@ function AppContent() {
 
             <Route path="/store" element={<Store />} />
 
-            <Route path="/mock" element={<Mock />}>
-              <Route index element={<Mock />} />
-            </Route>
+            <Route path="/mock" element={<Mock />}></Route>
+            <Route path="/mock-exam" element={<MockExam />} />
             <Route path="/halloffame" element={<HallOfFame />} />
 
             <Route path="/game" element={<Game />} />
