@@ -29,6 +29,7 @@ const OrderProduct = styled.div`
   margin-bottom: 50px;
   border-radius: 25px;
   padding: 30px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 `;
 const OrderCustomer = styled.div`
   width: 621px;
@@ -36,7 +37,8 @@ const OrderCustomer = styled.div`
   border: 1px solid #d9d9d9;
   margin-bottom: 50px;
   border-radius: 25px;
-  padding: 30px;
+  padding: 30px 30px 50px 30px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 `;
 const OrderDelivery = styled.div`
   width: 621px;
@@ -44,7 +46,8 @@ const OrderDelivery = styled.div`
   border: 1px solid #d9d9d9;
   margin-bottom: 50px;
   border-radius: 25px;
-  padding: 30px;
+  padding: 30px 30px 60px 30px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 `;
 const OrderPrice = styled.div`
   width: 413px;
@@ -53,6 +56,7 @@ const OrderPrice = styled.div`
   margin-bottom: 40px;
   border-radius: 25px;
   padding: 30px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 `;
 const OrderPayment = styled.div`
   width: 413px;
@@ -60,7 +64,8 @@ const OrderPayment = styled.div`
   border: 1px solid #d9d9d9;
   margin-bottom: 40px;
   border-radius: 25px;
-  padding: 30px;
+  padding: 30px 30px 50px 30px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 `;
 const OrderPay = styled.div`
   width: 473px;
@@ -68,12 +73,20 @@ const OrderPay = styled.div`
   border: 1px solid #d9d9d9;
   margin-bottom: 40px;
   border-radius: 25px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 `;
 
 const OrderText = styled.div`
   font-size: 17px;
   font-weight: bold;
+  border-bottom: 0.7px solid #c8c8c8;
+  padding-bottom: 13px;
 `;
+const OrderText1 = styled.div`
+  font-size: 17px;
+  font-weight: bold;
+`;
+
 const OrderProductGrid = styled.div`
   display: flex;
   margin-top: 22px;
@@ -134,7 +147,7 @@ const OrderMemo = styled.div`
 const OrderPriceBox = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 25px;
+  margin-top: 13px;
 `;
 const OrderPriceBox1 = styled.div``;
 const OrderPriceBox2 = styled.div``;
@@ -182,13 +195,14 @@ const OrderPayBox2 = styled.div`
   text-align: center;
   line-height: 50px;
   color: white;
-  border-radius: 15px;
+  border-radius: 0 0 25px 25px;
   background-color: #2f62cb;
 `;
 const NoBorderInput = styled.input`
   border: none;
   width: 100%;
   outline: none;
+  background-color: #f5f2e9;
 
   &:focus {
     border: none;
@@ -408,17 +422,17 @@ export function Order() {
                     <OrderText2>
                       {item.bookName || item.mockTicketName || item.lectureName}
                     </OrderText2>
-                    <OrderText>
+                    <OrderText1>
                       가격:{" "}
                       {item.bookPrice || item.ticketPrice || item.lecPrice} 원
-                    </OrderText>
-                    <OrderText>수량: {item.quantity || 1}</OrderText>
-                    <OrderText>
+                    </OrderText1>
+                    <OrderText1>수량: {item.quantity || 1}</OrderText1>
+                    <OrderText1>
                       합계:{" "}
                       {(item.bookPrice || item.ticketPrice || item.lecPrice) *
                         (item.quantity || 1)}{" "}
                       원
-                    </OrderText>
+                    </OrderText1>
                   </OrderProductBox2>
                 </OrderProductGrid>
               ))}
@@ -426,22 +440,22 @@ export function Order() {
             <OrderCustomer>
               <OrderText>주문자 정보</OrderText>
               <OrderCustomerBox>
-                <OrderText2>{user.name}</OrderText2>
+                <OrderText2>이름 : {user.name}</OrderText2>
                 <OrderTextMargin></OrderTextMargin>
-                <OrderText2>{user.email}</OrderText2>
+                <OrderText2>이메일 : {user.email}</OrderText2>
                 <OrderTextMargin></OrderTextMargin>
-                <OrderText2>{user.phoneNumber}</OrderText2>
+                <OrderText2>전화번호 : {user.phoneNumber}</OrderText2>
               </OrderCustomerBox>
             </OrderCustomer>
             <OrderDelivery>
               <OrderText>배송 정보</OrderText>
               <OrderDeliveryBox1>
                 <OrderDeliveryBox3>
-                  <OrderText2>{user.name}</OrderText2>
+                  <OrderText2>이름 : {user.name}</OrderText2>
                   <OrderTextMargin></OrderTextMargin>
-                  <OrderText2>{user.phoneNumber}</OrderText2>
+                  <OrderText2>전화번호 : {user.phoneNumber}</OrderText2>
                   <OrderTextMargin></OrderTextMargin>
-                  <OrderText2>{user.address}</OrderText2>
+                  <OrderText2>주소 : {user.address}</OrderText2>
                 </OrderDeliveryBox3>
                 <OrderDeliveryBox4>
                   <OrderDeliveryAdress>수정</OrderDeliveryAdress>
@@ -451,7 +465,7 @@ export function Order() {
                 <OrderText2>배송 메모</OrderText2>
                 <OrderMemo>
                   <OrderText2>배송 메모를 선택해 주세요.</OrderText2>
-                  <OrderText>▼</OrderText>
+                  <OrderText1>▼</OrderText1>
                 </OrderMemo>
               </OrderDeliveryBox2>
             </OrderDelivery>
@@ -480,7 +494,7 @@ export function Order() {
 
               <OrderPriceBox>
                 <OrderText4>총 결제 금액</OrderText4>
-                <OrderText>{calculateGrandTotal()} 원</OrderText>
+                <OrderText1>{calculateGrandTotal()} 원</OrderText1>
               </OrderPriceBox>
             </OrderPrice>
             <OrderPayment>
