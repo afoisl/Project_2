@@ -4,6 +4,7 @@ import { Game } from "./Game";
 import PaulT from "./assets/img/PaulT.png";
 import YobelT from "./assets/img/YobelT.png";
 import JaneT from "./assets/img/JaneT.png";
+import { motion } from "framer-motion";
 
 const Container = styled.div`
   width: 100%;
@@ -68,13 +69,14 @@ const Box8 = styled.div`
 
 const Title2 = styled.div`
   font-size: 3.2rem;
-  font-weight: 500;
+  font-weight: 700;
   display: flex;
   justify-content: right;
   align-items: center;
   padding: 50px;
   margin: 50px;
-  color: white;
+  margin-top: 350px;
+  color: #0d3276;
 `;
 
 const Lanking2 = styled.div`
@@ -115,6 +117,7 @@ const LankImg3 = styled.div`
   width: 900px;
   height: 450px;
   background-color: #c8c8c8;
+  border-radius: 25px;
 `;
 
 const Title4 = styled.div`
@@ -215,6 +218,7 @@ const GameImg1 = styled.div`
   height: 210px;
   background-color: white;
   margin: 10px;
+  border-radius: 25px;
 `;
 
 const GameImg2 = styled.div`
@@ -222,6 +226,7 @@ const GameImg2 = styled.div`
   height: 300px;
   background-color: white;
   margin: 10px;
+  border-radius: 25px;
 `;
 
 const GameImg3 = styled.div`
@@ -229,18 +234,21 @@ const GameImg3 = styled.div`
   height: 210px;
   background-color: white;
   margin: 10px;
+  border-radius: 25px;
 `;
 const GameImg4 = styled.div`
   width: 260px;
   height: 300px;
   background-color: white;
   margin: 10px;
+  border-radius: 25px;
 `;
 const BookImg = styled.div`
   width: 450px;
   height: 550px;
   background-color: white;
   margin: 50px;
+  border-radius: 25px;
 `;
 const BookInfo = styled.div`
   font-size: 1.4rem;
@@ -308,6 +316,7 @@ const StudyRoomImg1 = styled.div`
   width: 350px;
   height: 400px;
   margin: 30px;
+  border-radius: 25px;
 `;
 
 const StudyRoomImg2 = styled.div`
@@ -315,6 +324,7 @@ const StudyRoomImg2 = styled.div`
   width: 350px;
   height: 400px;
   margin: 30px;
+  border-radius: 25px;
 `;
 
 const StudyRoomImg3 = styled.div`
@@ -322,6 +332,7 @@ const StudyRoomImg3 = styled.div`
   width: 350px;
   height: 400px;
   margin: 30px;
+  border-radius: 25px;
 `;
 
 const Text7_1 = styled.div`
@@ -381,10 +392,22 @@ export function Main() {
         <Body>
           <Box1></Box1>
           <Box2>
-            <Title2>
-              점수가 오르는 학원 <br />
-              인투어학원
-            </Title2>
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{
+                ease: "easeInOut",
+                duration: 2,
+                y: { duration: 1 },
+              }}
+            >
+              <Title2>
+                점수가 오르는 학원 <br />
+                인투어학원
+              </Title2>
+            </motion.div>
+
             <Lanking2>
               <LankImg2></LankImg2>
             </Lanking2>
