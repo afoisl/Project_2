@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const StoreTitle = styled.div`
-  margin-top: 200px;
+  padding: 200px 0 140px;
   text-align: center;
   font-size: 48px;
   font-weight: bold;
@@ -177,8 +177,8 @@ export function Store() {
   };
   return (
     <>
+      <StoreTitle>스토어</StoreTitle>
       <Container>
-        <StoreTitle>스토어</StoreTitle>
         <StoreTitle1>설명</StoreTitle1>
         <StoreImage></StoreImage>
         <StoreGrid>

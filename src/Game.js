@@ -7,17 +7,17 @@ const Title = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 120px 0 140px;
 `;
 const H1 = styled.h1``;
-const StartButton = styled.button`
-  margin-bottom: 30px;
-`;
+const StartButton = styled.button``;
 
 const Container = styled.div`
   width: 400px;
   height: 700px;
   margin: auto;
   margin-bottom: 100px;
+  margin-top: -50px;
   border: 1px solid gray;
 `;
 

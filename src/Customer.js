@@ -16,7 +16,7 @@ const TitleBox = styled.div`
   margin: 0 auto;
   width: 70%;
   text-align: center;
-  padding: 120px 0 140px;
+  padding: 200px 0 140px;
   font-size: 3rem;
 `;
 const ContBox = styled.div``;
