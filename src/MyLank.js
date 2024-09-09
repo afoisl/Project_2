@@ -3,6 +3,7 @@ import styled from "styled-components";
 import 내정보수정 from "./assets/img/내정보수정.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import 나의랭킹 from "./assets/img/나의랭킹.png";
 
 const Container = styled.div`
   width: 60%;
@@ -87,9 +88,9 @@ const MyRanking = styled.div`
   margin-left: 80px;
 `;
 const MyRankingBox = styled.div`
+  position: relative;
   width: 73px;
   height: 73px;
-  background-color: grey;
   margin-bottom: 15px;
 `;
 const GameRanking = styled.div`
@@ -119,15 +120,19 @@ const MyPageLecture = styled.div`
   line-height: 50px;
   text-align: center;
   font-size: 20px;
+  
 `;
 const MyPageLectureLine = styled.div`
   width: 369px;
   height: 1px;
   box-shadow: 0 0.5px 0 #727272;
+  
 `;
 const MyPageLectureList = styled.div`
   width: 100%;
   height: 160px;
+  text-align: center;
+  margin-top: 20px;
 `;
 const MyPageLectureGo = styled.div`
   width: 200px;
@@ -136,7 +141,7 @@ const MyPageLectureGo = styled.div`
   color: white;
   font-size: 18px;
   line-height: 50px;
-  margin: 20px auto;
+  margin: 20px auto 10px;
   border-radius: 25px;
   text-align: center;
   cursor: pointer;
@@ -334,6 +339,24 @@ const MenuItemGo = styled.div`
   }
 `;
 const MyLectureClassSubject = styled.div``;
+const MyLectureName = styled.div`
+margin-right: 15px;
+
+`
+const LectureGrid = styled.div`
+display: flex;
+justify-content: center;
+`
+const RankingText = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+`;
 
 export function MyLank() {
   const [activeSection, setActiveSection] = useState("");
@@ -358,7 +381,7 @@ export function MyLank() {
 
   const fetchCurrentUser = async () => {
     try {
-      const response = await axios.get("/api/user/current", {
+      const response = await axios.get("http://localhost:8080/api/user/current", {
         withCredentials: true,
       });
       return response.data.data;
@@ -372,7 +395,7 @@ export function MyLank() {
     try {
       const jwtToken = sessionStorage.getItem("JWT-Token");
       if (jwtToken != null) {
-        const response = await axios.get(`/api/user/id/${userId}`, {
+        const response = await axios.get(`http://localhost:8080/api/user/id/${userId}`, {
           withCredentials: true,
           headers: {
             Authorization: `Bearer ${jwtToken}`,
@@ -433,7 +456,7 @@ export function MyLank() {
       return;
     }
     axios
-      .get(`/api/purchase`, {
+      .get(`http://localhost:8080/api/purchase`, {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },
@@ -504,7 +527,7 @@ export function MyLank() {
                   <TextBox2>　님 </TextBox2>
                 </MyPageText1>
                 <MyPageText2>
-                  인투어학원이 {user.name}님의 토익점수를 응원합니다!
+                  인투어학원이 <b>{user.name}</b> 님의 토익점수를 응원합니다!
                 </MyPageText2>
               </MyPageText>
               <MyPageEdit>
@@ -515,7 +538,9 @@ export function MyLank() {
             <MyPageLine></MyPageLine>
             <MyPageBox1Grid2>
               <MyRanking>
-                <MyRankingBox></MyRankingBox>
+                <MyRankingBox><img src={나의랭킹} alt="나의랭킹" />
+                <RankingText>##위</RankingText>
+                </MyRankingBox>
                 나의 랭킹
               </MyRanking>
               <GameRanking>
@@ -531,7 +556,25 @@ export function MyLank() {
           <MyPageBox2>
             <MyPageLecture>최근수강</MyPageLecture>
             <MyPageLectureLine></MyPageLectureLine>
-            <MyPageLectureList></MyPageLectureList>
+            <MyPageLectureList>
+            {isLoading ? (
+              <p>강좌 정보를 불러오는 중입니다...</p>
+            ) : purchases.length > 0 ? (
+              extractLectures(purchases).map((lecture, index) => (
+                <React.Fragment key={index}>
+                  <LectureGrid>
+                  <MyLectureName>{lecture.lectureName}</MyLectureName>
+                 <MyLectureClassSubject>
+                    <MyLectureClass>{lecture.lectureClass}</MyLectureClass>
+                    <MyLectureSubject>{lecture.subject}</MyLectureSubject>
+                  </MyLectureClassSubject>
+                  </LectureGrid>
+                </React.Fragment>
+              ))
+            ) : (
+              <p>수강 중인 강좌가 없습니다.</p>
+            )}
+            </MyPageLectureList>
             <MyPageLectureGo onClick={handleMyLectureClick}>
               내 강의실로 이동 ＞
             </MyPageLectureGo>
