@@ -172,34 +172,30 @@ export function QnaDetail() {
     try {
       const token = sessionStorage.getItem("JWT-Token");
 
-      const qnAId = qna?.qnAId;
-      if (!qnAId) {
+      if (!qna?.qnAId) {
         console.error("qnaId is missing");
         return;
       }
 
-      console.log("Posting comment with qnaId:", qnAId);
-      console.log("Comment text:", comment);
-      // 서버에 댓글 저장하는 API 요청 (가정)
-      const response = await fetch("http://localhost:8080/api/reply/save", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          qna: { pnAId: qna.qnAId }, // 질문 ID
+      const response = await axios.post(
+        "http://localhost:8080/api/reply/save",
+        {
+          qnAId: qna.qnAId,
           text: comment,
-          date: new Date().toISOString(), // 저장할 때 현재 시간도 함께 보냄
-        }),
-      });
+          replyTime: new Date().toISOString(),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      if (response.ok) {
-        // 새 댓글 리스트에 추가
-        const newComment = await response.json();
-        console.log("댓글 저장 성공 : ", response);
-        setComments([newComment, ...comments]); // 새로운 댓글을 상단에 추가
-        setComment(""); // 입력창 초기화
+      if (response.status === 200) {
+        const newComment = response.data;
+        setComments([newComment, ...comments]);
+        setComment("");
       } else if (response.status === 401) {
         console.error("Unauthorized. Please check your authentication.");
         navigate("/login");
