@@ -6,14 +6,14 @@ import { useEffect } from "react";
 import logo from "./assets/img/로고.png";
 
 const SubMenu = styled.div`
+  position: fixed;
   width: 100%;
-  background-color: #f5f2e9;
+  background-color: #fff;
   height: 0;
   opacity: 0;
   visibility: hidden;
   display: grid;
   grid-template-columns: 0.67fr 1fr 4.6fr 1.5fr 0.7fr;
-  position: absolute;
   top: 70px;
   left: 0;
   z-index: 10;
@@ -23,12 +23,13 @@ const SubMenu = styled.div`
 `;
 
 const Header = styled.div`
+  position: fixed;
   width: 100%;
-  background-color: #f5f2e9;
+  background-color: transparent;
   height: 70px;
   display: grid;
   grid-template-columns: 0.7fr 1fr 4fr 1.5fr 0.7fr;
-  position: relative;
+  transition: background-color 0.3s ease-in-out;
 `;
 
 const MenuContainer = styled.div`
@@ -39,6 +40,13 @@ const MenuContainer = styled.div`
     opacity: 1;
     visibility: visible;
     padding: 10px 0px 40px 0px;
+  }
+  &:hover ${Header} {
+    background-color: #fff;
+  }
+  &:not(:hover) ${Header} {
+    background-color: transparent;
+    transition-delay: 0.01s;
   }
 `;
 
@@ -56,7 +64,7 @@ const MenuBtn = styled(Link)`
   font-size: 1.1rem;
   font-weight: 540;
   &:hover {
-    color: #033492;
+    color: #0d3276;
     font-weight: bold;
   }
 `;
@@ -69,7 +77,7 @@ const SubMenuBtn = styled(Link)`
   text-align: center;
 
   &:hover {
-    color: #033492;
+    color: #0d3276;
     font-weight: bold;
   }
 `;

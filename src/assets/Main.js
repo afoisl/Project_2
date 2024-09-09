@@ -1,6 +1,9 @@
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
 import { Game } from "./Game";
+import PaulT from "./assets/img/PaulT.png";
+import YobelT from "./assets/img/YobelT.png";
+import JaneT from "./assets/img/JaneT.png";
 
 const Container = styled.div`
   width: 100%;
@@ -11,30 +14,31 @@ const Body = styled.div``;
 
 const Box1 = styled.div`
   background-color: darkgray;
-  height: 900px;
+  height: 920px;
 `;
 
 const Box2 = styled.div`
-  background-color: gray;
-  height: 980px;
+  background-color: #e5e5e5;
+  height: 1000px;
   display: grid;
   grid-template-columns: 1fr 1fr;
 `;
 const Box3 = styled.div`
-  background-color: darkgray;
-  height: 900px;
+  background-color: #fff;
+  height: 840px;
   padding: 50px;
 `;
 const Box4 = styled.div`
-  background-color: gray;
-  height: 2800px;
+  background-color: #e5e5e5;
+  height: 2300px;
   display: grid;
   grid-template-rows: 1fr 2fr 2fr 2fr;
-  gap: 200px;
+  gap: 130px;
+  padding-bottom: 50px;
 `;
 
 const Box5 = styled.div`
-  background-color: darkgray;
+  background-color: #e5e5e5;
   height: 900px;
   padding: 50px;
   display: grid;
@@ -42,14 +46,14 @@ const Box5 = styled.div`
 `;
 
 const Box6 = styled.div`
-  background-color: gray;
+  background-color: #e5e5e5;
   height: 900px;
   display: grid;
   grid-template-columns: 1fr 1fr;
 `;
 
 const Box7 = styled.div`
-  background-color: darkgray;
+  background-color: #e5e5e5;
   height: 1000px;
   display: flex;
   justify-content: center;
@@ -57,7 +61,7 @@ const Box7 = styled.div`
 
 const Box8 = styled.div`
   height: 1000px;
-  background-color: gray;
+  background-color: #e5e5e5;
   display: flex;
   justify-content: center;
 `;
@@ -84,6 +88,7 @@ const Lanking2 = styled.div`
 const LankImg2 = styled.div`
   width: 500px;
   height: 450px;
+  border-radius: 25px;
   background-color: white;
 `;
 const Title3 = styled.div`
@@ -109,7 +114,7 @@ const Lanking3 = styled.div`
 const LankImg3 = styled.div`
   width: 900px;
   height: 450px;
-  background-color: white;
+  background-color: #c8c8c8;
 `;
 
 const Title4 = styled.div`
@@ -125,10 +130,9 @@ const Lecture = styled.div`
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 `;
 
-const TeacherImg1 = styled.div`
-  width: 400px;
+const TeacherImg1 = styled.img`
+  width: 250px;
   height: 400px;
-  background-color: white;
 `;
 const TeacherImg2 = styled.div``;
 const TeacherImg3 = styled.div``;
@@ -402,7 +406,7 @@ export function Main() {
             </Title4>
             <Lecture>
               <div></div>
-              <TeacherImg1></TeacherImg1>
+              <TeacherImg1 src={PaulT}></TeacherImg1>
               <Info>
                 홍보문구
                 <Name>이름</Name>
@@ -419,11 +423,11 @@ export function Main() {
                 <LectureBtn>수강신청 바로가기</LectureBtn>
               </Info>
               <div></div>
-              <TeacherImg1></TeacherImg1>
+              <TeacherImg1 src={YobelT}></TeacherImg1>
             </Lecture>
             <Lecture>
               <div></div>
-              <TeacherImg1></TeacherImg1>
+              <TeacherImg1 src={JaneT}></TeacherImg1>
               <Info>
                 홍보문구
                 <Name>이름</Name>
