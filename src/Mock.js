@@ -1,9 +1,9 @@
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
   width: 60%;
-  height: 500px;
   margin: auto;
 `;
 
@@ -30,9 +30,27 @@ const StartMockBtn = styled.div`
 
 export function Mock() {
   const navigate = useNavigate();
+  const jwtToken = sessionStorage.getItem("JWT-Token");
+  const userId = sessionStorage.getItem("UserID");
 
   function handleStartMock() {
-    navigate(`/mock-exam`);
+    if (userId) {
+      axios
+        .get("/api/user/id/" + userId, {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          navigate(`/mock-exam`);
+        })
+        .catch((error) => {
+          console.log("에러 발생:", error);
+        });
+    } else {
+      alert("모의고사 응시를 위해서는 로그인이 필요합니다. ");
+    }
   }
 
   return (
