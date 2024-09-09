@@ -74,8 +74,7 @@ const Title2 = styled.div`
   justify-content: right;
   align-items: center;
   padding: 50px;
-  margin: 50px;
-  margin-top: 350px;
+  margin: 350px 50px 50px 50px;
   color: #0d3276;
 `;
 
@@ -84,7 +83,7 @@ const Lanking2 = styled.div`
   justify-content: left;
   align-items: center;
   padding: 50px;
-  margin: 50px;
+  margin: 230px 50px 50px 50px;
 `;
 
 const LankImg2 = styled.div`
@@ -407,10 +406,20 @@ export function Main() {
                 인투어학원
               </Title2>
             </motion.div>
-
-            <Lanking2>
-              <LankImg2></LankImg2>
-            </Lanking2>
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{
+                ease: "easeInOut",
+                duration: 2,
+                y: { duration: 1 },
+              }}
+            >
+              <Lanking2>
+                <LankImg2></LankImg2>
+              </Lanking2>
+            </motion.div>
           </Box2>
           <Box3>
             <Title3>
