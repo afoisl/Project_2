@@ -36,7 +36,7 @@ const MenuContainer = styled.div`
   position: relative;
 
   &:hover ${SubMenu} {
-    border-radius: 0 0 500px 500px;
+    border-radius: 0 0 50% 50%;
     height: 180px;
     opacity: 1;
     visibility: visible;
