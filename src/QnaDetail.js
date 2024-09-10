@@ -171,6 +171,7 @@ export function QnaDetail() {
 
     try {
       const token = sessionStorage.getItem("JWT-Token");
+      const UserId = sessionStorage.getItem("UserID");
 
       if (!qna?.qnAId) {
         console.error("qnaId is missing");
@@ -180,6 +181,7 @@ export function QnaDetail() {
       const response = await axios.post(
         "http://localhost:8080/api/reply/save",
         {
+          userId: UserId,
           qnAId: qna.qnAId,
           text: comment,
           replyTime: new Date().toISOString(),
