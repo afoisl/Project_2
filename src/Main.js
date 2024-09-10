@@ -133,10 +133,13 @@ const Lecture = styled.div`
 `;
 
 const TeacherImg1 = styled.img`
+  width: 230px;
+  height: 400px;
+`;
+const TeacherImg2 = styled.img`
   width: 250px;
   height: 400px;
 `;
-const TeacherImg2 = styled.div``;
 const TeacherImg3 = styled.div``;
 
 const Info = styled.div`
@@ -438,7 +441,7 @@ export function Main() {
             </Title4>
             <Lecture>
               <div></div>
-              <TeacherImg1 src={PaulT}></TeacherImg1>
+              <TeacherImg2 src={PaulT}></TeacherImg2>
               <Info>
                 홍보문구
                 <Name>이름</Name>
