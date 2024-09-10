@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import 예시 from "./assets/img/예시.png";
 
 const Container = styled.div`
   width: 60%;
@@ -21,13 +22,12 @@ const LectureBox2 = styled.div``;
 const LectureImg = styled.div`
   width: 890px;
   height: 540px;
-  background-color: #d9d9d9;
 `;
 
 const LectureGrade = styled.div`
   width: 70px;
   height: 25px;
-  background-color: black;
+  background-color: #21378d;
   color: white;
   text-align: center;
   line-height: 25px;
@@ -54,7 +54,7 @@ const LectureText3 = styled.div`
 const LecturePrice = styled.div`
   width: 250px;
   height: 50px;
-  background-color: black;
+  background-color: #21378d;
   color: white;
   font-size: 17px;
   font-weight: bold;
@@ -67,24 +67,28 @@ const LecturePrice = styled.div`
 const LectureCart = styled.div`
   width: 250px;
   height: 45px;
-  border: 1px solid black;
+  border: 1px solid #21378d;
+  background-color: white;
   font-size: 17px;
   text-align: center;
   line-height: 45px;
   border-radius: 25px;
   margin-top: 20px;
+  color: #21378d;
   cursor: pointer; // 커서가 포인터로 변경됨
 `;
 
 const LecturePurchase = styled.div`
   width: 250px;
   height: 45px;
-  border: 1px solid black;
+  border: 1px solid #21378d;
+  background-color: white;
   font-size: 17px;
   text-align: center;
   line-height: 45px;
   border-radius: 25px;
-  margin-top: 15px;
+  margin-top: 20px;
+  color: #21378d;
   cursor: pointer; // 커서가 포인터로 변경됨
 `;
 
@@ -171,7 +175,7 @@ export function Lecture() {
       {lectures.map((lecture) => (
         <LectureDetailPage key={lecture.storeItemId}>
           <LectureBox1>
-            <LectureImg></LectureImg>
+            <img src={예시} alt="예시" />
           </LectureBox1>
           <LectureBox2>
             <LectureGrade>{lecture.lectureClass}</LectureGrade>
