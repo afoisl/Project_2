@@ -41,7 +41,8 @@ const Room = styled.div`
 
 const Title = styled.div`
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 3rem;
+  font-weight: 600;
   padding: 50px;
   margin: 90px 50px 0px 50px;
 `;

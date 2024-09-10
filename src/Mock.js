@@ -11,7 +11,12 @@ const Blank = styled.div`
   height: 200px;
 `;
 
-const Title = styled.h1``;
+const Title = styled.h1`
+  text-align: center;
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 80px;
+`;
 
 const MockData = styled.div`
   width: 300px;
