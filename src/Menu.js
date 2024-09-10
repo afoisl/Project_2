@@ -202,10 +202,8 @@ export function Menu() {
         </SubCenter>
         {isLoggedIn && (
           <SubRight>
-            <SubMenuBtn to="mypage/mylecture">학습현황</SubMenuBtn>
-            <SubMenuBtn to="mypage/mylank">나의 랭킹</SubMenuBtn>
             <SubMenuBtn to="mypage/cart">장바구니</SubMenuBtn>
-            <SubMenuBtn to="mypage/purchased">구매 내역</SubMenuBtn>
+            <SubMenuBtn to="mypage/mylank">나의 랭킹</SubMenuBtn>
           </SubRight>
         )}
       </SubMenu>
