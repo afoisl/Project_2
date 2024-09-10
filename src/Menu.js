@@ -198,7 +198,7 @@ export function Menu() {
             <SubMenuBtn to="/store">모의고사 구매권</SubMenuBtn>
           </div>
           <div>
-            <SubMenuBtn to="/test">모의고사</SubMenuBtn>
+            <SubMenuBtn to="/mock">모의고사</SubMenuBtn>
             <SubMenuBtn to="/halloffame">명예의 전당</SubMenuBtn>
           </div>
           <div></div>

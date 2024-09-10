@@ -14,6 +14,7 @@ import { Store } from "./Store";
 import { StudyRoom } from "./StudyRoom";
 import { Mock } from "./Mock";
 import { MockExam } from "./MockExam";
+import { MockResult } from "./MockResult";
 import { GameShop } from "./GameShop";
 import { GroupLecRoom } from "./GroupLecRoom";
 import { GroupLecRoomDetail } from "./GroupLecRoomDetail";
@@ -84,6 +85,7 @@ function AppContent() {
 
             <Route path="/mock" element={<Mock />}></Route>
             <Route path="/mock-exam" element={<MockExam />} />
+            <Route path="/mock-result" element={<MockResult />} />
             <Route path="/halloffame" element={<HallOfFame />} />
 
             <Route path="/game" element={<Game />} />
