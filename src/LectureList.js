@@ -3,6 +3,14 @@ import { LectureDetails } from "./LectureDetails";
 import { Outlet } from "react-router-dom";
 import { LectureBestSeller } from "./LectureBestSeller";
 
+const Title = styled.div`
+  padding: 200px 0 0 0;
+  margin-bottom: -100px;
+  text-align: center;
+  font-size: 48px;
+  font-weight: bold;
+`;
+
 const Box1 = styled.div`
   display: flex;
   justify-content: center;
@@ -19,6 +27,7 @@ const LectureTopMargin = styled.div`
 export function LectureList() {
   return (
     <>
+      <Title>강의</Title>
       <LectureTopMargin></LectureTopMargin>
       <LectureBestSeller />
       <Box1>
