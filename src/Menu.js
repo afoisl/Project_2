@@ -94,7 +94,7 @@ const Right = styled.div`
 
 const SubCenter = styled.div`
   display: grid;
-  grid-template-columns: 2.2fr 1.4fr 2fr 1.7fr 2fr 1.6fr 2.3fr;
+  grid-template-columns: 2.2fr 1.35fr 1.95fr 1.7fr 1.87fr 1.57fr 2.3fr;
   gap: 3px;
 
   & > div {
