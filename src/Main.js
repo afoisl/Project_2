@@ -5,18 +5,19 @@ import PaulT from "./assets/img/PaulT.png";
 import YobelT from "./assets/img/YobelT.png";
 import JaneT from "./assets/img/JaneT.png";
 import { motion } from "framer-motion";
-import mainLogo from "./assets/img/Logo Mockup02.png";
+import mainLogo from "./assets/img/mainWide.png";
 
 const Container = styled.div`
   width: 100%;
-  background-color: gray;
+  background-color: #e5e5e5;
 `;
 
 const Body = styled.div``;
 
 const Box1 = styled.img`
-  background-color: darkgray;
+  width: 100%;
   height: 920px;
+  color: #e5e5e5;
 `;
 
 const Box2 = styled.div`
