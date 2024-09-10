@@ -184,20 +184,14 @@ export function Menu() {
             <SubMenuBtn to="/test">모의고사</SubMenuBtn>
             <SubMenuBtn to="/halloffame">명예의 전당</SubMenuBtn>
           </div>
-          <div>
-            <SubMenuBtn to="/game">플레이센터</SubMenuBtn>
-            <SubMenuBtn to="/game">랭킹</SubMenuBtn>
-            <SubMenuBtn to="/gameshop">상점</SubMenuBtn>
-            <SubMenuBtn to="/gameshop">출석체크</SubMenuBtn>
-          </div>
+          <div></div>
           <div>
             <SubMenuBtn to="/studyroom">커뮤니티</SubMenuBtn>
             <SubMenuBtn to="/speciallecroom">실시간특강</SubMenuBtn>
-            <SubMenuBtn to="/grouplecroom">그룹수강</SubMenuBtn>
           </div>
           <div>
             <SubMenuBtn to="/customer">공지사항</SubMenuBtn>
-            <SubMenuBtn to="/customer">Q n A</SubMenuBtn>
+            <SubMenuBtn to="/customer">1 : 1 문의</SubMenuBtn>
           </div>
         </SubCenter>
         {isLoggedIn && (
