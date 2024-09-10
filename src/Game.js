@@ -13,8 +13,8 @@ const H1 = styled.h1``;
 const StartButton = styled.button``;
 
 const Container = styled.div`
-  width: 400px;
-  height: 700px;
+  width: 1300px;
+  height: 800px;
   margin: auto;
   margin-bottom: 100px;
   margin-top: -50px;

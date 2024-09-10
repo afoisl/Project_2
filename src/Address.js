@@ -66,10 +66,17 @@ const AddressText1 = styled.div`
 const AddressText2 = styled.div`
   font-size: 20px;
   margin-left: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 `;
 
-const AddressNaver = styled.div``;
+const AddressNaver = styled.div`
+  width: 400px;
+  height: 80px;
+`;
+const Naver = styled.img`
+  width: 100%;
+  height: 100%;
+`;
 
 const KakaoMap = styled.div`
   width: 800px;
@@ -80,7 +87,7 @@ const MapKakao = styled.div`
   width: 800px;
   height: 700px;
   border: 1px solid #dadada;
-  margin: 50px 0 300px 0;
+  margin: 20px 0 300px 0;
 `;
 
 const KakaoMap1 = styled.div`
@@ -142,15 +149,14 @@ export function Address() {
           <AddressTitleText>등록문의</AddressTitleText>
         </AddressTitle>
         <AddressText1>• 전화 : 042 - 822 - 2414</AddressText1>
-        <AddressText1>• 네이버 톡톡 :</AddressText1>
-        <AddressNaver>
-          <img src={네이버톡톡} alt="네이버 톡톡" />
-        </AddressNaver>
         <AddressText1>• 위치 : 대전 유성구 대학로 88 4층</AddressText1>
         <AddressText2>
           지금 바로 등록하고 여름 방학을 토익 고득점으로 마무리 하세요!
           인투어학원과 함께라면 가능합니다.
         </AddressText2>
+        <AddressNaver>
+          <Naver src={네이버톡톡} alt="네이버 톡톡" />
+        </AddressNaver>
         <MapKakao>
           <KakaoMap id="map"></KakaoMap>
           <KakaoMap1>

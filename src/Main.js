@@ -6,6 +6,7 @@ import YobelT from "./assets/img/YobelT.png";
 import JaneT from "./assets/img/JaneT.png";
 import { motion } from "framer-motion";
 import mainLogo from "./assets/img/mainWide.png";
+import mainImg from "./assets/img/인투어학원 시설.png";
 
 const Container = styled.div`
   width: 100%;
@@ -85,11 +86,11 @@ const Lanking2 = styled.div`
   justify-content: left;
   align-items: center;
   padding: 50px;
-  margin: 230px 50px 50px 50px;
+  margin: 230px 50px 50px 30px;
 `;
 
-const LankImg2 = styled.div`
-  width: 500px;
+const LankImg2 = styled.img`
+  width: 600px;
   height: 450px;
   border-radius: 25px;
   background-color: white;
@@ -131,6 +132,12 @@ const Title4 = styled.div`
 const Lecture = styled.div`
   width: 100%;
   display: grid;
+  grid-template-columns: 1fr 1fr 2fr 1fr;
+`;
+
+const Lecture1 = styled.div`
+  width: 100%;
+  display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 `;
 
@@ -153,7 +160,7 @@ const Name = styled.div``;
 const BtnWrapper = styled.div`
   display: flex;
   align-items: end;
-  height: 400px;
+  height: 150px;
 `;
 
 const LectureBtn = styled.div`
@@ -422,7 +429,7 @@ export function Main() {
               }}
             >
               <Lanking2>
-                <LankImg2></LankImg2>
+                <LankImg2 src={mainImg}></LankImg2>
               </Lanking2>
             </motion.div>
           </Box2>
@@ -478,18 +485,18 @@ export function Main() {
                 <TeacherImg2 src={PaulT}></TeacherImg2>
               </motion.div>
               <Info>
-                홍보문구
-                <Name>이름</Name>
+                입문반은 내가 책임진다
+                <Name>Paul 강사</Name>
+                <BtnWrapper>
+                  <LectureBtn>수강신청 바로가기</LectureBtn>
+                </BtnWrapper>
               </Info>
-              <BtnWrapper>
-                <LectureBtn>수강신청 바로가기</LectureBtn>
-              </BtnWrapper>
             </Lecture>
-            <Lecture>
+            <Lecture1>
               <div></div>
               <Info>
                 홍보문구
-                <Name>이름</Name>
+                <Name>Yobel 강사</Name>
                 <LectureBtn>수강신청 바로가기</LectureBtn>
               </Info>
               <div></div>
@@ -505,7 +512,7 @@ export function Main() {
               >
                 <TeacherImg1 src={YobelT}></TeacherImg1>
               </motion.div>
-            </Lecture>
+            </Lecture1>
             <Lecture>
               <div></div>
               <motion.div
@@ -522,20 +529,31 @@ export function Main() {
               </motion.div>
               <Info>
                 홍보문구
-                <Name>이름</Name>
+                <Name>Jane 강사</Name>
+                <BtnWrapper>
+                  <LectureBtn>수강신청 바로가기</LectureBtn>
+                </BtnWrapper>
               </Info>
-              <BtnWrapper>
-                <LectureBtn>수강신청 바로가기</LectureBtn>
-              </BtnWrapper>
             </Lecture>
           </Box4>
           <Box5>
             <Box5Wrapper>
-              <Title5>
-                게임으로 재밌게 배우는
-                <br />
-                영어
-              </Title5>
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                transition={{
+                  ease: "easeInOut",
+                  duration: 2,
+                  y: { duration: 1 },
+                }}
+              >
+                <Title5>
+                  게임으로 재밌게 배우는
+                  <br />
+                  영어
+                </Title5>
+              </motion.div>
               <GameBtn>게임 바로가기</GameBtn>
             </Box5Wrapper>
             <Box5Wrapper2>
@@ -557,16 +575,38 @@ export function Main() {
               <BookImg></BookImg>
             </Box6Wrapper>
             <Box6Wrapper2>
-              <BookInfo>
-                모든 문법을 1주 만에 끝내줄 단 한권의 책
-                <BookName>67패턴</BookName>
-              </BookInfo>
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                transition={{
+                  ease: "easeInOut",
+                  duration: 2,
+                  y: { duration: 1 },
+                }}
+              >
+                <BookInfo>
+                  모든 문법을 1주 만에 끝내줄 단 한권의 책
+                  <BookName>67패턴</BookName>
+                </BookInfo>
+              </motion.div>
               <StoreBtn>스토어 바로가기</StoreBtn>
             </Box6Wrapper2>
           </Box6>
           <Box7>
             <Box7Wrapper>
-              <Text7>실시간으로 질문하고 배우는 스터디룸</Text7>
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                transition={{
+                  ease: "easeInOut",
+                  duration: 2,
+                  y: { duration: 1 },
+                }}
+              >
+                <Text7>실시간으로 질문하고 배우는 스터디룸</Text7>
+              </motion.div>
               <StudyRoomBox>
                 <div>
                   <StudyRoomImg1></StudyRoomImg1>
@@ -585,10 +625,21 @@ export function Main() {
           </Box7>
           <Box8>
             <Box8Wrappper>
-              <Text8>
-                <Text8_1>모의고사를 풀어</Text8_1>
-                <Text8_2>명예의 전당에 이름을 올려라</Text8_2>
-              </Text8>
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                transition={{
+                  ease: "easeInOut",
+                  duration: 2,
+                  y: { duration: 1 },
+                }}
+              >
+                <Text8>
+                  <Text8_1>모의고사를 풀어</Text8_1>
+                  <Text8_2>명예의 전당에 이름을 올려라</Text8_2>
+                </Text8>
+              </motion.div>
               <Button8wrapper>
                 <LevelBtn>나의 레벨 확인하기</LevelBtn>
                 <LevelBtn>모의고사 바로가기</LevelBtn>
