@@ -40,7 +40,7 @@ const MyPageBox1Grid1 = styled.div`
 `;
 const MyPageBox1Grid2 = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
 `;
 const MyPagePhoto = styled.div`
   width: 100px;
@@ -130,6 +130,7 @@ const MyPageLectureLine = styled.div`
 `;
 const MyPageLectureList = styled.div`
   width: 100%;
+  height: 150px;
   text-align: center;
   margin-top: 20px;
 `;
@@ -564,12 +565,8 @@ export function MyLank() {
               </MyRanking>
               <GameRanking>
                 <GameRankingBox></GameRankingBox>
-                게임 등급
+                나의 등급
               </GameRanking>
-              <GamePoint>
-                <GamePiontBox>###</GamePiontBox>
-                게임 포인트
-              </GamePoint>
             </MyPageBox1Grid2>
           </MyPageBox1>
           <MyPageBox2>
@@ -697,14 +694,6 @@ export function MyLank() {
           </OrderDeliveryGrid>
           <OrderDelivery></OrderDelivery>
         </div>
-
-        <ItemTitle>보유 아이템</ItemTitle>
-        <ItemGrid>
-          <p>아이템</p>
-          <p>정보</p>
-          <p>남은 갯수</p>
-        </ItemGrid>
-        <Item></Item>
 
         <div ref={writingRef}>
           <MyWritingTitle>나의 글 관리</MyWritingTitle>
