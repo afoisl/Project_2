@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import bookImg from "./assets/img/67패턴.png";
+import 모의고사티켓 from "./assets/img/모의고사티켓.png";
 
 const StoreTitle = styled.div`
   padding: 200px 0 0;
@@ -206,10 +207,7 @@ export function Store() {
           {mockTickets.map((ticket) => (
             <StoreBox key={ticket.storeItemId}>
               <StoreImage1>
-                <BookImg
-                  src={`/api/images/${ticket.image_path}`}
-                  alt={ticket.mockTicketName}
-                />
+                <BookImg src={모의고사티켓} alt={ticket.mockTicketName} />
               </StoreImage1>
               <StoreImageText1>{ticket.mockTicketName}</StoreImageText1>
               <StoreImageText2>{ticket.ticketPrice}원</StoreImageText2>
