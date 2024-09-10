@@ -45,7 +45,7 @@ const Tabs = styled.div`
     &.active {
       border-bottom: 2px soild black;
       border-radius: 30px;
-      background-color: #d0d0d0;
+      background-color: #bbbbbb;
       font-weight: bolder;
       transform: all 500ms;
     }

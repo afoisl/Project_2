@@ -25,7 +25,7 @@ const StartMockBtn = styled.div`
   padding: 10px;
   text-align: center;
   border-radius: 20px;
-  margin-top: 20px;
+  margin: 20px 0 30px;
 `;
 
 export function Mock() {
