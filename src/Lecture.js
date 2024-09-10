@@ -12,7 +12,7 @@ const LectureDetailPage = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 40px;
-  margin: 150px 0 100px 0;
+  padding: 200px 0 114px;
 `;
 
 const LectureBox1 = styled.div``;
@@ -105,17 +105,20 @@ export function Lecture() {
 
       try {
         // 강의 정보 가져오기
-        const lectureResponse = await axios.get(`http://localhost:8080/api/lecture/${id}`, {
-          headers: { Authorization: `Bearer ${jwtToken}` }
-        });
-        
+        const lectureResponse = await axios.get(
+          `http://localhost:8080/api/lecture/${id}`,
+          {
+            headers: { Authorization: `Bearer ${jwtToken}` },
+          }
+        );
+
         const lectureData = lectureResponse.data;
         console.log("강의 데이터:", lectureData);
         setLectures([lectureData]);
 
         // 여기서 실제 사용할 ID를 확인합니다.
         const lectureId = lectureData.storeItemId || lectureData.lectureId;
-        
+
         if (!lectureId) {
           console.error("강의 ID를 찾을 수 없습니다.");
           return;
@@ -162,7 +165,6 @@ export function Lecture() {
     }
     navigate("/order", { state: { lectures: [lecture] } });
   };
-
 
   return (
     <Container>

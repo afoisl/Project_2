@@ -151,11 +151,12 @@ export function LectureDetails() {
       ? lectures
       : lectures.filter((lecture) => lecture.subject === activeCategory);
 
-
-
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredLectures.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredLectures.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
