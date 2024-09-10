@@ -8,9 +8,9 @@ const BoxWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 100px;
+  padding: 200px 0 0;
   border: 0.7px solid lightgray;
-  margin-bottom: 165px;
+  margin-bottom: 217px;
 `;
 const Box1 = styled.div`
   width: 550px;

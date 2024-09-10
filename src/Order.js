@@ -8,7 +8,7 @@ const Container = styled.div`
   margin: auto;
 `;
 const OrderTitle = styled.div`
-  margin-top: 200px;
+  padding: 200px 0 0;
   font-size: 48px;
   text-align: center;
 `;
@@ -218,6 +218,7 @@ export function Order() {
   const cartItems = location.state?.cartItems || [];
   const directPurchaseItem = location.state?.lectures?.[0] || null;
   const items = directPurchaseItem ? [directPurchaseItem] : cartItems;
+  const fromCart = location.state?.fromCart || false;
   const [isInputClicked, setIsInputClicked] = useState(false);
 
   const calculateTotalPrice = () => {
@@ -386,6 +387,10 @@ export function Order() {
           bankInfo: "카카오뱅크 3333-0000000-00",
         },
       };
+
+      if (fromCart) {
+        localStorage.removeItem("cart");
+      }
 
       navigate("/orderCompleted", {
         state: { orderDetails },

@@ -239,7 +239,7 @@ export function Cart() {
   }, []);
 
   const handleOrderAll = () => {
-    navigate("/order", { state: { cartItems } });
+    navigate("/order", { state: { cartItems, fromCart: true } });
   };
 
   const handleSelectOrder = () => {
@@ -251,7 +251,7 @@ export function Cart() {
       return;
     }
     localStorage.setItem("selectedItems", JSON.stringify(selectedItems));
-    navigate("/order", { state: { cartItems: selectedItems } });
+    navigate("/order", { state: { cartItems: selectedItems, fromCart: true } });
   };
 
   const calculateTotalPrice = () => {
