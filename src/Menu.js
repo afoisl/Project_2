@@ -36,10 +36,11 @@ const MenuContainer = styled.div`
   position: relative;
 
   &:hover ${SubMenu} {
-    height: 200px;
+    border-radius: 0 0 500px 500px;
+    height: 180px;
     opacity: 1;
     visibility: visible;
-    padding: 10px 0px 40px 0px;
+    padding: 10px 0px 20px 0px;
   }
   &:hover ${Header} {
     background-color: #fff;

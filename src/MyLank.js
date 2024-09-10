@@ -10,7 +10,7 @@ const Container = styled.div`
   margin: auto;
 `;
 const MyPageTitle = styled.div`
-  margin-top: 200px;
+  padding: 200px 0 140px;
   font-size: 48px;
 
   text-align: center;
@@ -120,13 +120,11 @@ const MyPageLecture = styled.div`
   line-height: 50px;
   text-align: center;
   font-size: 20px;
-  
 `;
 const MyPageLectureLine = styled.div`
   width: 369px;
   height: 1px;
   box-shadow: 0 0.5px 0 #727272;
-  
 `;
 const MyPageLectureList = styled.div`
   width: 100%;
@@ -340,13 +338,12 @@ const MenuItemGo = styled.div`
 `;
 const MyLectureClassSubject = styled.div``;
 const MyLectureName = styled.div`
-margin-right: 15px;
-
-`
+  margin-right: 15px;
+`;
 const LectureGrid = styled.div`
-display: flex;
-justify-content: center;
-`
+  display: flex;
+  justify-content: center;
+`;
 const RankingText = styled.div`
   position: absolute;
   top: 50%;
@@ -355,7 +352,7 @@ const RankingText = styled.div`
   color: white;
   font-weight: bold;
   font-size: 14px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 `;
 
 export function MyLank() {
@@ -381,9 +378,12 @@ export function MyLank() {
 
   const fetchCurrentUser = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/user/current", {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        "http://localhost:8080/api/user/current",
+        {
+          withCredentials: true,
+        }
+      );
       return response.data.data;
     } catch (error) {
       console.error("Failed to fetch current user:", error);
@@ -395,12 +395,15 @@ export function MyLank() {
     try {
       const jwtToken = sessionStorage.getItem("JWT-Token");
       if (jwtToken != null) {
-        const response = await axios.get(`http://localhost:8080/api/user/id/${userId}`, {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${jwtToken}`,
-          },
-        });
+        const response = await axios.get(
+          `http://localhost:8080/api/user/id/${userId}`,
+          {
+            withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          }
+        );
         return response.data;
       }
     } catch (error) {
@@ -538,8 +541,9 @@ export function MyLank() {
             <MyPageLine></MyPageLine>
             <MyPageBox1Grid2>
               <MyRanking>
-                <MyRankingBox><img src={나의랭킹} alt="나의랭킹" />
-                <RankingText>##위</RankingText>
+                <MyRankingBox>
+                  <img src={나의랭킹} alt="나의랭킹" />
+                  <RankingText>##위</RankingText>
                 </MyRankingBox>
                 나의 랭킹
               </MyRanking>
@@ -557,23 +561,23 @@ export function MyLank() {
             <MyPageLecture>최근수강</MyPageLecture>
             <MyPageLectureLine></MyPageLectureLine>
             <MyPageLectureList>
-            {isLoading ? (
-              <p>강좌 정보를 불러오는 중입니다...</p>
-            ) : purchases.length > 0 ? (
-              extractLectures(purchases).map((lecture, index) => (
-                <React.Fragment key={index}>
-                  <LectureGrid>
-                  <MyLectureName>{lecture.lectureName}</MyLectureName>
-                 <MyLectureClassSubject>
-                    <MyLectureClass>{lecture.lectureClass}</MyLectureClass>
-                    <MyLectureSubject>{lecture.subject}</MyLectureSubject>
-                  </MyLectureClassSubject>
-                  </LectureGrid>
-                </React.Fragment>
-              ))
-            ) : (
-              <p>수강 중인 강좌가 없습니다.</p>
-            )}
+              {isLoading ? (
+                <p>강좌 정보를 불러오는 중입니다...</p>
+              ) : purchases.length > 0 ? (
+                extractLectures(purchases).map((lecture, index) => (
+                  <React.Fragment key={index}>
+                    <LectureGrid>
+                      <MyLectureName>{lecture.lectureName}</MyLectureName>
+                      <MyLectureClassSubject>
+                        <MyLectureClass>{lecture.lectureClass}</MyLectureClass>
+                        <MyLectureSubject>{lecture.subject}</MyLectureSubject>
+                      </MyLectureClassSubject>
+                    </LectureGrid>
+                  </React.Fragment>
+                ))
+              ) : (
+                <p>수강 중인 강좌가 없습니다.</p>
+              )}
             </MyPageLectureList>
             <MyPageLectureGo onClick={handleMyLectureClick}>
               내 강의실로 이동 ＞
