@@ -129,7 +129,6 @@ export function StudyRoom() {
 
   return (
     <>
-      <Header></Header>
       <Container>
         <Title>스터디룸</Title>
         <Box>

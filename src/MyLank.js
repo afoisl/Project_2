@@ -148,11 +148,15 @@ const MyPageLectureGo = styled.div`
 `;
 
 const MyPageSubMenu = styled.div`
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  font-size: 25px;
+  font-size: 18px;
   margin-top: 130px;
   margin-bottom: 140px;
+  padding: 20px 30px;
+  background-color: #c9c9c9;
+  border-radius: 25px;
 `;
 const LearningStatusGo = styled.div`
   text-align: center;
