@@ -5,13 +5,20 @@ import styled from "styled-components";
 const Container = styled.div`
   width: 60%;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Blank = styled.div`
   height: 200px;
 `;
 
-const Title = styled.h1``;
+const Title = styled.div`
+  font-size: 40px;
+  font-weight: bold;
+  margin: 30px;
+`;
 
 const MockData = styled.div`
   width: 300px;
@@ -20,12 +27,15 @@ const MockData = styled.div`
 `;
 
 const StartMockBtn = styled.div`
-  background-color: gray;
   width: 100px;
-  padding: 10px;
+  height: 30px;
+  background-color: blue;
+  color: white;
   text-align: center;
-  border-radius: 20px;
-  margin-top: 20px;
+  padding: 10px;
+  margin: 30px;
+  border-radius: 10px;
+  cursor: pointer;
 `;
 
 export function Mock() {
