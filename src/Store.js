@@ -74,18 +74,20 @@ const StoreButton = styled.div`
 const StoreButton1 = styled.div`
   width: 120px;
   height: 40px;
-  border: 1px solid black;
+  border: 1px solid #0d3276;
   text-align: center;
   line-height: 40px;
   margin-right: 20px;
   cursor: pointer;
+  background-color: white;
+  color: #0d3276;
 `;
 
 const StoreButton2 = styled.div`
   width: 120px;
   height: 40px;
   border: 1px solid black;
-  background-color: black;
+  background-color: #0d3276;
   color: white;
   text-align: center;
   line-height: 40px;
