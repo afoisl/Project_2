@@ -110,14 +110,19 @@ export function StudyRoom() {
       return;
     } else {
       if (userGrade == null) {
-        alert("스터디룸 입장을 위해서는 레벨 확인이 필요합니다");
-        //모의고사 보러가기 버튼/코드 추가
+        if (
+          window.confirm(
+            "아직 등급이 없습니다. 모의고사 창으로 이동하시겠습니까?"
+          )
+        ) {
+          navigate(`/mock`);
+        }
       } else if (roomGrade == userGrade) {
         navigate(`/chating-room/${roomId}/${userId}`, {
           state: { grade: roomGrade },
         });
       } else {
-        alert("현재 레벨 이상의 스터디룸에는 입장이 불가합니다");
+        alert("현재 레벨 외의 스터디룸에는 입장이 불가합니다");
       }
     }
   };
