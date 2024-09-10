@@ -226,17 +226,20 @@ export function QnaDetail() {
 
         {comments.length > 0 && (
           <CommentList>
-            {[...comments].reverse().map((cmt, index) => (
-              <CommentItem key={index}>
-                <Top2>
-                  <Writer>관리자</Writer>
-                  <Separator />
-                  <WriteDate>{cmt.replyTime}</WriteDate>
-                </Top2>
+            {comments
+              .filter((cmt) => cmt.qnAId === qna.qnAId)
+              .reverse()
+              .map((cmt, index) => (
+                <CommentItem key={index}>
+                  <Top2>
+                    <Writer>관리자</Writer>
+                    <Separator />
+                    <WriteDate>{cmt.replyTime}</WriteDate>
+                  </Top2>
 
-                <ReplyText>{cmt.text}</ReplyText>
-              </CommentItem>
-            ))}
+                  <ReplyText>{cmt.text}</ReplyText>
+                </CommentItem>
+              ))}
           </CommentList>
         )}
 
