@@ -17,18 +17,19 @@ const Img = styled.div`
 
 const MenuBar = styled.div`
   background-color: darkgray;
-  height: 90px;
-
+  height: 80px;
   display: grid;
   grid-template-columns: 1.7fr 1fr 1fr 1fr 1.7fr;
 `;
 
 const MenuTitle = styled(Link)`
-  margin: 25px;
+  margin: 20px;
   text-decoration: none;
   color: black;
   font-size: 1.5rem;
+  font-weight: 600;
   text-align: center;
+  margin-bottom: 23px;
 `;
 
 const TitleWrapper = styled.div`
@@ -53,7 +54,6 @@ const Line = styled.div`
 `;
 
 const Blank = styled.div`
-  background-color: white;
   width: 100%;
   height: 200px;
 `;
@@ -120,7 +120,7 @@ const InfoText2_2 = styled.div`
 
 const MidBox = styled.div`
   width: 100%;
-  height: 400px;
+  height: 200px;
   background-color: gray;
   text-align: center;
   font-size: 2.5rem;

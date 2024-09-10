@@ -128,7 +128,7 @@ const MyPageLectureLine = styled.div`
 `;
 const MyPageLectureList = styled.div`
   width: 100%;
-  height: 160px;
+  height: 140px;
   text-align: center;
   margin-top: 20px;
 `;

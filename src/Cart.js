@@ -8,7 +8,7 @@ const Container = styled.div`
   margin: auto;
 `;
 const CartTitle = styled.div`
-  margin-top: 200px;
+  padding: 200px 0 0;
   font-size: 40px;
   text-align: center;
 `;
@@ -16,7 +16,7 @@ const CartMenuGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr;
   margin-top: 100px;
-  background-color: #f3f3f3;
+  background-color: #c9c9c9;
   width: 100%;
   height: 40px;
   align-items: center;
@@ -96,7 +96,7 @@ const CartItemDelivery = styled.div`
 const CartItemLine = styled.div`
   width: 100%;
   height: 1px;
-  background-color: #d9d9d9;
+  background-color: #bbbbbb;
   margin: 15px 0;
   transform: scale();
   transform-origin: center;
@@ -130,7 +130,7 @@ const CartItemInput = styled.input`
 const CartPriceBox = styled.div`
   width: 100%;
   height: 65px;
-  background-color: #f3f3f3;
+  background-color: #c9c9c9;
   margin: 80px 0 50px 0;
   display: flex;
   line-height: 90px;
@@ -186,7 +186,7 @@ const CartOrderBox1 = styled.div`
 const CartOrderDelete = styled.div`
   width: 120px;
   height: 50px;
-  background-color: #575757;
+  background-color: #0d3276;
   color: white;
   border-radius: 20px;
   text-align: center;
@@ -195,20 +195,21 @@ const CartOrderDelete = styled.div`
   cursor: pointer;
 `;
 const CartSelectOrder = styled.div`
-  width: 160px;
-  height: 50px;
-  background-color: #5c5c5c;
-  color: white;
+  width: 158px;
+  height: 48px;
+  background-color: #fff;
+  color: #0d3276;
   font-weight: bold;
   border-radius: 20px;
   text-align: center;
-  line-height: 50px;
+  line-height: 48px;
   cursor: pointer;
+  border: 2px solid #0d3276;
 `;
 const CartAllOrder = styled.div`
   width: 160px;
   height: 50px;
-  background-color: #2f62cb;
+  background-color: #0d3276;
   color: white;
   font-weight: bold;
   border-radius: 20px;

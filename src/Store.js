@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const StoreTitle = styled.div`
-  padding: 200px 0 140px;
+  padding: 200px 0 0;
   text-align: center;
   font-size: 48px;
   font-weight: bold;
@@ -39,7 +39,7 @@ const StoreGrid = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin: 200px 0 300px 0;
+  margin: 170px 0 150px 0;
 `;
 
 const StoreBox = styled.div`
@@ -179,8 +179,6 @@ export function Store() {
     <>
       <StoreTitle>스토어</StoreTitle>
       <Container>
-        <StoreTitle1>설명</StoreTitle1>
-        <StoreImage></StoreImage>
         <StoreGrid>
           {books.map((book) => (
             <StoreBox key={book.storeItemId}>

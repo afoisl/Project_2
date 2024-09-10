@@ -10,17 +10,18 @@ const Img = styled.div`
 
 const MenuBar = styled.div`
   background-color: darkgray;
-  height: 90px;
+  height: 80px;
 
   display: grid;
   grid-template-columns: 1.7fr 1fr 1fr 1fr 1.7fr;
 `;
 
 const MenuTitle = styled(Link)`
-  margin: 25px;
+  margin: 20px;
   text-decoration: none;
   color: black;
   font-size: 1.5rem;
+  font-weight: 600;
   text-align: center;
 `;
 
@@ -55,7 +56,7 @@ const BoxWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 25px;
-  margin-top: 100px;
+  margin: 100px 0;
 `;
 
 const Box = styled.div`
