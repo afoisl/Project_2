@@ -74,7 +74,7 @@ const Price = styled.div`
 
 const Class = styled.div`
   display: inline-block;
-  background-color: #21378d;
+  background-color: #0d3276;
   color: white;
   border-radius: 5px;
   margin-top: 10px;
@@ -82,9 +82,6 @@ const Class = styled.div`
   line-height: 16px;
   font-size: 0.7rem;
   margin-left: 2px;
-`;
-const FooterMargin = styled.div`
-  height: 100px;
 `;
 
 const SliderWrapper = styled.div`
@@ -98,28 +95,24 @@ const SliderWrapper = styled.div`
   .slick-next {
     &:before {
       opacity: 1;
-      color: #21378d;
+      color: #0d3276;
     }
   }
 
   .slick-prev {
     left: -40px;
     &:before {
-      content: '←';
+      content: "←";
     }
   }
 
   .slick-next {
     right: -40px;
     &:before {
-      content: '→';
+      content: "→";
     }
   }
-
 `;
-
-
-
 
 export function LectureBestSeller() {
   const [lectures, setLectures] = useState([]);

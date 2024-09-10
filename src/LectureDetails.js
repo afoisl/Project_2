@@ -66,7 +66,7 @@ const Price = styled.div`
 
 const Class = styled.div`
   display: inline-block;
-  background-color: #21378d;
+  background-color: #0d3276;
   color: white;
   border-radius: 5px;
   margin-top: 10px;
