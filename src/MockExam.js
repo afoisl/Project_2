@@ -78,9 +78,8 @@ const Timer = styled.div`
 `;
 
 const ChoiceBtn = styled.div`
-  width: 25px;
   margin: 13px;
-  padding: 15px;
+  padding: 20px 25px;
   background-color: ${({ isSelected }) =>
     isSelected ? "lightblue" : "lightgray"};
   text-align: center;
@@ -269,20 +268,37 @@ export function MockExam() {
             <Timer>{formatTime(timeLeft)}</Timer>
             {questions.length > 0 ? (
               <QuestionBox>
-                <QuestionText>
-                  {questions[currentQuestionIndex].content}
-                </QuestionText>
-                <ChoiceBtnWrapper>
-                  {["A", "B", "C", "D"].map((choice, index) => (
-                    <ChoiceBtn
-                      key={index}
-                      onClick={() => selectChoice(choice)}
-                      isSelected={selectedChoice === choice}
-                    >
-                      {choice}
-                    </ChoiceBtn>
-                  ))}
-                </ChoiceBtnWrapper>
+                {/* JSON 문자열 파싱 */}
+                {(() => {
+                  let questionData;
+                  try {
+                    questionData = JSON.parse(
+                      questions[currentQuestionIndex].content
+                    );
+                  } catch (error) {
+                    console.error("JSON 파싱 에러:", error);
+                    return <p>문제를 불러오는 중 에러가 발생했습니다.</p>;
+                  }
+
+                  const { question, choices } = questionData;
+
+                  return (
+                    <>
+                      <QuestionText>{question}</QuestionText>
+                      <ChoiceBtnWrapper>
+                        {choices.map((choice, index) => (
+                          <ChoiceBtn
+                            key={index}
+                            onClick={() => selectChoice(choice)}
+                            isSelected={selectedChoice === choice}
+                          >
+                            {choice}
+                          </ChoiceBtn>
+                        ))}
+                      </ChoiceBtnWrapper>
+                    </>
+                  );
+                })()}
                 <MoveBtnWrapper>
                   <PrevBtn onClick={goToPrevQuestion}>이전</PrevBtn>
                   <NextBtn onClick={goToNextQuestion}>다음</NextBtn>
