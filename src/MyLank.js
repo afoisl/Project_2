@@ -4,6 +4,8 @@ import 내정보수정 from "./assets/img/내정보수정.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import 나의랭킹 from "./assets/img/나의랭킹.png";
+import 기본프로필 from "./assets/img/기본프로필.png";
+import Pagination from "./Pagination";
 
 const Container = styled.div`
   width: 60%;
@@ -44,7 +46,7 @@ const MyPagePhoto = styled.div`
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background-color: grey;
+
   line-height: 100px;
   text-align: center;
   margin-left: 40px;
@@ -128,7 +130,6 @@ const MyPageLectureLine = styled.div`
 `;
 const MyPageLectureList = styled.div`
   width: 100%;
-  height: 140px;
   text-align: center;
   margin-top: 20px;
 `;
@@ -139,7 +140,7 @@ const MyPageLectureGo = styled.div`
   color: white;
   font-size: 18px;
   line-height: 50px;
-  margin: 20px auto 10px;
+  margin: 20px auto;
   border-radius: 25px;
   text-align: center;
   cursor: pointer;
@@ -348,7 +349,7 @@ const RankingText = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-45%, -80%);
   color: white;
   font-weight: bold;
   font-size: 14px;
@@ -365,8 +366,20 @@ export function MyLank() {
   const location = useLocation();
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
-  const [purchases, setPurchases] = useState();
+  const [purchases, setPurchases] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5; //
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems =
+    purchases && Array.isArray(purchases)
+      ? purchases.slice(
+          (currentPage - 1) * itemsPerPage,
+          currentPage * itemsPerPage
+        )
+      : [];
 
   const scrollToSection = (ref) => {
     ref.current.scrollIntoView({ behavior: "smooth" });
@@ -523,7 +536,9 @@ export function MyLank() {
         <MyPageGrid>
           <MyPageBox1>
             <MyPageBox1Grid1>
-              <MyPagePhoto>Image</MyPagePhoto>
+              <MyPagePhoto>
+                <img src={기본프로필} alt="기본프로필" />
+              </MyPagePhoto>
               <MyPageText>
                 <MyPageText1>
                   <TextBox1>{user.name}</TextBox1>
@@ -564,17 +579,21 @@ export function MyLank() {
               {isLoading ? (
                 <p>강좌 정보를 불러오는 중입니다...</p>
               ) : purchases.length > 0 ? (
-                extractLectures(purchases).map((lecture, index) => (
-                  <React.Fragment key={index}>
-                    <LectureGrid>
-                      <MyLectureName>{lecture.lectureName}</MyLectureName>
-                      <MyLectureClassSubject>
-                        <MyLectureClass>{lecture.lectureClass}</MyLectureClass>
-                        <MyLectureSubject>{lecture.subject}</MyLectureSubject>
-                      </MyLectureClassSubject>
-                    </LectureGrid>
-                  </React.Fragment>
-                ))
+                extractLectures(purchases)
+                  .slice(0, 4)
+                  .map((lecture, index) => (
+                    <React.Fragment key={index}>
+                      <LectureGrid>
+                        <MyLectureName>{lecture.lectureName}</MyLectureName>
+                        <MyLectureClassSubject>
+                          <MyLectureClass>
+                            {lecture.lectureClass}
+                          </MyLectureClass>
+                          <MyLectureSubject>{lecture.subject}</MyLectureSubject>
+                        </MyLectureClassSubject>
+                      </LectureGrid>
+                    </React.Fragment>
+                  ))
               ) : (
                 <p>수강 중인 강좌가 없습니다.</p>
               )}
@@ -634,26 +653,34 @@ export function MyLank() {
           {isLoading ? (
             <p>구매 내역을 불러오는 중입니다...</p>
           ) : purchases && purchases.length > 0 ? (
-            purchases.map((purchase, index) => {
-              const productInfo = getProductInfo(purchase);
-              return (
-                <PurchaseItem key={index}>
-                  <PurchaseImg />
-                  <PurchaseTitle>
-                    <ProductName>{productInfo.name}</ProductName>
-                    <ProductType>{productInfo.type}</ProductType>
-                  </PurchaseTitle>
-                  <PurchaseDate>
-                    {formatDate(purchase.purchaseTime)}
-                  </PurchaseDate>
-                  <PurchasePrice>
-                    {purchase.storeItem
-                      ? formatPrice(purchase.storeItem.itemPrice)
-                      : "가격 정보 없음"}
-                  </PurchasePrice>
-                </PurchaseItem>
-              );
-            })
+            <>
+              {currentItems.map((purchase, index) => {
+                const productInfo = getProductInfo(purchase);
+                return (
+                  <PurchaseItem key={index}>
+                    <PurchaseImg />
+                    <PurchaseTitle>
+                      <ProductName>{productInfo.name}</ProductName>
+                      <ProductType>{productInfo.type}</ProductType>
+                    </PurchaseTitle>
+                    <PurchaseDate>
+                      {formatDate(purchase.purchaseTime)}
+                    </PurchaseDate>
+                    <PurchasePrice>
+                      {purchase.storeItem
+                        ? formatPrice(purchase.storeItem.itemPrice)
+                        : "가격 정보 없음"}
+                    </PurchasePrice>
+                  </PurchaseItem>
+                );
+              })}
+              <Pagination
+                total={purchases.length}
+                limit={itemsPerPage}
+                page={currentPage}
+                setPage={setCurrentPage}
+              />
+            </>
           ) : (
             <p>구매 내역이 없습니다.</p>
           )}
