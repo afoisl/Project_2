@@ -17,19 +17,6 @@ const Container = styled.div`
   margin: auto;
 `;
 
-const StoreTitle1 = styled.div`
-  font-size: 24px;
-  text-align: center;
-  margin-top: 30px;
-`;
-
-const StoreImage = styled.div`
-  width: 100%;
-  height: 400px;
-  background-color: grey;
-  margin-top: 100px;
-`;
-
 const StoreImage1 = styled.div`
   width: 400px;
   height: 400px;

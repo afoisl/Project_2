@@ -8,13 +8,13 @@ const Container = styled.div`
   margin: auto;
 `;
 const MyLectureTitle = styled.div`
-  margin-top: 150px;
+  padding: 200px 0 140px;
   font-size: 48px;
 `;
 
 const LectureList = styled.div`
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 0.8fr;
+  grid-template-columns: 2fr 2fr 2fr 0.6fr;
   margin: 30px 0;
   align-items: center;
 `;
@@ -38,7 +38,7 @@ const LectureText3 = styled.div`
   width: 50px;
   height: 25px;
   color: white;
-  background-color: black;
+  background-color: #0d3276;
   text-align: center;
   margin-top: 10px;
   line-height: 25px;
@@ -61,13 +61,14 @@ const LectureText5 = styled.div`
 const LectureGo = styled.div`
   width: 100px;
   height: 40px;
-  background-color: #d9d9d9;
+  background-color: #0d3276;
+  color: white;
   font-size: 15px;
   text-align: center;
   line-height: 38px;
   align-self: self-end;
   border-radius: 15px;
-  font-weight: 700;
+  font-weight: 500;
   margin-bottom: 30px;
 `;
 const LectureMargin = styled.div`
@@ -81,7 +82,7 @@ const LoadingMessage = styled.div``;
 const MyLectureMenu = styled.div`
   display: grid;
   grid-template-columns: 4fr 4fr 2fr;
-  background-color: #edede9;
+  background-color: #c9c9c9;
   height: 40px;
   line-height: 5px;
   width: 1200px;
