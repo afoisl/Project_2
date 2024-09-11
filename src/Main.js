@@ -6,6 +6,11 @@ import { motion } from "framer-motion";
 import mainLogo from "./assets/img/mainWide.png";
 import mainImg from "./assets/img/인투어학원 시설.png";
 import bookImg from "./assets/img/67패턴.png";
+import arrowImg from "./assets/img/메인화살표이미지.png";
+import gameImg1 from "./assets/img/1.왼쪽 상단 이미지.png";
+import gameImg2 from "./assets/img/2.왼쪽 하단 이미지.jpg";
+import gameImg3 from "./assets/img/3.오른쪽 상단 이미지.jpg";
+import gameImg4 from "./assets/img/4.오른쪽 하단 이미지.jpg";
 
 const Container = styled.div`
   width: 100%;
@@ -66,7 +71,10 @@ const Box7 = styled.div`
 
 const Box8 = styled.div`
   height: 1000px;
-  background-color: #e5e5e5;
+  background-image: url(${arrowImg});
+  background-size: 86%;
+  background-repeat: no-repeat;
+  background-position: bottom center;
   display: flex;
   justify-content: center;
 `;
@@ -251,7 +259,7 @@ const Line2 = styled.div`
 `;
 const Line3 = styled.div``;
 
-const GameImg1 = styled.div`
+const GameImg1 = styled.img`
   width: 260px;
   height: 210px;
   background-color: white;
@@ -259,7 +267,7 @@ const GameImg1 = styled.div`
   border-radius: 25px;
 `;
 
-const GameImg2 = styled.div`
+const GameImg2 = styled.img`
   width: 260px;
   height: 300px;
   background-color: white;
@@ -267,20 +275,22 @@ const GameImg2 = styled.div`
   border-radius: 25px;
 `;
 
-const GameImg3 = styled.div`
+const GameImg3 = styled.img`
   width: 260px;
   height: 210px;
   background-color: white;
   margin: 10px;
   border-radius: 25px;
+  object-fit: cover;
 `;
-const GameImg4 = styled.div`
+const GameImg4 = styled.img`
   width: 260px;
   height: 300px;
   background-color: white;
   margin: 10px;
   border-radius: 25px;
 `;
+
 const BookImg = styled.img`
   width: 550px;
   height: 550px;
@@ -600,13 +610,13 @@ export function Main() {
             <Box5Wrapper2>
               <Line1>
                 <div></div>
-                <GameImg1></GameImg1>
-                <GameImg2></GameImg2>
+                <GameImg1 src={gameImg1}></GameImg1>
+                <GameImg2 src={gameImg2}></GameImg2>
               </Line1>
               <Line2>
                 <div></div>
-                <GameImg3></GameImg3>
-                <GameImg4></GameImg4>
+                <GameImg3 src={gameImg3}></GameImg3>
+                <GameImg4 src={gameImg4}></GameImg4>
               </Line2>
               <Line3></Line3>
             </Box5Wrapper2>
