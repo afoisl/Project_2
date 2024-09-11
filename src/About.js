@@ -53,7 +53,7 @@ const TitleWrapper = styled.div`
 
 const Container = styled.div`
   width: 60%;
-
+  margin-bottom: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -74,7 +74,7 @@ const Title = styled.div`
   font-size: 3.5rem;
   font-weight: 550;
   padding: 100px;
-  margin: 50px;
+  margin: 0 0 50px;
 `;
 
 const InfoWrapper = styled.div`
@@ -152,6 +152,11 @@ const SlideImage = styled.img`
   object-fit: cover;
   margin: auto;
 `;
+const RoomTitle = styled.div`
+  margin: 150px 0 100px;
+  font-size: 2.5rem;
+  font-family: GmarketBold;
+`;
 
 const RoomText = styled.div`
   font-size: 20px;
@@ -216,10 +221,8 @@ export function About() {
           <p>수많은 사람들이 선택한 최고의 학원</p>
         </MidBox>
         <Container>
-          <RoomText>
-            인투어학원에서 많은 인원을 수용할 수 있는 강의실. 이 곳에서 함께
-            불타는 열정을 느끼며 공부해봐요
-          </RoomText>
+          <RoomTitle>학원 내부</RoomTitle>
+          {/* <RoomText>인투어학원에서 많은 인원을 수용할 수 있는 강의실</RoomText> */}
           <SliderWrapper>
             <Slider {...settings}>
               {roomArr.map((room) => (

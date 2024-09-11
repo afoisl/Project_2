@@ -199,9 +199,11 @@ export function Menu() {
           </div>
           <div>
             <SubMenuBtn to="/mock">모의고사</SubMenuBtn>
-            <SubMenuBtn to="/halloffame">명예의 전당</SubMenuBtn>
+            {/* <SubMenuBtn to="/halloffame">명예의 전당</SubMenuBtn> */}
           </div>
-          <div></div>
+          <div>
+            <SubMenuBtn to="/game">Into Island</SubMenuBtn>
+          </div>
           <div>
             <SubMenuBtn to="/studyroom">커뮤니티</SubMenuBtn>
           </div>

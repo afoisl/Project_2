@@ -486,7 +486,7 @@ export function Main() {
               </Lanking2>
             </motion.div>
           </Box2>
-          <Box3>
+          {/* <Box3>
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -505,7 +505,7 @@ export function Main() {
                 <LankImg3></LankImg3>
               </Lanking3>
             </motion.div>
-          </Box3>
+          </Box3> */}
           <Box4>
             <motion.div
               initial={{ opacity: 0, y: 50 }}
