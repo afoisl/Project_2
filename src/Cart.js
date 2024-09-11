@@ -9,7 +9,8 @@ const Container = styled.div`
 `;
 const CartTitle = styled.div`
   padding: 200px 0 0;
-  font-size: 40px;
+  font-size: 3rem;
+  font-family: GmarketBold;
   text-align: center;
 `;
 const CartMenuGrid = styled.div`

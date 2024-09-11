@@ -15,9 +15,10 @@ const Blank = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 40px;
+  font-size: 3rem;
   font-weight: bold;
-  margin: 30px;
+  margin-bottom: 100px;
+  font-family: GmarketBold;
 `;
 
 const MockData = styled.div`
@@ -28,13 +29,13 @@ const MockData = styled.div`
 
 const StartMockBtn = styled.div`
   width: 100px;
-  height: 30px;
-  background-color: blue;
+  height: 25px;
+  background-color: #0d3276;
   color: white;
   text-align: center;
   padding: 10px;
   margin: 30px;
-  border-radius: 10px;
+  border-radius: 25px;
   cursor: pointer;
 `;
 

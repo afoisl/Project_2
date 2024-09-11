@@ -13,7 +13,14 @@ const H1 = styled.div`
   font-size: 3rem;
   font-family: GmarketBold;
 `;
-const StartButton = styled.button``;
+const StartButton = styled.button`
+  width: 300px;
+  height: 60px;
+  border-radius: 40px;
+  font-size: 1.5rem;
+  font-family: poppinsRegular;
+  margin: 240px 0;
+`;
 
 const Container = styled.div`
   width: 1300px;
@@ -55,13 +62,15 @@ export function Game() {
     <>
       <Title>
         <H1>Into Island</H1>
-        <StartButton onClick={() => setPlayingGame(true)}>
-          Start Game
-        </StartButton>
+        {!playingGame && (
+          <StartButton onClick={() => setPlayingGame(true)}>
+            Game Start
+          </StartButton>
+        )}
       </Title>
 
-      <Container>
-        {playingGame ? (
+      {playingGame && (
+        <Container>
           <Unity
             unityProvider={unityProvider}
             style={{
@@ -69,8 +78,9 @@ export function Game() {
               height: "100%",
             }}
           />
-        ) : null}
-      </Container>
+        </Container>
+      )}
+
       {isGameOver && (
         <p>{`Game Over ${userName}! You've scored ${score} points.`}</p>
       )}

@@ -10,6 +10,22 @@
   font-family: "GmarketLight";
   src: url("./fonts/GmarketSansLight.otf");
 }
+@font-face {
+  font-family: "poppinsMedium";
+  src: url("./fonts/Poppins-Medium.ttf");
+}
+@font-face {
+  font-family: "poppinsMediumItal";
+  src: url("./fonts/Poppins-MediumItalic.ttf");
+}
+@font-face {
+  font-family: "poppinsBlackItal";
+  src: url("./fonts/Poppins-BlackItalic.ttf");
+}
+@font-face {
+  font-family: "poppinsRegular";
+  src: url("./fonts/Poppins-Regular.ttf");
+}
 
 body {
   margin: 0;
