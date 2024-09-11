@@ -48,7 +48,7 @@ const Title = styled.div`
 `;
 
 const RoomName = styled.div`
-  margin: 30px;
+  margin: 47px;
   font-size: 1.4rem;
   font-weight: bold;
 `;
