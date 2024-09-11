@@ -1,12 +1,11 @@
-import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
-import { Game } from "./Game";
 import PaulT from "./assets/img/PaulT.png";
 import YobelT from "./assets/img/YobelT.png";
 import JaneT from "./assets/img/JaneT.png";
 import { motion } from "framer-motion";
 import mainLogo from "./assets/img/mainWide.png";
 import mainImg from "./assets/img/인투어학원 시설.png";
+import bookImg from "./assets/img/67패턴.png";
 
 const Container = styled.div`
   width: 100%;
@@ -39,6 +38,7 @@ const Box4 = styled.div`
   grid-template-rows: 1fr 2fr 2fr 2fr;
   gap: 130px;
   padding-bottom: 50px;
+  padding-left: 100px;
 `;
 
 const Box5 = styled.div`
@@ -47,6 +47,7 @@ const Box5 = styled.div`
   padding: 50px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 70px;
 `;
 
 const Box6 = styled.div`
@@ -77,8 +78,9 @@ const Title2 = styled.div`
   justify-content: right;
   align-items: center;
   padding: 50px;
-  margin: 350px 50px 50px 50px;
+  margin: 400px 50px 50px 50px;
   color: #0d3276;
+  font-family: GmarketBold;
 `;
 
 const Lanking2 = styled.div`
@@ -97,6 +99,7 @@ const LankImg2 = styled.img`
 `;
 const Title3 = styled.div`
   padding: 50px;
+  font-family: GmarketMedium;
 `;
 const Title3_1 = styled.div`
   text-align: center;
@@ -107,6 +110,8 @@ const Title3_2 = styled.div`
   text-align: center;
   font-size: 3.5rem;
   font-weight: 600;
+  font-family: GmarketBold;
+  margin-top: 10px;
 `;
 const Lanking3 = styled.div`
   display: flex;
@@ -126,7 +131,8 @@ const Title4 = styled.div`
   font-size: 3.5rem;
   font-weight: 600;
   padding: 50px 150px;
-  margin: 100px;
+  margin: 150px 250px 100px;
+  font-family: GmarketBold;
 `;
 
 const Lecture = styled.div`
@@ -138,7 +144,7 @@ const Lecture = styled.div`
 const Lecture1 = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr 1fr;
 `;
 
 const TeacherImg1 = styled.img`
@@ -149,13 +155,29 @@ const TeacherImg2 = styled.img`
   width: 250px;
   height: 400px;
 `;
-const TeacherImg3 = styled.div``;
+const TeacherImg3 = styled.img`
+  width: 230px;
+  height: 400px;
+  margin-left: -350px;
+`;
+const ImgWrap = styled.div`
+  width: 250px;
+`;
 
 const Info = styled.div`
   font-size: 2.5rem;
   padding: 50px;
+  font-family: GmarketBold;
 `;
-const Name = styled.div``;
+const Info2 = styled.div`
+  font-size: 2.5rem;
+  padding: 50px;
+  font-family: GmarketBold;
+`;
+const Name = styled.div`
+  margin-top: 10px;
+  font-family: GmarketMedium;
+`;
 
 const BtnWrapper = styled.div`
   display: flex;
@@ -171,9 +193,11 @@ const LectureBtn = styled.div`
   border-radius: 50px;
   background-color: white;
   text-align: center;
-  line-height: 1.5;
+  line-height: 1.7;
   margin: 50px 0px;
   padding: 15px;
+  font-family: GmarketMedium;
+  cursor: pointer;
 `;
 
 const Box5Wrapper = styled.div`
@@ -187,9 +211,10 @@ const Box5Wrapper = styled.div`
 `;
 
 const Title5 = styled.div`
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 600;
   margin: 50px 50px 50px 0px;
+  font-family: GmarketBold;
 `;
 
 const GameBtn = styled.div`
@@ -199,10 +224,12 @@ const GameBtn = styled.div`
   box-sizing: border;
   border-radius: 50px;
   background-color: white;
-  line-height: 1.5;
+  line-height: 1.8;
   text-align: center;
   margin: 50px 0px;
   padding: 15px;
+  font-family: GmarketMedium;
+  cursor: pointer;
 `;
 
 const Box5Wrapper2 = styled.div`
@@ -254,20 +281,24 @@ const GameImg4 = styled.div`
   margin: 10px;
   border-radius: 25px;
 `;
-const BookImg = styled.div`
-  width: 450px;
+const BookImg = styled.img`
+  width: 550px;
   height: 550px;
   background-color: white;
   margin: 50px;
   border-radius: 25px;
+  margin-right: -70px;
 `;
 const BookInfo = styled.div`
   font-size: 1.4rem;
   text-align: right;
   margin: 50px 0px;
+  font-family: GmarketMedium;
 `;
 const BookName = styled.div`
   font-size: 3rem;
+  font-family: GmarketBold;
+  margin-top: 10px;
 `;
 const StoreBtn = styled.div`
   font-size: 1.2rem;
@@ -276,10 +307,12 @@ const StoreBtn = styled.div`
   box-sizing: border;
   border-radius: 50px;
   background-color: white;
-  line-height: 1.5;
+  line-height: 1.8;
   text-align: center;
   margin: 50px 0px;
   padding: 15px;
+  font-family: GmarketMedium;
+  cursor: pointer;
 `;
 
 const Box6Wrapper = styled.div`
@@ -308,6 +341,7 @@ const Text7 = styled.div`
   font-size: 2.5rem;
   padding: 50px;
   margin: 50px;
+  font-family: GmarketBold;
 `;
 
 const StudyRoomBox = styled.div`
@@ -349,15 +383,19 @@ const StudyRoomImg3 = styled.div`
 const Text7_1 = styled.div`
   font-size: 1.5rem;
   padding: 10px;
+  font-family: GmarketMedium;
 `;
 
 const Text8_1 = styled.div`
   font-size: 1.7rem;
   padding: 60px 0px 5px 0px;
+  font-family: GmarketMedium;
 `;
 
 const Text8_2 = styled.div`
   font-size: 3rem;
+  font-family: GmarketBold;
+  margin-top: 10px;
 `;
 
 const Box8Wrappper = styled.div`
@@ -384,16 +422,18 @@ const Button8wrapper = styled.div`
 `;
 
 const LevelBtn = styled.div`
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   width: 220px;
   height: 40px;
   box-sizing: border;
   border-radius: 50px;
   background-color: white;
   text-align: center;
-  line-height: 1.8;
+  line-height: 2.3;
   margin: 50px;
   padding: 15px;
+  font-family: GmarketMedium;
+  cursor: pointer;
 `;
 
 export function Main() {
@@ -414,8 +454,8 @@ export function Main() {
               }}
             >
               <Title2>
-                점수가 오르는 학원 <br />
-                인투어학원
+                환영합니다 <br />
+                인투어학원입니다
               </Title2>
             </motion.div>
             <motion.div
@@ -485,7 +525,7 @@ export function Main() {
                 <TeacherImg2 src={PaulT}></TeacherImg2>
               </motion.div>
               <Info>
-                입문반은 내가 책임진다
+                단단하게 쌓아가는 기초
                 <Name>Paul 강사</Name>
                 <BtnWrapper>
                   <LectureBtn>수강신청 바로가기</LectureBtn>
@@ -494,24 +534,27 @@ export function Main() {
             </Lecture>
             <Lecture1>
               <div></div>
-              <Info>
-                홍보문구
+              <Info2>
+                토익 실력의 수준을 높여드립니다
                 <Name>Yobel 강사</Name>
                 <LectureBtn>수강신청 바로가기</LectureBtn>
-              </Info>
+              </Info2>
               <div></div>
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false }}
-                transition={{
-                  ease: "easeInOut",
-                  duration: 2,
-                  x: { duration: 1 },
-                }}
-              >
-                <TeacherImg1 src={YobelT}></TeacherImg1>
-              </motion.div>
+              <ImgWrap>
+                {" "}
+                <motion.div
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: false }}
+                  transition={{
+                    ease: "easeInOut",
+                    duration: 2,
+                    x: { duration: 1 },
+                  }}
+                >
+                  <TeacherImg3 src={YobelT}></TeacherImg3>
+                </motion.div>
+              </ImgWrap>
             </Lecture1>
             <Lecture>
               <div></div>
@@ -528,8 +571,7 @@ export function Main() {
                 <TeacherImg1 src={JaneT}></TeacherImg1>
               </motion.div>
               <Info>
-                홍보문구
-                <Name>Jane 강사</Name>
+                애매하게 점수 안오를 땐, Jane !<Name>Jane 강사</Name>
                 <BtnWrapper>
                   <LectureBtn>수강신청 바로가기</LectureBtn>
                 </BtnWrapper>
@@ -549,9 +591,8 @@ export function Main() {
                 }}
               >
                 <Title5>
-                  게임으로 재밌게 배우는
-                  <br />
-                  영어
+                  게임으로 <br />
+                  재밌게 배우는 영어
                 </Title5>
               </motion.div>
               <GameBtn>게임 바로가기</GameBtn>
@@ -572,7 +613,7 @@ export function Main() {
           </Box5>
           <Box6>
             <Box6Wrapper>
-              <BookImg></BookImg>
+              <BookImg src={bookImg}></BookImg>
             </Box6Wrapper>
             <Box6Wrapper2>
               <motion.div

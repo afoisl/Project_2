@@ -9,7 +9,10 @@ const Title = styled.div`
   flex-direction: column;
   padding: 120px 0 140px;
 `;
-const H1 = styled.h1``;
+const H1 = styled.div`
+  font-size: 3rem;
+  font-family: GmarketBold;
+`;
 const StartButton = styled.button``;
 
 const Container = styled.div`
@@ -51,7 +54,7 @@ export function Game() {
   return (
     <>
       <Title>
-        <H1>Word Rush Game</H1>
+        <H1>Into Island</H1>
         <StartButton onClick={() => setPlayingGame(true)}>
           Start Game
         </StartButton>
