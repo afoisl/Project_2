@@ -30,9 +30,9 @@ const Box = styled.div`
 
 const Room = styled.div`
   width: 250px;
-  height: 380px;
+  height: 384px;
   background-image: url(${DoorImg});
-  background-color: black;
+  background-size: cover;
   justify-self: center;
   margin: 50px;
   text-align: center;
@@ -135,7 +135,6 @@ export function StudyRoom() {
 
   return (
     <>
-      <Header></Header>
       <Container>
         <Title>스터디룸</Title>
         <Box>
