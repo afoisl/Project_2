@@ -19,7 +19,7 @@ const StartButton = styled.button`
   border-radius: 40px;
   font-size: 1.5rem;
   font-family: poppinsRegular;
-  margin: 240px 0;
+  margin: 280px 0;
 `;
 
 const Container = styled.div`

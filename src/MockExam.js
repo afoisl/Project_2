@@ -10,17 +10,18 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 30px;
 `;
 
 const StartBtn = styled.div`
   width: 100px;
-  height: 30px;
-  background-color: blue;
+  height: 25px;
+  background-color: #0d3276;
   color: white;
   text-align: center;
   padding: 10px;
   margin: 30px;
-  border-radius: 10px;
+  border-radius: 25px;
   cursor: pointer;
 `;
 
@@ -32,35 +33,35 @@ const MoveBtnWrapper = styled.div`
 const NextBtn = styled.div`
   width: 100px;
   height: 25px;
-  background-color: blue;
+  background-color: #0d3276;
   color: white;
   text-align: center;
   padding: 10px;
-  border-radius: 15px;
+  margin: 30px;
+  border-radius: 25px;
   cursor: pointer;
-  margin: 40px;
 `;
 
 const PrevBtn = styled.div`
   width: 100px;
   height: 25px;
-  background-color: blue;
+  background-color: #0d3276;
   color: white;
   text-align: center;
   padding: 10px;
-  border-radius: 15px;
+  margin: 30px;
+  border-radius: 25px;
   cursor: pointer;
-  margin: 40px;
 `;
 
 const EndBtn = styled.div`
   width: 100px;
   height: 25px;
-  background-color: red;
+  background-color: #dc0000;
   color: white;
   text-align: center;
   padding: 10px;
-  border-radius: 15px;
+  border-radius: 25px;
   cursor: pointer;
   margin: 40px;
 `;
@@ -80,7 +81,8 @@ const Timer = styled.div`
 const ChoiceBtn = styled.div`
   margin: 13px;
   padding: 20px 25px;
-  background-color: ${({ isSelected }) => (isSelected ? "black" : "lightgray")};
+  background-color: ${({ isSelected }) =>
+    isSelected ? "#3d598c" : "lightgray"};
   color: ${({ isSelected }) => (isSelected ? "white" : "black")};
   text-align: center;
   cursor: pointer;
@@ -88,7 +90,7 @@ const ChoiceBtn = styled.div`
   font-size: 20px;
 
   &:hover {
-    background-color: blue;
+    background-color: #3d598c;
   }
 `;
 
