@@ -204,7 +204,6 @@ export function Menu() {
           <div></div>
           <div>
             <SubMenuBtn to="/studyroom">커뮤니티</SubMenuBtn>
-            <SubMenuBtn to="/speciallecroom">실시간특강</SubMenuBtn>
           </div>
           <div>
             <SubMenuBtn to="/customer">공지사항</SubMenuBtn>

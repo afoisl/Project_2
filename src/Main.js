@@ -659,7 +659,7 @@ export function Main() {
                 </div>
                 <div>
                   <StudyRoomImg3></StudyRoomImg3>
-                  <Text7_1>실시간 특강</Text7_1>
+                  <Text7_1>스터디룸</Text7_1>
                 </div>
               </StudyRoomBox>
             </Box7Wrapper>
