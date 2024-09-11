@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import 예시 from "./assets/img/예시.png";
+import { imageSource } from "./ImageSource";
 
 const Container = styled.div`
   width: 60%;
@@ -19,7 +20,7 @@ const LectureDetailPage = styled.div`
 const LectureBox1 = styled.div``;
 const LectureBox2 = styled.div``;
 
-const LectureImg = styled.div`
+const LectureImg = styled.img`
   width: 890px;
   height: 540px;
 `;
@@ -168,6 +169,7 @@ export function Lecture() {
       return;
     }
     navigate("/order", { state: { lectures: [lecture] } });
+    console.log(lectures);
   };
 
   return (
@@ -175,7 +177,7 @@ export function Lecture() {
       {lectures.map((lecture) => (
         <LectureDetailPage key={lecture.storeItemId}>
           <LectureBox1>
-            <img src={예시} alt="예시" />
+            <LectureImg src={imageSource[lecture.lectureImage]} />
           </LectureBox1>
           <LectureBox2>
             <LectureGrade>{lecture.lectureClass}</LectureGrade>

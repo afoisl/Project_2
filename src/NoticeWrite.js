@@ -3,17 +3,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Img = styled.div`
-  width: 100%;
-  height: 700px;
-  background-color: gray;
-`;
-
 const Title = styled.div`
   font-size: 3rem;
   font-weight: 600;
   text-align: center;
-  margin-top: 100px;
+  padding: 200px 0 0;
 `;
 
 const Box = styled.div`
@@ -111,7 +105,6 @@ export function NoticeWirte() {
 
   return (
     <>
-      <Img></Img>
       <Title>공지사항 작성</Title>
       <Box>
         <InputTitle

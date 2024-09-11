@@ -5,6 +5,7 @@ import axios from "axios";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { imageSource } from "./ImageSource";
 
 const Box1 = styled.div`
   display: flex;
@@ -40,7 +41,6 @@ const LecImg = styled.img`
   height: 200px;
   padding-bottom: 10px;
   border-radius: 20px;
-  border: 1px solid grey;
   margin-bottom: 15px;
 `;
 
@@ -182,7 +182,7 @@ export function LectureBestSeller() {
               <div key={lecture.storeItemId}>
                 <Card onClick={() => handleCardClick(lecture.storeItemId)}>
                   <LecImg
-                    src="/api/placeholder/350/200"
+                    src={imageSource[lecture.lectureImage]}
                     alt={lecture.lectureName}
                   />
                   <Category>{lecture.subject}</Category>

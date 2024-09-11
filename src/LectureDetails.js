@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Lecture } from "./Lecture";
 import Pagination from "./Pagination";
 import axios from "axios";
+import { imageSource } from "./ImageSource";
 
 const Box1 = styled.div`
   display: flex;
@@ -32,7 +33,6 @@ const LecImg = styled.img`
   height: 200px;
   padding-bottom: 10px;
   border-radius: 20px;
-  border: 1px solid #333;
   margin: 20px 0 15px;
 `;
 
@@ -189,7 +189,7 @@ export function LectureDetails() {
                   onClick={() => handleCardClick(lecture.storeItemId)}
                 >
                   <Card>
-                    <LecImg></LecImg>
+                    <LecImg src={imageSource[lecture.lectureImage]}></LecImg>
                     <Category>{lecture.subject}</Category>
                     <Title>{lecture.lectureName}</Title>
                     <Price>{lecture.lecPrice} 원</Price>
