@@ -10,6 +10,7 @@ const StoreTitle = styled.div`
   text-align: center;
   font-size: 48px;
   font-weight: bold;
+  font-family: GmarketBold;
 `;
 
 const Container = styled.div`

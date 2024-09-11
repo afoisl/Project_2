@@ -12,9 +12,9 @@ const Container = styled.div`
   margin: auto;
 `;
 const MyPageTitle = styled.div`
-  padding: 200px 0 140px;
-  font-size: 48px;
-
+  padding: 200px 0 0;
+  font-size: 3rem;
+  font-family: GmarketBold;
   text-align: center;
 `;
 const MyPageGrid = styled.div`
@@ -104,18 +104,7 @@ const GameRankingBox = styled.div`
   background-color: grey;
   margin-bottom: 15px;
 `;
-const GamePoint = styled.div`
-  margin-left: 80px;
-`;
-const GamePiontBox = styled.div`
-  font-size: 24px;
-  font-weight: bold;
-  width: 73px;
-  height: 73px;
-  text-align: center;
-  line-height: 73px;
-  margin-bottom: 15px;
-`;
+
 const MyPageLecture = styled.div`
   width: 100%;
   height: 50px;

@@ -13,7 +13,24 @@ const Container = styled.div`
 `;
 
 const Blank = styled.div`
-  height: 160px;
+  height: 300px;
+`;
+
+const Title = styled.div`
+  font-size: 40px;
+  font-weight: bold;
+`;
+
+const Result = styled.div`
+  font-size: 30px;
+  margin: 10px;
+`;
+
+const ResultWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px;
 `;
 
 export function MockResult() {
@@ -49,9 +66,11 @@ export function MockResult() {
     <>
       <Blank></Blank>
       <Container>
-        <h1>시험결과</h1>
-        <p>점수 : {score} </p>
-        <p>등급 : {grade}</p>
+        <Title>{userId}님을 응원합니다!</Title>
+        <ResultWrapper>
+          <Result>나의 점수 : {score} </Result>
+          <Result>나의 등급 : {grade}</Result>
+        </ResultWrapper>
       </Container>
     </>
   );

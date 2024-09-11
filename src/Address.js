@@ -38,6 +38,8 @@ const TitleWrapper = styled.div`
 const Container = styled.div`
   width: 60%;
   margin: auto;
+  margin-left: 550px;
+  font-family: GmarketMedium;
 `;
 
 const Line = styled.div`
@@ -54,7 +56,9 @@ const AddressTitle = styled.div`
 
 const AddressTitleText = styled.div`
   margin-left: 15px;
-  font-size: 38px;
+  margin-top: 8px;
+  font-size: 2.5rem;
+  font-family: GmarketBold;
 `;
 
 const AddressText1 = styled.div`
@@ -67,6 +71,8 @@ const AddressText2 = styled.div`
   font-size: 20px;
   margin-left: 15px;
   margin-bottom: 30px;
+  margin: 30px 10px;
+  font-family: GmarketMedium;
 `;
 
 const AddressNaver = styled.div`
@@ -151,7 +157,7 @@ export function Address() {
         <AddressText1>• 전화 : 042 - 822 - 2414</AddressText1>
         <AddressText1>• 위치 : 대전 유성구 대학로 88 4층</AddressText1>
         <AddressText2>
-          지금 바로 등록하고 여름 방학을 토익 고득점으로 마무리 하세요!
+          지금 바로 등록하고 겨울 방학을 토익 고득점으로 마무리 하세요!
           인투어학원과 함께라면 가능합니다.
         </AddressText2>
         <AddressNaver>

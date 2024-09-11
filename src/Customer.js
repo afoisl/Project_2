@@ -6,12 +6,6 @@ import { NoticeList } from "./NoticeList";
 import { QnaList } from "./QnaList";
 import axios from "axios";
 
-const Img = styled.div`
-  width: 100%;
-  height: 700px;
-  background-color: gray;
-`;
-
 const TitleBox = styled.div`
   margin: 0 auto;
   width: 70%;
@@ -19,6 +13,7 @@ const TitleBox = styled.div`
   padding: 200px 0 140px;
   font-size: 3rem;
   font-weight: 600;
+  font-family: GmarketBold;
 `;
 const ContBox = styled.div``;
 

@@ -39,9 +39,11 @@ const TextWrapper = styled.div`
   margin-top: 100px;
 `;
 const Text = styled.div`
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  margin-left: -150px;
+  font-family: GmarketMedium;
+  letter-spacing: 1px;
+  line-height: 1.5;
 `;
 
 const Container = styled.div`

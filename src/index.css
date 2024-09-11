@@ -1,3 +1,32 @@
+@font-face {
+  font-family: "GmarketBold";
+  src: url("./fonts/GmarketSansBold.otf");
+}
+@font-face {
+  font-family: "GmarketMedium";
+  src: url("./fonts/GmarketSansMedium.otf");
+}
+@font-face {
+  font-family: "GmarketLight";
+  src: url("./fonts/GmarketSansLight.otf");
+}
+@font-face {
+  font-family: "poppinsMedium";
+  src: url("./fonts/Poppins-Medium.ttf");
+}
+@font-face {
+  font-family: "poppinsMediumItal";
+  src: url("./fonts/Poppins-MediumItalic.ttf");
+}
+@font-face {
+  font-family: "poppinsBlackItal";
+  src: url("./fonts/Poppins-BlackItalic.ttf");
+}
+@font-face {
+  font-family: "poppinsRegular";
+  src: url("./fonts/Poppins-Regular.ttf");
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

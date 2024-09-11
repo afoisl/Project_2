@@ -9,6 +9,7 @@ const Title = styled.div`
   text-align: center;
   font-size: 48px;
   font-weight: bold;
+  font-family: GmarketBold;
 `;
 
 const Box1 = styled.div`
