@@ -42,6 +42,7 @@ import { OrderCompleted } from "./OrderCompleted";
 import { StreamWrapper } from "./StreamWrapper";
 import { CreateStream } from "./CreateStream";
 import { FooterReal } from "./Footer";
+import ScrollToTop from "./ScrollToTop";
 
 const Container = styled.div`
   width: 100%;
@@ -138,6 +139,7 @@ export function Into() {
   return (
     <>
       <BrowserRouter>
+        <ScrollToTop />
         <AppContent />
       </BrowserRouter>
     </>
