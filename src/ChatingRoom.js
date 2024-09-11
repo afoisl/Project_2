@@ -19,6 +19,7 @@ const BackBtn = styled.div`
   align-items: center;
   font-size: 1.1rem;
   cursor: pointer;
+  margin-top: 50px;
 `;
 
 const BackImg = styled.div`
@@ -30,7 +31,7 @@ const BackImg = styled.div`
 
 const ChatingRoomBox = styled.div`
   width: 50%;
-  background-color: #999999;
+  background-color: #e5e5e5;
   padding: 50px;
 `;
 
@@ -92,7 +93,7 @@ export function ChatingRoom() {
           나가기
         </BackBtn>
         <RoomInfo>
-          <RoomName>{grade}</RoomName>
+          <RoomName>{grade} 스터디룸</RoomName>
         </RoomInfo>
         <Chat userId={userId} roomId={roomId} />
       </ChatingRoomBox>

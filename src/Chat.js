@@ -6,12 +6,12 @@ import { useEffect } from "react";
 const ChatRoomContainer = styled.div``;
 
 const MessageList = styled.div`
-  background-color: darkgray;
+  background-color: #b6b6b6;
   padding: 20px;
   border-radius: 10px 10px 0px 0px;
   display: flex;
   flex-direction: column;
-  min-height: 300px;
+  min-height: 350px;
   max-height: 600px;
   overflow-y: scroll;
 `;
@@ -50,7 +50,7 @@ const Sender = styled.div`
 `;
 
 const MessageSendBox = styled.div`
-  background-color: white;
+  background-color: #e9e9e9;
   border-radius: 0px 0px 10px 10px;
   padding: 20px;
   display: flex;
@@ -62,7 +62,7 @@ const MessageSender = styled.div`
   border-radius: 10px;
   margin: 10px;
   padding: 20px 5px;
-  width: 90%;
+  width: 98%;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -101,7 +101,7 @@ const SendBtn = styled.button`
   margin: 10px;
 
   &:hover {
-    background-color: gray;
+    background-color: #0d3276;
   }
 `;
 
@@ -130,7 +130,6 @@ const DateLine = styled.hr`
 
 const DateText = styled.span`
   padding: 0 10px;
-  background-color: darkgray;
   color: white;
   font-size: 0.9em;
 `;
@@ -309,7 +308,6 @@ export function Chat({ userId, roomId }) {
         <div>
           <MessageList>{renderMessages()}</MessageList>
           <MessageSendBox>
-            <MessageAddFile></MessageAddFile>
             <MessageSender className="message-sender">
               <Input
                 value={currentMessage}
