@@ -81,7 +81,7 @@ const LectureMargin1 = styled.div`
 const LoadingMessage = styled.div``;
 const MyLectureMenu = styled.div`
   display: grid;
-  grid-template-columns: 4fr 4fr 2fr;
+  grid-template-columns: 7.4fr 4fr 2.7fr;
   background-color: #c9c9c9;
   height: 40px;
   line-height: 5px;
