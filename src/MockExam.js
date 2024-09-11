@@ -80,8 +80,8 @@ const Timer = styled.div`
 const ChoiceBtn = styled.div`
   margin: 13px;
   padding: 20px 25px;
-  background-color: ${({ isSelected }) =>
-    isSelected ? "lightblue" : "lightgray"};
+  background-color: ${({ isSelected }) => (isSelected ? "black" : "lightgray")};
+  color: ${({ isSelected }) => (isSelected ? "white" : "black")};
   text-align: center;
   cursor: pointer;
   border-radius: 18px;
@@ -129,7 +129,7 @@ const IntroText = styled.div`
 
 export function MockExam() {
   const [started, setStarted] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(350);
+  const [timeLeft, setTimeLeft] = useState(7200);
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState({});
