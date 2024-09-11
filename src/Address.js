@@ -3,29 +3,35 @@ import { Link } from "react-router-dom";
 import 등록문의전화 from "./assets/img/등록문의전화.png";
 import 네이버톡톡 from "./assets/img/네이버톡톡.png";
 import React, { useEffect } from "react";
+import 메인사진 from "./assets/img/곰돌.png";
 
 const Header = styled.div``;
 
-const Img = styled.div`
+const Img = styled.img`
+  width: 100%;
   height: 600px;
   background-color: gray;
 `;
 
 const MenuBar = styled.div`
-  background-color: darkgray;
+  margin: 0 auto;
+  background-color: #c9c9c9;
+  width: 70%;
   height: 80px;
-
   display: grid;
   grid-template-columns: 1.7fr 1fr 1fr 1fr 1.7fr;
+  margin-top: 20px;
+  border-radius: 50px;
 `;
 
 const MenuTitle = styled(Link)`
   margin: 20px;
   text-decoration: none;
   color: black;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 600;
   text-align: center;
+  margin-bottom: 23px;
 `;
 
 const TitleWrapper = styled.div`
@@ -137,7 +143,7 @@ export function Address() {
   return (
     <>
       <Header>
-        <Img />
+        <Img src={메인사진} />
         <MenuBar>
           <div></div>
           <MenuTitle to="/intro/about">About Us</MenuTitle>

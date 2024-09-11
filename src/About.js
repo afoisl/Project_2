@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import 메인사진 from "./assets/img/about2.png";
 
 const Header = styled.div``;
 
@@ -10,23 +11,28 @@ const Body = styled.div`
   align-items: center;
 `;
 
-const Img = styled.div`
+const Img = styled.img`
+  width: 100%;
   height: 600px;
   background-color: gray;
 `;
 
 const MenuBar = styled.div`
-  background-color: darkgray;
+  margin: 0 auto;
+  background-color: #c9c9c9;
+  width: 70%;
   height: 80px;
   display: grid;
   grid-template-columns: 1.7fr 1fr 1fr 1fr 1.7fr;
+  margin-top: 20px;
+  border-radius: 50px;
 `;
 
 const MenuTitle = styled(Link)`
   margin: 20px;
   text-decoration: none;
   color: black;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 600;
   text-align: center;
   margin-bottom: 23px;
@@ -134,7 +140,7 @@ export function About() {
   return (
     <>
       <Header>
-        <Img></Img>
+        <Img src={메인사진}></Img>
         <MenuBar>
           <div></div>
           <TitleWrapper>

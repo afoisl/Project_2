@@ -11,6 +11,9 @@ import gameImg1 from "./assets/img/1.왼쪽 상단 이미지.png";
 import gameImg2 from "./assets/img/2.왼쪽 하단 이미지.jpg";
 import gameImg3 from "./assets/img/3.오른쪽 상단 이미지.jpg";
 import gameImg4 from "./assets/img/4.오른쪽 하단 이미지.jpg";
+import studyRoom from "./assets/img/그룹스터디.png";
+import Q from "./assets/img/물음표.png";
+import test from "./assets/img/문제풀이.png";
 
 const Container = styled.div`
   width: 100%;
@@ -366,7 +369,7 @@ const StudyRoomBox = styled.div`
   }
 `;
 
-const StudyRoomImg1 = styled.div`
+const StudyRoomImg1 = styled.img`
   background-color: white;
   width: 350px;
   height: 400px;
@@ -374,7 +377,7 @@ const StudyRoomImg1 = styled.div`
   border-radius: 25px;
 `;
 
-const StudyRoomImg2 = styled.div`
+const StudyRoomImg2 = styled.img`
   background-color: white;
   width: 350px;
   height: 400px;
@@ -382,7 +385,7 @@ const StudyRoomImg2 = styled.div`
   border-radius: 25px;
 `;
 
-const StudyRoomImg3 = styled.div`
+const StudyRoomImg3 = styled.img`
   background-color: white;
   width: 350px;
   height: 400px;
@@ -656,19 +659,21 @@ export function Main() {
                   y: { duration: 1 },
                 }}
               >
-                <Text7>실시간으로 질문하고 배우는 스터디룸</Text7>
+                <Text7>
+                  "혼자서도, 함께도 완벽한 학습 여정이 여기서 시작됩니다."
+                </Text7>
               </motion.div>
               <StudyRoomBox>
                 <div>
-                  <StudyRoomImg1></StudyRoomImg1>
-                  <Text7_1>모의고사 문제풀이</Text7_1>
+                  <StudyRoomImg1 src={test}></StudyRoomImg1>
+                  <Text7_1>모의고사</Text7_1>
                 </div>
                 <div>
-                  <StudyRoomImg2></StudyRoomImg2>
-                  <Text7_1>자유로운 Q & A</Text7_1>
+                  <StudyRoomImg2 src={Q}></StudyRoomImg2>
+                  <Text7_1>1 : 1 문의</Text7_1>
                 </div>
                 <div>
-                  <StudyRoomImg3></StudyRoomImg3>
+                  <StudyRoomImg3 src={studyRoom}></StudyRoomImg3>
                   <Text7_1>스터디룸</Text7_1>
                 </div>
               </StudyRoomBox>
