@@ -2,6 +2,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import 메인사진 from "./assets/img/about2.png";
+import 강의1 from "./assets/img/강의실1.png";
+import 강의2 from "./assets/img/강의실 2.png";
+import 강의3 from "./assets/img/강의실 3.png";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Header = styled.div``;
 
@@ -47,7 +53,7 @@ const TitleWrapper = styled.div`
 
 const Container = styled.div`
   width: 60%;
-  height: 1900px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -135,8 +141,41 @@ const MidBox = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const SliderWrapper = styled.div`
+  width: 100%;
+  margin: 50px 0;
+`;
+
+const SlideImage = styled.img`
+  width: 80%;
+  height: 400px;
+  object-fit: cover;
+  margin: auto;
+`;
+
+const RoomText = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px auto;
+`;
+
+const roomArr = [
+  { img: 강의1, key: 1 },
+  { img: 강의2, key: 2 },
+  { img: 강의3, key: 3 },
+];
 
 export function About() {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: false,
+  };
   return (
     <>
       <Header>
@@ -176,7 +215,21 @@ export function About() {
         <MidBox>
           <p>수많은 사람들이 선택한 최고의 학원</p>
         </MidBox>
-        <Container></Container>
+        <Container>
+          <RoomText>
+            인투어학원에서 많은 인원을 수용할 수 있는 강의실. 이 곳에서 함께
+            불타는 열정을 느끼며 공부해봐요
+          </RoomText>
+          <SliderWrapper>
+            <Slider {...settings}>
+              {roomArr.map((room) => (
+                <div key={room.key}>
+                  <SlideImage src={room.img} alt={`Lecture Room ${room.key}`} />
+                </div>
+              ))}
+            </Slider>
+          </SliderWrapper>
+        </Container>
       </Body>
     </>
   );
