@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import mockThumbNail from "./assets/img/모의고사썸네일.png";
 
 const Container = styled.div`
   width: 60%;
@@ -11,20 +12,37 @@ const Container = styled.div`
 `;
 
 const Blank = styled.div`
-  height: 200px;
+  height: 150px;
+`;
+
+const Blank2 = styled.div`
+  height: 130px;
 `;
 
 const Title = styled.div`
   font-size: 3rem;
   font-weight: bold;
-  margin-bottom: 100px;
+  margin-bottom: 80px;
   font-family: GmarketBold;
 `;
 
 const MockData = styled.div`
-  width: 300px;
-  height: 350px;
+  display: flex;
+`;
+
+const MockDataImg = styled.img`
+  width: 290px;
+  height: 310px;
   background-color: darkgray;
+`;
+
+const MockDataText = styled.div`
+  font-size: 20px;
+  margin: 5px 0px;
+`;
+
+const MockDataWrapper = styled.div`
+  margin: 20px 30px;
 `;
 
 const StartMockBtn = styled.div`
@@ -34,7 +52,7 @@ const StartMockBtn = styled.div`
   color: white;
   text-align: center;
   padding: 10px;
-  margin: 30px;
+  margin: 20px 0px;
   border-radius: 25px;
   cursor: pointer;
 `;
@@ -69,10 +87,30 @@ export function Mock() {
       <Blank></Blank>
       <Container>
         <Title>모의고사</Title>
-        <MockData></MockData>
-        <StartMockBtn onClick={handleStartMock}> 응시하기 </StartMockBtn>
+        <MockData>
+          <MockDataWrapper>
+            <MockDataImg src={mockThumbNail}></MockDataImg>
+            <MockDataText>2024년 9월 적중예상 문제</MockDataText>
+            <StartMockBtn onClick={handleStartMock}> 응시하기 </StartMockBtn>
+          </MockDataWrapper>
+          <MockDataWrapper>
+            <MockDataImg src={mockThumbNail}></MockDataImg>
+            <MockDataText>2024년 8월 적중예상 문제</MockDataText>
+            <StartMockBtn onClick={handleStartMock}> 응시하기 </StartMockBtn>
+          </MockDataWrapper>
+          <MockDataWrapper>
+            <MockDataImg src={mockThumbNail}></MockDataImg>
+            <MockDataText>2024년 7월 적중예상 문제</MockDataText>
+            <StartMockBtn onClick={handleStartMock}> 응시하기 </StartMockBtn>
+          </MockDataWrapper>
+          <MockDataWrapper>
+            <MockDataImg src={mockThumbNail}></MockDataImg>
+            <MockDataText>2024년 6월 적중예상 문제</MockDataText>
+            <StartMockBtn onClick={handleStartMock}> 응시하기 </StartMockBtn>
+          </MockDataWrapper>
+        </MockData>
       </Container>
-      <Blank></Blank>
+      <Blank2></Blank2>
     </>
   );
 }
