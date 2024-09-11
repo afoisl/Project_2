@@ -1,3 +1,16 @@
+@font-face {
+  font-family: "GmarketBold";
+  src: url("./fonts/GmarketSansBold.otf");
+}
+@font-face {
+  font-family: "GmarketMedium";
+  src: url("./fonts/GmarketSansMedium.otf");
+}
+@font-face {
+  font-family: "GmarketLight";
+  src: url("./fonts/GmarketSansLight.otf");
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
