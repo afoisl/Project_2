@@ -10,6 +10,8 @@ const Container = styled.div`
 const MyLectureTitle = styled.div`
   padding: 200px 0 140px;
   font-size: 48px;
+  font-family: GmarketBold;
+  text-align: center;
 `;
 
 const LectureList = styled.div`

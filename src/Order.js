@@ -6,10 +6,12 @@ import styled from "styled-components";
 const Container = styled.div`
   width: 60%;
   margin: auto;
+  margin-bottom: 50px;
 `;
 const OrderTitle = styled.div`
   padding: 200px 0 0;
-  font-size: 48px;
+  font-size: 3rem;
+  font-family: GmarketBold;
   text-align: center;
 `;
 const OrderBoxGrid = styled.div`

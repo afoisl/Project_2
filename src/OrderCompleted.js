@@ -3,22 +3,21 @@ import styled from "styled-components";
 import { useLocation, Navigate } from "react-router-dom";
 
 const BoxWrapper = styled.div`
+  width: 70%;
   margin: 0 auto;
   padding: 40px 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 200px 0 0;
-  border: 0.7px solid lightgray;
-  margin-bottom: 217px;
+  padding: 200px 0 50px;
+  border-bottom: 1px solid #bdbdbd;
+  margin-bottom: 168px;
 `;
 const Box1 = styled.div`
   width: 550px;
   height: 400px;
   padding: 20px;
   margin-left: 40px;
-
-  /* border: black 1px solid; */
 `;
 const Text = styled.div`
   margin-top: 20px;
@@ -57,7 +56,7 @@ const Box2 = styled.div`
   height: 300px;
   padding: 45px 40px 40px;
   border-radius: 30px;
-  background-color: #fafafa;
+  background-color: #f8f8f8;
   box-shadow: 2px 2px 10px #888888;
 `;
 const Product = styled.div`
@@ -110,7 +109,7 @@ const TotalNum = styled.div``;
 const ProductList = styled.div`
   max-height: 150px;
   overflow-y: auto;
-  margin-bottom: 20px;
+  border-bottom: 1px solid #5e5e5e;
 `;
 
 const ProductItem = styled.div`
