@@ -44,7 +44,8 @@ export function MockResult() {
     .get(`/api/mock/score/${userId}`)
     .then((response) => {
       console.log(response.data);
-      setScore(response.data[0].score);
+      const data = response.data;
+      setScore(data[data.length - 1].score);
     })
     .catch((error) => {
       console.log(error);
