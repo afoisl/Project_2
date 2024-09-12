@@ -208,8 +208,12 @@ export function Menu() {
             <SubMenuBtn to="/studyroom">커뮤니티</SubMenuBtn>
           </div>
           <div>
-            <SubMenuBtn to="/customer">공지사항</SubMenuBtn>
-            <SubMenuBtn to="/customer">1 : 1 문의</SubMenuBtn>
+            <SubMenuBtn to="/customer" state={{ selectedTab: "notice" }}>
+              공지사항
+            </SubMenuBtn>
+            <SubMenuBtn to="/customer" state={{ selectedTab: "qna" }}>
+              1 : 1 문의
+            </SubMenuBtn>
           </div>
         </SubCenter>
         {isLoggedIn && (

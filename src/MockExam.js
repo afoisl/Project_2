@@ -10,7 +10,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 `;
 
 const StartBtn = styled.div`
@@ -183,7 +183,6 @@ export function MockExam() {
       ...prevAnswers,
       [currentQuestion.id]: selectedChoice || null, // 답변 없으면 null로 저장
     }));
-
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       setSelectedChoice(

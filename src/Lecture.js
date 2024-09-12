@@ -8,6 +8,7 @@ import { imageSource } from "./ImageSource";
 const Container = styled.div`
   width: 60%;
   margin: auto;
+  margin-bottom: 35px;
 `;
 
 const LectureDetailPage = styled.div`
