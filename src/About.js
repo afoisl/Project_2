@@ -6,6 +6,8 @@ import 강의1 from "./assets/img/강의실1.png";
 import 강의2 from "./assets/img/강의실 2.png";
 import 강의3 from "./assets/img/강의실 3.png";
 import 선생님 from "./assets/img/선생님들.png";
+import 선생님2 from "./assets/img/선생님2.png";
+import 선생님3 from "./assets/img/선생님3.png";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -59,6 +61,13 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+const Container2 = styled.div`
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 150px;
+`;
 
 const Line = styled.div`
   height: 5px;
@@ -76,6 +85,7 @@ const Title = styled.div`
   font-weight: 550;
   padding: 100px;
   margin: 50px;
+  font-family: GmarketBold;
 `;
 
 const InfoWrapper = styled.div`
@@ -86,6 +96,7 @@ const InfoWrapper = styled.div`
 const InfoTextBox1 = styled.div`
   text-align: center;
   padding: 20px 0px;
+  font-family: GmarketMedium;
 `;
 
 const InfoImg1 = styled.img`
@@ -99,46 +110,28 @@ const InfoText1_1 = styled.div`
   font-size: 2rem;
   padding: 10px 0px;
   font-weight: 550;
+  font-family: GmarketBold;
 `;
 
 const InfoText1_2 = styled.div`
   font-size: 1rem;
   padding: 10px 0px;
-`;
-
-const InfoTextBox2 = styled.div`
-  text-align: left;
-  padding: 50px 0px;
-`;
-
-const InfoImg2 = styled.div`
-  height: 400px;
-  width: 400px;
-  background-color: gray;
-  justify-self: right;
-`;
-
-const InfoText2_1 = styled.div`
-  font-size: 3rem;
-  padding: 10px 0px;
-  font-weight: 550;
-`;
-
-const InfoText2_2 = styled.div`
-  font-size: 2rem;
-  padding: 10px 0px;
+  line-height: 1.6;
 `;
 
 const MidBox = styled.div`
   width: 100%;
-  height: 200px;
-  background-color: gray;
+  height: 150px;
+  background-color: #0d3276;
   text-align: center;
   font-size: 2.5rem;
   font-weight: 600;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 130px 0;
+  color: #fff;
+  font-family: GmarketBold;
 `;
 const SliderWrapper = styled.div`
   width: 100%;
@@ -146,16 +139,19 @@ const SliderWrapper = styled.div`
 `;
 
 const SlideImage = styled.img`
-  width: 80%;
+  width: 60%;
   height: 400px;
   object-fit: cover;
   margin: auto;
 `;
 
 const RoomText = styled.div`
-  font-size: 20px;
+  font-size: 1.5rem;
   font-weight: bold;
   margin: 20px auto;
+  font-family: GmarketMedium;
+  line-height: 1.4;
+  text-align: center;
 `;
 
 const roomArr = [
@@ -220,7 +216,7 @@ export function About() {
             </InfoTextBox1>
           </InfoWrapper>
           <InfoWrapper>
-            <InfoImg1 src={선생님}></InfoImg1>
+            <InfoImg1 src={선생님2}></InfoImg1>
 
             <InfoTextBox1>
               <InfoText1_1>효율적인 학습 시스템</InfoText1_1>
@@ -240,7 +236,7 @@ export function About() {
             </InfoTextBox1>
           </InfoWrapper>
           <InfoWrapper>
-            <InfoImg1 src={선생님}></InfoImg1>
+            <InfoImg1 src={선생님3}></InfoImg1>
 
             <InfoTextBox1>
               <InfoText1_1>수준별 그룹 스터디</InfoText1_1>
@@ -265,10 +261,10 @@ export function About() {
         <MidBox>
           <p>수많은 사람들이 선택한 최고의 학원</p>
         </MidBox>
-        <Container>
+        <Container2>
           <RoomText>
-            인투어학원에서 많은 인원을 수용할 수 있는 강의실. 이 곳에서 함께
-            불타는 열정을 느끼며 공부해봐요
+            인투어학원에서 많은 인원을 수용할 수 있는 강의실
+            <br /> 이 곳에서 함께 불타는 열정을 느끼며 함께 공부합시다!
           </RoomText>
           <SliderWrapper>
             <Slider {...settings}>
@@ -279,7 +275,7 @@ export function About() {
               ))}
             </Slider>
           </SliderWrapper>
-        </Container>
+        </Container2>
       </Body>
     </>
   );
