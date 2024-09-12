@@ -61,6 +61,7 @@ export function useChat(userId, roomId) {
           body: JSON.stringify({ roomId: roomId }),
         });
       }
+      fetchUserCount();
     },
 
     [userId, roomId]
