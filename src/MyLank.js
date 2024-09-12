@@ -6,6 +6,12 @@ import axios from "axios";
 import 나의랭킹 from "./assets/img/나의랭킹.png";
 import 기본프로필 from "./assets/img/기본프로필.png";
 import Pagination from "./Pagination";
+import 왕초보 from "./assets/img/왕초보.png";
+import 초급 from "./assets/img/초급.png";
+import 중급 from "./assets/img/중급.png";
+import 고급 from "./assets/img/고급.png";
+import 랭커 from "./assets/img/랭커.png";
+import 만점 from "./assets/img/만점.png";
 
 const Container = styled.div`
   width: 60%;
@@ -41,6 +47,7 @@ const MyPageBox1Grid1 = styled.div`
 const MyPageBox1Grid2 = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  justify-items: center;
 `;
 const MyPagePhoto = styled.div`
   width: 100px;
@@ -86,9 +93,7 @@ const MyPageLine = styled.div`
   margin: 20px 30px;
   border: 1px dashed #727272;
 `;
-const MyRanking = styled.div`
-  margin-left: 80px;
-`;
+const MyRanking = styled.div``;
 const MyRankingBox = styled.div`
   position: relative;
   width: 73px;
@@ -96,12 +101,12 @@ const MyRankingBox = styled.div`
   margin-bottom: 15px;
 `;
 const GameRanking = styled.div`
-  margin-left: 80px;
+  text-align: center;
 `;
 const GameRankingBox = styled.div`
   width: 73px;
   height: 73px;
-  background-color: grey;
+
   margin-bottom: 15px;
 `;
 
@@ -363,6 +368,16 @@ const getQnaStatus = (qna) => {
     return "대기중";
   }
 };
+
+const getImageSrc = (score) => {
+  if (score >= 986 && score <= 990) return 만점;
+  if (score >= 900 && score <= 985) return 랭커;
+  if (score >= 700 && score <= 899) return 고급;
+  if (score >= 500 && score <= 699) return 중급;
+  if (score >= 300 && score <= 499) return 초급;
+  return 왕초보;
+};
+
 export function MyLank() {
   const [activeSection, setActiveSection] = useState("");
   const learningRef = useRef(null);
@@ -375,12 +390,12 @@ export function MyLank() {
   const [error, setError] = useState(null);
   const [qnas, setQnas] = useState([]);
   const [replies, setReplies] = useState([]);
-
   const [filteredQnas, setFilteredQnas] = useState([]);
   const [purchases, setPurchases] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5; //
+  const [score, setScore] = useState(0);
+  const itemsPerPage = 5;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -516,6 +531,12 @@ export function MyLank() {
         );
         setReplies(replyResponse.data);
 
+        // 점수 데이터 가져오기
+        const scoreResponse = await axios.get("/api/mock/score/{userId}", {
+          headers: { Authorization: `Bearer ${jwtToken}` },
+        });
+        setScore(scoreResponse.data);
+
         setIsLoading(false);
       } catch (error) {
         console.log("error", error);
@@ -608,8 +629,18 @@ export function MyLank() {
                 나의 랭킹
               </MyRanking>
               <GameRanking>
-                <GameRankingBox></GameRankingBox>
-                나의 등급
+                <GameRankingBox>
+                  <img
+                    src={getImageSrc(score)}
+                    alt={`Score: ${score}`}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </GameRankingBox>
+                {user.grade}
               </GameRanking>
             </MyPageBox1Grid2>
           </MyPageBox1>
@@ -726,7 +757,6 @@ export function MyLank() {
             <p>구매 내역이 없습니다.</p>
           )}
         </div>
-        <MypageMargin></MypageMargin>
 
         <div ref={orderRef}>
           <OrderDeliveryTitle>주문/배송</OrderDeliveryTitle>
