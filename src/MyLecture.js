@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { imageSource } from "./ImageSource";
 
 const Container = styled.div`
   width: 60%;
@@ -21,10 +22,11 @@ const LectureList = styled.div`
   align-items: center;
 `;
 
-const LectureImg = styled.div`
+const LectureImg = styled.img`
   width: 260px;
   height: 150px;
   background-color: #d9d9d9;
+  margin-left: 30px;
 `;
 const LectureText = styled.div``;
 const LectureText1 = styled.div`
@@ -151,7 +153,9 @@ export function MyLecture() {
             purchase.lectures && purchase.lectures.length > 0 ? (
               <React.Fragment key={purchase.purchaseId}>
                 <LectureList>
-                  <LectureImg></LectureImg>
+                  <LectureImg
+                    src={imageSource[purchase.lectures[0].lectureImage]}
+                  ></LectureImg>
                   <LectureText>
                     <LectureText1>
                       {purchase.lectures[0].subject || "과목 정보 없음"}

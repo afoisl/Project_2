@@ -12,6 +12,7 @@ import 중급 from "./assets/img/중급.png";
 import 고급 from "./assets/img/고급.png";
 import 랭커 from "./assets/img/랭커.png";
 import 만점 from "./assets/img/만점.png";
+import { imageSource } from "./ImageSource";
 
 const Container = styled.div`
   width: 60%;
@@ -268,12 +269,12 @@ const PointGrid = styled.div`
   font-size: 17px;
 `;
 
-const PurchaseImg = styled.div`
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
+const PurchaseImg = styled.img`
+  width: 160px;
+  height: 90px;
   background-color: #d9d9d9;
   margin: auto;
+  margin-left: 90px;
 `;
 const PurchaseTitle = styled.div`
   display: flex;
@@ -639,9 +640,9 @@ export function MyLank() {
               <MyRanking>
                 <MyRankingBox>
                   <img src={나의랭킹} alt="나의랭킹" />
-                  <RankingText>##위</RankingText>
+                  <RankingText>{score}점</RankingText>
                 </MyRankingBox>
-                <MyRankingText>나의 랭킹</MyRankingText>
+                <MyRankingText>나의 점수</MyRankingText>
               </MyRanking>
               <GameRanking>
                 <GameRankingBox>
@@ -745,7 +746,9 @@ export function MyLank() {
                 const productInfo = getProductInfo(purchase);
                 return (
                   <PurchaseItem key={index}>
-                    <PurchaseImg />
+                    <PurchaseImg
+                      src={imageSource[purchase.lectures[0].lectureImage]}
+                    ></PurchaseImg>
                     <PurchaseTitle>
                       <ProductName>{productInfo.name}</ProductName>
                       <ProductType>{productInfo.type}</ProductType>

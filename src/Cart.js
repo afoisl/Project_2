@@ -42,7 +42,7 @@ const CartItemImg = styled.div`
   height: 130px;
   border-radius: 50%;
   background-color: #d9d9d9;
-  margin-left: 80px;
+  margin-left: 5cqmin;
 `;
 const CartItemText = styled.div`
   font-size: 20px;
