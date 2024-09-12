@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import PaulT from "./assets/img/PaulT.png";
 import YobelT from "./assets/img/YobelT.png";
@@ -184,6 +185,7 @@ const Info2 = styled.div`
   font-size: 2.5rem;
   padding: 50px;
   font-family: GmarketBold;
+  gap: 30px;
 `;
 const Name = styled.div`
   margin-top: 10px;
@@ -196,7 +198,7 @@ const BtnWrapper = styled.div`
   height: 150px;
 `;
 
-const LectureBtn = styled.div`
+const LectureBtn = styled(Link)`
   font-size: 1.2rem;
   width: 180px;
   height: 30px;
@@ -209,6 +211,8 @@ const LectureBtn = styled.div`
   padding: 15px;
   font-family: GmarketMedium;
   cursor: pointer;
+  text-decoration: none;
+  color: black;
 `;
 
 const Box5Wrapper = styled.div`
@@ -228,7 +232,7 @@ const Title5 = styled.div`
   font-family: GmarketBold;
 `;
 
-const GameBtn = styled.div`
+const GameBtn = styled(Link)`
   font-size: 1.2rem;
   width: 180px;
   height: 30px;
@@ -241,6 +245,8 @@ const GameBtn = styled.div`
   padding: 15px;
   font-family: GmarketMedium;
   cursor: pointer;
+  text-decoration: none;
+  color: black;
 `;
 
 const Box5Wrapper2 = styled.div`
@@ -313,7 +319,7 @@ const BookName = styled.div`
   font-family: GmarketBold;
   margin-top: 10px;
 `;
-const StoreBtn = styled.div`
+const StoreBtn = styled(Link)`
   font-size: 1.2rem;
   width: 180px;
   height: 30px;
@@ -326,6 +332,8 @@ const StoreBtn = styled.div`
   padding: 15px;
   font-family: GmarketMedium;
   cursor: pointer;
+  text-decoration: none;
+  color: black;
 `;
 
 const Box6Wrapper = styled.div`
@@ -434,7 +442,7 @@ const Button8wrapper = styled.div`
   justify-content: center;
 `;
 
-const LevelBtn = styled.div`
+const LevelBtn = styled(Link)`
   font-size: 1.2rem;
   width: 220px;
   height: 40px;
@@ -447,6 +455,8 @@ const LevelBtn = styled.div`
   padding: 15px;
   font-family: GmarketMedium;
   cursor: pointer;
+  text-decoration: none;
+  color: black;
 `;
 
 export function Main() {
@@ -541,16 +551,19 @@ export function Main() {
                 단단하게 쌓아가는 기초
                 <Name>Paul 강사</Name>
                 <BtnWrapper>
-                  <LectureBtn>수강신청 바로가기</LectureBtn>
+                  <LectureBtn to="/lecturelist">수강신청 바로가기</LectureBtn>
                 </BtnWrapper>
               </Info>
             </Lecture>
+
             <Lecture1>
               <div></div>
               <Info2>
                 토익 실력의 수준을 높여드립니다
                 <Name>Yobel 강사</Name>
-                <LectureBtn>수강신청 바로가기</LectureBtn>
+                <BtnWrapper>
+                  <LectureBtn to="/lecturelist">수강신청 바로가기</LectureBtn>
+                </BtnWrapper>
               </Info2>
               <div></div>
               <ImgWrap>
@@ -569,6 +582,7 @@ export function Main() {
                 </motion.div>
               </ImgWrap>
             </Lecture1>
+
             <Lecture>
               <div></div>
               <motion.div
@@ -586,7 +600,7 @@ export function Main() {
               <Info>
                 애매하게 점수 안오를 땐, Jane !<Name>Jane 강사</Name>
                 <BtnWrapper>
-                  <LectureBtn>수강신청 바로가기</LectureBtn>
+                  <LectureBtn to="/lecturelist">수강신청 바로가기</LectureBtn>
                 </BtnWrapper>
               </Info>
             </Lecture>
@@ -644,7 +658,7 @@ export function Main() {
                   <BookName>67패턴</BookName>
                 </BookInfo>
               </motion.div>
-              <StoreBtn>스토어 바로가기</StoreBtn>
+              <StoreBtn to="/store">스토어 바로가기</StoreBtn>
             </Box6Wrapper2>
           </Box6>
           <Box7>
@@ -697,8 +711,8 @@ export function Main() {
                 </Text8>
               </motion.div>
               <Button8wrapper>
-                <LevelBtn>나의 레벨 확인하기</LevelBtn>
-                <LevelBtn>모의고사 바로가기</LevelBtn>
+                <LevelBtn to="mypage/mylank">나의 레벨 확인하기</LevelBtn>
+                <LevelBtn to="/mock">모의고사 바로가기</LevelBtn>
               </Button8wrapper>
             </Box8Wrappper>
           </Box8>
