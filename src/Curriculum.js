@@ -76,7 +76,7 @@ const Box = styled.div`
   width: 470px;
   height: auto;
   padding: 30px 40px;
-  background-color: #fffdf2;
+  background-color: #fff;
   border-radius: 25px;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
   font-family: GmarketMegium;
@@ -103,7 +103,7 @@ const List = styled.div`
   padding: 3px 13px;
   border-radius: 25px;
   font-size: 0.7rem;
-  background-color: #1456e5;
+  background-color: #0d3276;
   color: white;
 `;
 const ListContent = styled.div`
