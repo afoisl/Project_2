@@ -13,33 +13,6 @@ export function useChat(userId, roomId) {
   const reconnectAttemptsRef = useRef(0);
   const subscriptionsRef = useRef({});
 
-  const sendStatusMessage = useCallback(
-    (client, type) => {
-      if (client?.active) {
-        const statusMessage = {
-          sender: userId,
-          content: `${userId}님이 ${
-            type === "JOIN" ? "입장" : "퇴장"
-          }하셨습니다.`,
-          type: type,
-          roomId: roomId,
-          sentAt: new Date().toISOString(),
-        };
-        client.publish({
-          destination: `/app/chat.sendMessage/${roomId}`,
-          body: JSON.stringify(statusMessage),
-        });
-
-        // Request an updated user count after joining or leaving
-        client.publish({
-          destination: `/app/chat.getUserCount/${roomId}`,
-          body: JSON.stringify({ roomId: roomId }),
-        });
-      }
-    },
-    [userId, roomId]
-  );
-
   const fetchUserCount = useCallback(async () => {
     try {
       const jwtToken = sessionStorage.getItem("JWT-Token");
@@ -64,6 +37,34 @@ export function useChat(userId, roomId) {
       setChatUserCount(0);
     }
   }, [roomId]);
+
+  const sendStatusMessage = useCallback(
+    (client, type) => {
+      if (client?.active) {
+        const statusMessage = {
+          sender: userId,
+          content: `${userId}님이 ${
+            type === "JOIN" ? "입장" : "퇴장"
+          }하셨습니다.`,
+          type: type,
+          roomId: roomId,
+          sentAt: new Date().toISOString(),
+        };
+        client.publish({
+          destination: `/app/chat.sendMessage/${roomId}`,
+          body: JSON.stringify(statusMessage),
+        });
+
+        // Request an updated user count after joining or leaving
+        client.publish({
+          destination: `/app/chat.getUserCount/${roomId}`,
+          body: JSON.stringify({ roomId: roomId }),
+        });
+      }
+    },
+
+    [userId, roomId]
+  );
 
   const connectStomp = useCallback(() => {
     if (stompClientRef.current?.active) {
