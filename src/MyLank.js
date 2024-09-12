@@ -285,30 +285,13 @@ const PurchaseItem = styled.div`
   padding: 15px;
 `;
 
-const ItemTitle = styled.div`
-  font-size: 25px;
-  margin: 10px 0px 50px 20px;
-`;
-const ItemGrid = styled.div`
-  display: grid;
-  grid-template-columns: 3fr 3fr 1fr;
-  background-color: #edede9;
-  height: 40px;
-  line-height: 5px;
-  width: 1200px;
-  text-align: center;
-  font-size: 17px;
-`;
-const Item = styled.div`
-  margin-bottom: 150px;
-`;
 const MyWritingTitle = styled.div`
   font-size: 25px;
   margin: 10px 0px 50px 20px;
 `;
 const MyWritingGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 3fr 1.5fr;
+  grid-template-columns: 2.5fr 6fr 2.5fr;
   background-color: #edede9;
   height: 40px;
   line-height: 5px;
@@ -349,7 +332,37 @@ const RankingText = styled.div`
   font-size: 14px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 `;
+const QnaItem = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 6fr 1fr;
+  padding: 15px;
+  border-bottom: 1px solid #e0e0e0;
+`;
 
+const QnaDate = styled.div`
+  text-align: center;
+`;
+
+const QnaTitle = styled.div`
+  text-align: left;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const QnaStatus = styled.div`
+  text-align: center;
+`;
+const getQnaStatus = (qna) => {
+  if (qna.replies && qna.replies.length > 0) {
+    return "답변완료";
+  } else if (qna.status) {
+    return qna.status;
+  } else {
+    return "대기중";
+  }
+};
 export function MyLank() {
   const [activeSection, setActiveSection] = useState("");
   const learningRef = useRef(null);
@@ -360,6 +373,10 @@ export function MyLank() {
   const location = useLocation();
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+  const [qnas, setQnas] = useState([]);
+  const [replies, setReplies] = useState([]);
+
+  const [filteredQnas, setFilteredQnas] = useState([]);
   const [purchases, setPurchases] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -381,6 +398,9 @@ export function MyLank() {
 
   const handleMyLectureClick = () => {
     navigate(`/mypage/mylecture`);
+  };
+  const handleQnaTitleClick = (qna) => {
+    navigate(`/qna/${qna.qnAId}`, { state: { qna } });
   };
 
   const fetchCurrentUser = async () => {
@@ -460,36 +480,67 @@ export function MyLank() {
   };
 
   useEffect(() => {
-    setIsLoading(true);
     const jwtToken = sessionStorage.getItem("JWT-Token");
     if (jwtToken == null) {
       return;
     }
-    axios
-      .get(`http://localhost:8080/api/purchase`, {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      })
-      .then((response) => {
-        console.log("데이터", response.data);
 
-        const purchasesArray = Array.isArray(response.data)
-          ? response.data
-          : [response.data];
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+
+        // 구매 데이터 가져오기
+        const purchaseResponse = await axios.get(
+          `http://localhost:8080/api/purchase`,
+          {
+            headers: { Authorization: `Bearer ${jwtToken}` },
+          }
+        );
+        const purchasesArray = Array.isArray(purchaseResponse.data)
+          ? purchaseResponse.data
+          : [purchaseResponse.data];
         setPurchases(purchasesArray);
+
+        // QnA 데이터 가져오기
+        const qnaResponse = await axios.get("http://localhost:8080/api/qna", {
+          headers: { Authorization: `Bearer ${jwtToken}` },
+        });
+        setQnas(qnaResponse.data);
+
+        // Reply 데이터 가져오기
+        const replyResponse = await axios.get(
+          "http://localhost:8080/api/reply/get",
+          {
+            headers: { Authorization: `Bearer ${jwtToken}` },
+          }
+        );
+        setReplies(replyResponse.data);
+
         setIsLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.log("error", error);
         setIsLoading(false);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   const extractLectures = (purchases) => {
     return purchases.flatMap((purchase) =>
       purchase.lectures ? purchase.lectures : []
     );
+  };
+
+  useEffect(() => {
+    if (user && qnas.length > 0) {
+      const filtered = qnas.filter((qna) => qna.user.userId === user.userId);
+      setFilteredQnas(filtered);
+    }
+  }, [user, qnas]);
+  const getQnaStatus = (qna) => {
+    const hasReply = replies.some((reply) => reply.qnAId === qna.qnAId);
+    return hasReply ? "답변완료" : "대기중";
   };
 
   useEffect(() => {
@@ -604,7 +655,7 @@ export function MyLank() {
             주문/배송
           </MenuItemGo>
           <MenuItemGo onClick={() => scrollToSection(writingRef)}>
-            나의 글 관리
+            1:1 문의
           </MenuItemGo>
         </MyPageSubMenu>
         <div ref={learningRef}>
@@ -689,14 +740,31 @@ export function MyLank() {
         </div>
 
         <div ref={writingRef}>
-          <MyWritingTitle>나의 글 관리</MyWritingTitle>
+          <MyWritingTitle>1:1문의</MyWritingTitle>
           <MyWritingGrid>
-            <p>게시판</p>
-            <p>분류</p>
-            <p>제목/내용</p>
             <p>등록일</p>
+            <p>제목</p>
+            <p>상태</p>
           </MyWritingGrid>
-          <MyWriting></MyWriting>
+          <MyWriting>
+            {filteredQnas.length > 0 ? (
+              filteredQnas.map((qna) => (
+                <QnaItem key={qna.qnAId}>
+                  <QnaDate>
+                    {new Date(qna.writeDate).toLocaleDateString()}
+                  </QnaDate>
+                  <QnaTitle onClick={() => handleQnaTitleClick(qna)}>
+                    {qna.title}
+                  </QnaTitle>
+                  <QnaStatus>
+                    <b>{getQnaStatus(qna)}</b>
+                  </QnaStatus>
+                </QnaItem>
+              ))
+            ) : (
+              <p>작성한 1:1 문의가 없습니다.</p>
+            )}
+          </MyWriting>
         </div>
       </Container>
     </>
