@@ -84,7 +84,7 @@ const Title = styled.div`
   font-size: 3.5rem;
   font-weight: 550;
   padding: 100px;
-  margin: 50px;
+  margin-bottom: 30px;
   font-family: GmarketBold;
 `;
 
