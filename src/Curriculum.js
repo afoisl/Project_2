@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import 왕기초 from "./assets/img/왕기초반.png";
 import 메인사진 from "./assets/img/커리큘럼.png";
 
 const Header = styled.div``;
@@ -157,7 +156,7 @@ export function Curriculum() {
       <Container>
         <BoxWrapper>
           <Wrap>
-            <ImgBox src={왕기초}></ImgBox>
+            {/* <ImgBox src={왕기초}></ImgBox> */}
             <Box>
               <Title>왕기초반</Title>
               <Content>
