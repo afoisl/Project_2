@@ -3,6 +3,10 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
+const Box = styled.div`
+  padding: 200px 0 0;
+`;
+
 const Container = styled.div`
   width: 60%;
   margin: auto;
@@ -11,7 +15,6 @@ const LectureVideo = styled.div`
   width: 100%;
   height: 540px;
   background-color: #d9d9d9;
-  margin-top: 150px;
 `;
 const LectureDisplay = styled.div`
   display: flex;
@@ -91,6 +94,7 @@ export function LectureView() {
 
   return (
     <>
+      <Box></Box>
       <Container>
         <LectureVideo>강의영상</LectureVideo>
         <LectureClass>{lectureData.lectureClass || "분류 없음"}</LectureClass>

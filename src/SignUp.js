@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { BirthdaySelector } from "./BirthdaySelector";
 import axios from "axios";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 const Title = styled.div`
@@ -85,6 +86,9 @@ export function SignUp() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "/";
 
   const { yearOptions, monthOptions, days } = BirthdaySelector({ year, month });
 
@@ -129,6 +133,7 @@ export function SignUp() {
       })
       .then((response) => {
         console.log("회원가입 성공:", response.data);
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error("회원가입 실패:", error);
