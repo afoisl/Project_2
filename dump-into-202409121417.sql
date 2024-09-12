@@ -683,11 +683,6 @@ CREATE TABLE `mock_score` (
 
 LOCK TABLES `mock_score` WRITE;
 /*!40000 ALTER TABLE `mock_score` DISABLE KEYS */;
-INSERT INTO `mock_score` VALUES
-(1,NULL,NULL,0,1,'kyembi'),
-(2,NULL,NULL,90,1,'sua07'),
-(3,NULL,NULL,450,1,'sua07'),
-(4,NULL,NULL,450,1,'sua07');
 /*!40000 ALTER TABLE `mock_score` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -821,8 +816,6 @@ CREATE TABLE `purchase` (
 
 LOCK TABLES `purchase` WRITE;
 /*!40000 ALTER TABLE `purchase` DISABLE KEYS */;
-INSERT INTO `purchase` VALUES
-(7,'대전 중구 대종로','2024-09-11 02:27:09.706000',3,'kyembi');
 /*!40000 ALTER TABLE `purchase` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1202,4 +1195,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-12 11:41:56
+-- Dump completed on 2024-09-12 14:17:51
